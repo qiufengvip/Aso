@@ -10,7 +10,7 @@ var url_user_setchool = "/api/user/setschool"; //录入学校信息
 
 mui.init();
 function httpPost(urls,data,returnfun){
-	var url = "http://10.205.43.8:8080/FriendAssociation"+urls;
+	var url = "http://10.203.19.3:8080/FriendAssociation"+urls;
 	console.log(url)
 	console.log(JSON.stringify(data))
 	mui.ajax(url, {

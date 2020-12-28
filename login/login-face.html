@@ -141,10 +141,6 @@
 								mui.toast(data.msg);
 								// plus.webview.currentWebview().close();
 								localStorage.setItem("token", data.data.token) //：将token存储到本地
-								
-								
-								
-								
 								newWedViewData("../home/homeframe.html", "hot", {
 									"token": data.data.token,
 									"index":plus.webview.currentWebview()
@@ -162,7 +158,6 @@
 						}
 
 					})
-
 				}
 			}
 

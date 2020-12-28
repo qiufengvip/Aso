@@ -50,10 +50,15 @@
 							忘记密码
 						</div>
 					</a>
-					<a id = "qsub-text-rl">
+					<!-- <a id = "qsub-text-rl">
 						测试人脸
-					</a>
+					</a> -->
 
+					<a>
+						<div id="qsub-toindex">
+							点击此处<=进入主页面=>测试用
+						</div>
+					</a>
 				</div>
 				
 
@@ -110,18 +115,18 @@
 			
 			
 			//测试用的
-			document.getElementById('qsub-text-rl').addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
-			    // mui.toast('ok');  // mui弹出提示
-				// 跳转忘记密码
-				// newWebview("sign-up.html","sign-up");
+			// document.getElementById('qsub-text-rl').addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+			//     // mui.toast('ok');  // mui弹出提示
+			// 	// 跳转忘记密码
+			// 	// newWebview("sign-up.html","sign-up");
 				
-				newWedViewData("login-face.html","login-face",{
-					"type": 1,  //一为注册
-					"token": "3BC2B3FA431053DDC8471EA34428FA9B",  //token
-				});
+			// 	newWedViewData("login-face.html","login-face",{
+			// 		"type": 1,  //一为注册
+			// 		"token": "3BC2B3FA431053DDC8471EA34428FA9B",  //token
+			// 	});
 				
 				
-			});
+			// });
 			
 			//登录按钮
 			document.getElementById('qsub-submit').addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
@@ -191,7 +196,11 @@
 			
 			
 			
-			
+			mui("#qsub-toindex")[0].addEventListener("tap",function(){
+				newWedViewData("../home/homeframe.html","hot",{
+					"index":plus.webview.currentWebview()
+				})
+			});
 			
 			
 			
