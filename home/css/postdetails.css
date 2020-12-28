@@ -1,0 +1,65 @@
+a{
+	color: #6964FF;
+}
+
+
+.qsub-post-base{
+	display: flex;
+}
+	
+.qiufeng-comment-input-div{
+	width: 80%;
+	margin: 0.2375rem;
+	
+}
+.qiufeng-comment-input{
+	border: 0;
+}
+
+
+.qiufeng-comment-submit{
+	width:20%;
+	color: #7c7cff;
+	background-color: #00000000;
+	border: 0;
+	margin: 0.25rem;
+	margin-bottom: 0.625rem;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+
+
+
+
+.qsub-post-base{
+	display: flex;
+	border: 0;
+}
+	
+.qiufeng-comment-input-div{
+	width: 80%;
+	margin: 0.2375rem;
+	
+}
+.qiufeng-comment-input{
+	border: 0;
+}
+
+
+.qiufeng-comment-submit{
+	width:20%;
+	color: #7c7cff;
+	background-color: #00000000;
+	border: 0;
+	margin: 0.25rem;
+	margin-bottom: 0.625rem;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.comment-super{
+	margin-left: 40px;
+	border-left: 1px solid #9a9ea3;
+	/* padding-left: 10px; */
+}

@@ -1,0 +1,113 @@
+/* 
+	定义所有的评论样式 
+*/
+.topic-test{
+	background: #fff;
+	border-radius: 0;
+	-moz-box-shadow: -2px -2px 5px #c3c3c3, 2px 2px 5px #c3c3c3;
+	-webkit-box-shadow: -2px -2px 5px #c3c3c3, 2px 2px 5px #c3c3c3;
+	box-shadow: -2px -2px 5px #c3c3c3, 2px 2px 5px #c3c3c3;
+	padding: 1.25rem;
+	margin: 0;
+}
+
+
+
+
+.comment-hot{
+	margin-top: 10px;
+	background-color: #FFFFFF;
+}
+
+
+.comment-hot-title{
+	color: #6964FF;
+	font-weight: 1000;
+	/* font-size: 1rem; */
+	padding: 0.625rem;
+}
+
+.comment{
+	margin: 0.425rem;
+}
+
+.comment-info-img{
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: 100%;
+	object-fit: cover;
+}
+
+.comment-info-top{
+	display: flex;
+	align-items:center;
+	/* justify-content:space-between; */
+}
+.comment-info-username{
+	margin-left: 1rem;
+	font-weight: bold;
+}
+
+.comment-info-zan{
+	width: 1.2rem;
+	height:  1.5rem;
+	fill:#6964FF;
+}
+
+.comment-info-content{
+	margin-left: 2.125rem;
+	background-color: #fafafa;
+	border-radius: 10px;
+	padding: 10px;
+	font-size: 15px;
+}
+
+.comment-info-you{
+	display: flex;
+	align-items:center;
+	font-weight: bold;
+}
+
+.comment-info-bottom{
+	margin-left: 2.125rem;
+	display: flex;
+	align-items:center;
+	justify-content:space-between;
+	padding-bottom: 0.625rem;
+}
+
+.comment-info-zan-int{
+	padding-top: 0.45rem;
+	padding-left: 0.625rem;
+	font-size: 10px;
+	font-weight: bold;
+}
+.comm-ss{
+	height: 50px;
+}
+
+.comment-info-bottom-zuo{
+	border-radius: 0.625rem;
+	background-color: #e8e8e8;
+	padding: 0.0875rem;
+	padding-left: 0.6375rem;
+	padding-right: 0.6375rem;
+	font-size: 0.625rem;
+}
+.comment-info-time{
+	align-self:flex-end;
+	padding-bottom: 6px;
+	font-size: 10px;
+	color: #ababab;
+	font-weight: bold;
+}
+
+
+
+
+
+	
+
+
+
+

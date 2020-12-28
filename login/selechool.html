@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<!-- 本页样式 -->
+		<link rel="stylesheet" type="text/css" href="css/selechool.css" />
+		<!-- 公用控件样式 -->
+
+
+		<link rel="stylesheet" type="text/css" href="css/publicstyle.css" />
+
+
+		<!-- 字体 -->
+
+
+		<!-- 选择列表的样式 -->
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<script src="../js/mui.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+		</script>
+		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/windows.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+	<body>
+		<div class="qsub-content">
+			<div class="qsub-hint" id="">
+				信息选择
+			</div>
+			<span>学院</span>
+			<div class="qsub-fakeinput" id="uesrschools">
+				请点击 选择学校
+			</div>
+			<span>状态</span>
+			<div class="qsub-fakeinput" id="userstate">
+				请点击 选择状态
+			</div>
+			<input type="submit" id="qsub-submit" value="继续" class="qsub-botton">
+		</div>
+
+		<script src="../js/mui.picker.min.js"></script>
+		<script>
+			var UserSchools = 0; //学校状态
+			var UserState = -1; //学生状态
+			
+			mui.plusReady(function() {
+			    var self = plus.webview.currentWebview(); //获取当前窗体对象
+			    var currentView = self.index; //接收A页面传入的id参数值
+			    if(currentView != undefined){
+			        // currentView.close();  //关闭当前页面
+			        plus.webview.close(currentView) //关闭当前的webview窗口  
+			        console.log("登录销毁");
+			    }
+			});
+
+
+			mui("#qsub-submit")[0].addEventListener('tap', function() {
+				if (UserSchools == 0 || UserState == -1) {
+					
+					mui.toast("请把信息选择完整");
+				} else {
+					
+					httpPost(url_user_setchool, {
+						"token": localStorage.getItem("token"),
+						"schoolid": UserSchools,
+						"auth": UserState
+					}, function(data) {
+						if (data != undefined) {
+							if (data.code = 200) {
+								newWedViewData("../home/homeframe.html", "hot", {
+									"index": plus.webview.currentWebview(),
+								})
+							} else {
+								mui.toast(data.msg);
+							}
+						} else {
+							mui.toast("网络异常");
+						}
+
+					})
+				}
+			});
+
+
+
+
+
+			(function($, doc) {
+
+				$.ready(function() {
+					//普通示例
+					console.log("进入选择学校窗口");
+					var userPicker = new $.PopPicker();
+					//到时候学校这个框 动态加载
+					userPicker.setData([{
+						value: 1,
+						text: '河北软件职业技术学院'
+					}, {
+						value: 2,
+						text: '河北大学'
+					}, {
+						value: 3,
+						text: '北京大学'
+					}]);
+
+					httpPost(url_user_getchool, {}, function(data) {
+						if (data != undefined) {
+							console.log(data.data)
+							userPicker.setData(data.data);
+						} else {
+							mui.toast("网络异常");
+						}
+					});
+
+
+
+					var showUserPickerButton = doc.getElementById('uesrschools');
+					showUserPickerButton.addEventListener('tap', function(event) {
+						userPicker.show(function(items) {
+							//添加到列表
+							showUserPickerButton.innerText = items[0].text;
+							UserSchools = items[0].value;
+							console.log(UserSchools)
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+
+					//普通示例2 -----------------------------
+					var userPicker2 = new $.PopPicker();
+					//状态
+					userPicker2.setData([{
+						value: 1,
+						text: '在校生'
+					}, {
+						value: 0,
+						text: '毕业生'
+					}]);
+					var showUserPickerButton1 = doc.getElementById('userstate');
+					showUserPickerButton1.addEventListener('tap', function(event) {
+						userPicker2.show(function(items) {
+							//添加到列表
+							showUserPickerButton1.innerText = items[0].text;
+							UserState = items[0].value;
+							console.log(UserState)
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+				});
+
+
+
+
+			})(mui, document);
+		</script>
+	</body>
+</html>

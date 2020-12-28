@@ -1,0 +1,80 @@
+/**
+ * @desc 用户列表UI 搜索结果用
+ * @By: 秋枫
+ * @time 2020年12月23日14:47:51
+ */
+
+.search-uesr-list{
+	/* width: 100%; */
+	height: 100px;
+	background: #fff;
+	border-radius: 10px;
+	    -moz-box-shadow: -2px -2px 5px #c3c3c3, 2px 2px 5px #c3c3c3;
+	    -webkit-box-shadow: -2px -2px 5px #c3c3c3, 2px 2px 5px #c3c3c3;
+	    box-shadow: -2px -2px 5px #c3c3c3, 2px 2px 5px #c3c3c3;
+	padding: 20px;
+	margin: 0.3125rem;
+	display: flex;
+	align-items: center;
+}
+
+.search-uesr-list-left{
+	width: 60px;
+	height: 60px;
+	
+}
+
+.search-uesr-list-left img{
+	width: 60px;
+	height: 60px;
+	border-radius: 100%;
+	-o-object-fit: cover;
+	object-fit: cover; */
+}
+
+.search-uesr-list-centre{
+	padding: 10px;
+}
+
+.search-uesr-list-centre-sign{
+	/* width: 80%; */
+	overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+}
+
+.search-uesr-list-centre-info{
+	color: #6964FF;
+	font-size: 12px;
+}
+
+.search-uesr-list-right-botton{
+	color: #FFFFFF;
+	background-color: #6964FF;
+	border-radius: 8px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../css/mui.css">
+		<!-- <link rel="stylesheet" type="text/css" href="./css/hot.css"/> -->
+		<script src="../js/dynamiclist.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="./css/Topic.css"/>
+		<link rel="stylesheet" type="text/css" href="css/xiaonei.css"/>
+		
+		<script src="../login/js/windows.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="../login/js/windows.js" type="text/javascript" charset="utf-8"></script>
+		
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				z-index: 1;
+			}
+			.mui-bar~.mui-pull-top-tips {
+				top: 24px;
+			}
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden;
+			}
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			.mui-pull-top-tips .mui-pull-loading {
+				/*-webkit-backface-visibility: hidden;
+				-webkit-transition-duration: 400ms;
+				transition-duration: 400ms;*/
+				
+				margin: 0;
+			}
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 7px;
+			}
+			.mui-pull-top-wrapper .mui-icon.mui-reverse {
+				/*-webkit-transform: rotate(180deg) translateZ(0);*/
+			}
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777;
+			}
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto;
+			}
+			.mui-pull-top-canvas canvas {
+				width: 40px;
+			}
+			.mui-slider-indicator.mui-segmented-control {
+				background-color: #efeff4;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- <header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">选项卡切换+下拉刷新（div模式）</h1>
+		</header> -->
+		<div class="mui-content">
+			<div id="slider" class="mui-slider mui-fullscreen">
+				<div class="qsub-top" id="">
+					<div id="sliderSegmentedControl" style="width: 90%;" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+						<div class="mui-scroll">
+							<a class="mui-control-item mui-active" href="#item1mobile">
+								推荐
+							</a>
+							<a class="mui-control-item" href="#item2mobile">
+								关注
+							</a>
+							<a class="mui-control-item" href="#item3mobile">
+								招聘
+							</a>
+							<a class="mui-control-item" href="#item4mobile">
+								就业经验
+							</a>
+							<a class="mui-control-item" href="#item5mobile">
+								阿萨德
+							</a>
+							<a class="mui-control-item" href="#item6mobile">
+								科技
+							</a>
+						</div>
+					</div>
+					
+					<div  class="qsub-top-ss"  id="qsub-top-ss">
+						<svg t="1608556250474" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3182" width="128" height="128"><path d="M996.352 860.16c17.408 17.408 27.648 40.96 27.648 67.584 0 53.248-43.008 96.256-96.256 96.256-26.624 0-50.176-10.24-67.584-27.648l-281.6-281.6C521.216 748.544 454.656 768 384 768 172.032 768 0 595.968 0 384S172.032 0 384 0s384 172.032 384 384c0 71.68-19.456 137.216-53.248 194.56l281.6 281.6zM384 96.256C225.28 96.256 96.256 225.28 96.256 384c0 158.72 129.024 287.744 287.744 287.744 158.72 0 287.744-129.024 287.744-287.744C671.744 225.28 542.72 96.256 384 96.256z" fill="#6964FF" p-id="3183"></path></svg>
+					</div>
+				</div>
+				
+				
+				
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view" id="list-view">
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item4mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item5mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item6mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="js/mui.pullToRefresh.js"></script>
+		<script src="js/mui.pullToRefresh.material.js"></script>
+		<script>
+			// mui.init();
+			mui.init({
+				swipeBack: false,
+				pullRefresh: {
+					container: '#slider'
+				},
+				styles:{
+				        top:0,//内容页面顶部位置,需根据实际页面布局计算，若使用标准mui导航，顶部默认为48px；
+				}
+			});
+			(function($) {
+				//阻尼系数
+				var deceleration = mui.os.ios?0.003:0.0009;
+				$('.mui-scroll-wrapper').scroll({
+					bounce: true,
+					indicators: true, //是否显示滚动条
+					deceleration:deceleration
+				});
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				$.ready(function() {
+					//循环初始化所有下拉刷新，上拉加载。
+					
+					
+					$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+						$(pullRefreshEl).pullToRefresh({
+							down: {
+								callback: function() {
+									var self = this;
+									setTimeout(function() {
+										var ul = self.element.querySelector('.mui-table-view');
+										ul.insertBefore(createFragment(ul, index, 1, true), ul.firstChild);
+										self.endPullDownToRefresh();
+										// tovideo();
+									}, 1000);
+									
+								}
+							},
+							up: {
+								callback: function() {
+									var self = this;
+									setTimeout(function() {
+										var ul = self.element.querySelector('.mui-table-view');
+										ul.appendChild(createFragment(ul, index, 5));
+										self.endPullUpToRefresh();
+										// tovideo();
+									}, 1000);
+									
+								}
+							}
+						});
+					});
+					console.log
+					var createFragment = function(ul, index, count, reverse) {
+						var length = ul.querySelectorAll('li').length;
+						var fragment = document.createDocumentFragment();
+						var li;
+						for (var i = 0; i < count; i++) {
+							li = document.createElement('li');
+							li.className = 'mui-table-view-cell';
+							console.log();
+							li.appendChild(dynamiclist("./img/x18.png","秋枫<br>","我发布的第"+ (length + (reverse ? (count - i) : (i + 1))) +"条说说","表白"));
+							fragment.appendChild(li);
+							li.onclick = function(){
+							   // show(certid.value,i);
+							   //var tezst = "这是" +(length + (reverse ? (count - i) : (i + 1)));
+							   
+							   newWebview("postdetails.html","postdetails");
+							   //mui.toast(tezst);
+							};
+						}
+						return fragment;
+					};
+				});
+			})(mui);
+			
+			
+			// mui-table-view
+			
+			var x = document.getElementsByClassName('mui-table-view');
+			var i;
+			console.log(x.length);
+			for (i = 0; i < x.length; i++) {
+				console.log(i);
+			    x[i].appendChild(
+				createFragment01(x[i], i,5));
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			//document.getElementsByClassName('mui-table-view')[0].appendChild(createFragment01( document.getElementsByClassName('mui-table-view')[0], index, 5));
+			function createFragment01(ul, index, count, reverse) {
+				var length = ul.querySelectorAll('li').length;
+				var fragment = document.createDocumentFragment();
+				var li;
+				for (var i = 0; i < count; i++) {
+					li = document.createElement('li');
+					li.className = 'mui-table-view-cell';
+					console.log();
+					li.appendChild(dynamiclist("./img/x18.png","秋枫<br>","我发布的第"+ (length + (reverse ? (count - i) : (i + 1))) +"条说说","表白"));
+					fragment.appendChild(li);
+					li.onclick = function(){
+					   // show(certid.value,i);
+					   //var tezst = "这是" +(length + (reverse ? (count - i) : (i + 1)));
+					   
+					   newWebview("postdetails.html","postdetails");
+					   //mui.toast(tezst);
+					};
+				}
+				return fragment;
+			};
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			// tovideo();
+			// function tovideo(){
+			// 	var listView = document.getElementById('list-view');
+			// 	var listItem = document.getElementsByClassName('mui-table-view-cell');
+			// 	//然后是写一个函数，也就是列表条目的点击事件。
+			// 	var clickEvent = function(i) {
+			// 		listItem[i].addEventListener('tap', function(event) {
+			// 			console.log(i);
+			// 			mui.toast(listItem[i].textContent);
+			// 		});
+			// 	}
+			// 	//第三步就是用for循环，执行上面的clickEvent函数。for循环的循环次数就是列表的条目数量。
+			// 	for(var i = 0; i < listView.childElementCount; i++) {
+			// 		clickEvent(i);
+			// 	}
+			// }
+			
+			// qsub-top-ss
+			
+			document.getElementById('qsub-top-ss').addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+			    newWebview("../search/search-home.html","search-home");
+			});
+			
+			
+			
+			
+			
+		</script>
+	</body>
+
+</html>
