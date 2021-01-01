@@ -1,0 +1,138 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<script src="../js/mui.js"></script>
+		<!-- 加载用户协议 -->
+		<script src="../js/info.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/windows.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			mui.init();
+		</script>
+		<link rel="stylesheet" type="text/css" href="./css/sing-up.css" />
+		<link rel="stylesheet" type="text/css" href="./css/whole.css" />
+	</head>
+
+
+	<body>
+		<div class="qsub-body">
+			<div class="qsub-div-top" id="">
+				<!-- <span class="tishishutu">注册</span> -->
+				<div id="qsub-input-from">
+
+					<span class="hint-text">电话号码</span>
+					<input type="text" id="qsub-input-usercode" placeholder="手机号" name="shouji">
+
+					<span class="hint-text">用户名</span>
+					<input type="text" id="qsub-input-username" placeholder="用户名" name="shouji">
+					<span class="hint-text">密码</span>
+					<input type="password" id="qsub-input-password" placeholder="密码" name="shouji">
+
+					<div id="qsub-tiokuan">
+						<div id="qsub-tiokuan-tests" class="mui-checkbox mui-left">
+							<label>创建即代表同意我们的</label>
+							<input id="qsub-input-tiokuan" name="checkbox1" value="同意" type="checkbox">
+						</div>
+						<a id="qsub-input-tiokuan-go">服务条款</a>
+					</div>
+					<input type="submit" id="qsub-input-submit" value="创建账号" class="div-ly-box-botton">
+				</div>
+			</div>
+
+			<div class="qsub-div-bopttom" id="">
+				<div class="qsub-div-bopttom-01" id="">
+					<div id="">
+						已创建账号？
+					</div>
+					<a>
+						<div id="qsub-div-bopttom-login">
+							登录
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			//创建账号被单击
+			document.getElementById('qsub-input-submit').addEventListener('tap', function() { /*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+				// mui.toast('ok');  // mui弹出提示
+				// 跳转账密登录
+				//newWebview("Login-user.html","sign-up");
+
+
+				//qsub-input-usercode
+				//qsub-input-username
+				//qsub-input-password
+				if(document.getElementById("qsub-input-tiokuan").checked){
+					//开始注册
+					var usercode= document.getElementById("qsub-input-usercode").value;
+					var username = document.getElementById("qsub-input-username").value;
+					var password = document.getElementById("qsub-input-password").value;
+					
+					httpPost(url_uesr_sign,
+						{
+							"phone":usercode,
+							"username":username,
+							"userpwd":password
+						},
+						function (data){
+							if(data.code==200){
+								mui.toast("验证码已发送！");
+								// newWedViewData("ver-code.html","ver-code",{})
+								
+								newWedViewData("ver-code.html","ver-code",{
+									"type": 1,  //一为注册
+									"phone": usercode  //手机号
+								});
+								
+								
+								
+							}else{
+								mui.toast(data.msg);  // mui弹出提示
+							}
+						}
+					);
+				}else{
+					ToUser_agreement();
+					// document.getElementById("qsub-input-tiokuan").checked=true
+				}
+			});
+			
+			//用户服务条款
+			document.getElementById('qsub-input-tiokuan-go').addEventListener('tap', function() {
+				ToUser_agreement();
+			});
+			//返回登录
+			document.getElementById('qsub-div-bopttom-login').addEventListener('tap', function() {
+				mui.back();
+			});
+			
+			
+			
+			//用户协议
+			function ToUser_agreement(){
+				var btnArray = ['不同意', '我同意'];
+				mui.confirm(qsub_uesr_agreement, '用户协议', btnArray, function(e) {
+				    if (e.index == 1) {  //确定
+				        document.getElementById("qsub-input-tiokuan").checked=true;
+				    } else {  //取消
+				        document.getElementById("qsub-input-tiokuan").checked=false;
+				    }
+				})
+			}
+			
+			
+			
+			
+			
+		</script>
+
+	</body>
+</html>

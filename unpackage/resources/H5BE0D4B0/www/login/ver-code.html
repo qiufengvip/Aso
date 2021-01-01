@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<script src="../js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init();
+		</script>
+		<link rel="stylesheet" type="text/css" href="./css/ver-code.css" />
+		<link rel="stylesheet" type="text/css" href="./css/whole.css" />
+		<script src="js/windows.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+
+		<div class="qsub-body">
+			<div class="return-svg" id="qsub-top-back">
+				<svg t="1608729691596" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2679"
+				 >
+					<path d="M289.344 460.672c13.696 0 27.392 5.632 38.336 16.32l444.736 451.584a56.768 56.768 0 0 1 0.448 78.72 53.312 53.312 0 0 1-76.608 0.512L251.584 556.288a56.768 56.768 0 0 1-0.512-78.72 48.896 48.896 0 0 1 38.208-16.896h0.064zM733.632 0c13.76 0 27.584 5.568 38.592 16.192a55.68 55.68 0 0 1 0.576 78.016L328.96 546.688a54.4 54.4 0 0 1-77.248 0.576 55.68 55.68 0 0 1-0.576-78.08L695.04 16.768A53.312 53.312 0 0 1 733.696 0h-0.064z"
+					 fill="#6964FF" p-id="2680"></path>
+				</svg>
+			</div>
+
+			<!-- <div class="qsub-div-top" id="">
+				<span class="tishishutu">请输入验证码</span>
+			</div> -->
+
+			<div id="qsub-div-con">
+				<span class="hint-text">验证码</span>
+				<input type="number" id="qsub-input" placeholder="请输入4位验证码" name="shouji" >
+				<input type="submit" id="qsub-submits" value="继续" class="div-ly-box-botton">
+			</div>
+		</div>
+		
+		
+		
+		<script type="text/javascript">
+			//
+			var Viewdata = undefined;
+			mui.plusReady(function() {
+			    var self = plus.webview.currentWebview(); //获取当前窗体对象
+			    Viewdata = self; //接收A页面传入的id参数值
+				if(Viewdata==undefined){
+					mui.mui.toast('数据异常');
+					mui.back();
+				}
+			});
+			
+			
+			//返回键
+			document.getElementById('qsub-top-back').addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+			    // mui.toast('ok');  // mui弹出提示
+			    // 跳转账密登录
+			    // newWebview("Login-user.html","sign-up");
+				mui.back();
+			});
+			//点击继续
+			document.getElementById('qsub-submits').addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+				var code =  document.getElementById('qsub-input').value;  //这是验证码
+				console.log(code);
+				
+				if(Viewdata==undefined){
+					mui.toast('数据异常，请返回上一个窗口重试');
+				}else{
+					if(Viewdata.type==1){   //类型为一 则是注册的
+						
+						httpPost(url_user_sign_verify_phone,{
+							"phone":Viewdata.phone,
+							"code":code
+						},function(data){
+							console.log(JSON.stringify(data))
+							if(data.code ==200){
+								mui.toast("注册成功");
+								//注意这里测试用的
+								console.log(data.data.utoken);
+								mui.toast(data.data.utoken);
+								localStorage.setItem("token",data.data.token)//：将token存储到本地
+								newWedViewData("login-face.html","login-face",{
+									"type": 1,  //一为注册
+									// "token": data.data.token,  //token
+								});
+								
+								
+								
+							}else{
+								mui.toast(data.msg);
+							}
+						})
+					}
+				}
+			});
+			
+			
+			
+			
+		</script>
+	</body>
+</html>

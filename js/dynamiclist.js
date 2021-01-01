@@ -2,13 +2,12 @@ var headimg = "./img/x18.png";  //头像
 var username = "秋枫";    //用户昵称
 var contents = "我发布的第一条说说";
 var Circlename = "表白";
+var imgurl = "";  //图片url
+var id = "";      //说说id
 
 
 
-
-
-function dynamiclist(headimg,username,contents,Circlename){
-	
+function dynamiclist(headimg,username,contents,Circlename,imgurl,id){
 	//全部的
 	var topic_test =  document.createElement('div');
 	topic_test.className = "topic-test";
@@ -32,18 +31,21 @@ function dynamiclist(headimg,username,contents,Circlename){
 	
 	topic_test_top.appendChild(topic_img);
 	topic_test_top.appendChild(topic_span);
-	//加入到总的里面
-	topic_test.appendChild(topic_test_top);
+	
 	
 	//中部开始
 	var content_text = document.createElement('div');
 	content_text.className = "topic-test-content-text";
 	content_text.textContent = contents;
 	topic_test_content.appendChild(content_text);
-	
+	if(imgurl!='' && imgurl!=undefined && imgurl != null){
+		var topic_test_content_img = document.createElement('img');
+		topic_test_content_img.className = "topic-test-content-img";
+		topic_test_content_img.src=imgurl;
+		topic_test_content.appendChild(topic_test_content_img);
+	}
 	topic_test_content.className = "topic-test-content";
-	//加入到总的里面
-	topic_test.appendChild(topic_test_content);
+	
 	
 	
 	//底部开始
@@ -72,9 +74,31 @@ function dynamiclist(headimg,username,contents,Circlename){
 	
 	topic_test_bottom.appendChild(test_bottom_left);
 	topic_test_bottom.appendChild(topic_test_bottom_img)
-	//加入到总的里面
-	topic_test.appendChild(topic_test_bottom);
 	
+	
+	
+	//顶部 -
+	topic_test_top.addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+		mui.toast(id+"的顶部提示");  // mui弹出提示
+	});
+	
+	//中部 - 
+	topic_test_content.addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+		mui.toast(id+"的中部提示");  // mui弹出提示
+	});
+	
+	//底部
+	topic_test_bottom.addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+		mui.toast(id+"的底部部提示");  // mui弹出提示
+	});
+	
+	
+	//顶部
+	topic_test.appendChild(topic_test_top);
+	//中部
+	topic_test.appendChild(topic_test_content);
+	//底部
+	topic_test.appendChild(topic_test_bottom);
 	return topic_test;
 }
 
@@ -95,6 +119,7 @@ function dynamiclist(headimg,username,contents,Circlename){
 // 		<div class="topic-test-content-text" id="">
 // 			方尚未发生的格式帝国sadsa时代gas多尴尬上大哥高大上根深蒂固撒大声地根深s蒂固十多个十啊实打实大飒飒打算啊实s打实大师的多个撒大声地
 // 		</div>
+//		<img class="topic-test-content-img" src="../img/shengri.jpg">
 // 	</div>
 
 // 	<div class="topic-test-bottom">

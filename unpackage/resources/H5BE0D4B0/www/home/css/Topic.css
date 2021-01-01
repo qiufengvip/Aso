@@ -1,0 +1,133 @@
+/**
+ * @desc 帖子的UI 
+ * @By :秋枫
+ * @time 2020年12月23日15:10:27
+ */
+
+img{
+	width: 1;
+	height: 1;
+}
+.topic-test{
+	background: #fff;
+	border-radius: 10px;
+	-moz-box-shadow: -2px -2px 5px #c3c3c3, 2px 2px 5px #c3c3c3;
+	-webkit-box-shadow: -2px -2px 5px #c3c3c3, 2px 2px 5px #c3c3c3;
+	box-shadow: -2px -2px 5px #c3c3c3, 2px 2px 5px #c3c3c3;
+	padding: 1.25rem;
+	margin: 0.3125rem;
+}
+
+.topic-test-top-img {
+	width: 2.5rem;
+	height: 2.5rem;
+	border-radius: 100%;
+	object-fit: cover;
+
+}
+.topic-test-top-span{
+	padding: 0.5125rem;
+	font-size: 1.2rem;
+}
+
+.topic-test-top{
+	display: flex;
+	align-items:center;
+}
+
+
+
+.topic-test-content{
+	padding-bottom: 1.25rem;
+}
+
+
+.topic-test-content-text{
+	/* padding: 0.5125rem; */
+	margin: 0.3125rem;
+	font-size: 1rem;
+	font-weight: 500;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 5;
+}
+
+
+.topic-test-content-img{
+	width: 50%;
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;
+	vertical-align: bottom;
+	bottom: 0;
+	-o-object-fit: fill;
+	object-fit: fill;
+}
+
+
+
+.topic-test-bottom{
+	display: flex;
+	align-items:center;
+	justify-content:space-between;
+}
+
+.topic-test-bottom-left{
+	background-color: rgba(228, 230, 255, 1.0);
+	height: 1.55rem;
+	line-height: 1.7rem;
+	padding-left: 24px;
+	padding-right : 10px;
+	border-radius:0.925rem;
+	color: #6964FF;
+	font-weight: 900;
+	background-image: url(../img/quanzi.png);
+	background-repeat:no-repeat;
+	/* background:transparent url(bg.jpg) no-repeat scroll 0 0; */
+	background-size:20px;
+	background-position : 2px 2px;
+	/* -moz-background-size:100% 100%; */
+}
+
+
+
+.topic-test-bottom-img{
+	/* align-self: flex-end; */
+	display: flex;
+	
+}
+.topic-test-bottom-img-nr{
+	margin-left: 10px;
+	fill:#6964FF;
+	display: flex;
+	align-items:center;
+}
+
+.topic-test-bottom-img-nr svg{
+	width: 30px;
+	height: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,53 @@
+/**
+ * @desc 用户的主页UI
+ * @time 2020年12月31日21:42:05
+ */
+
+
+.qsub-user-top{
+	background: url(../img/bj.jpg);
+	width: 100%;
+	height: 250px;
+	display: flex;
+	align-items:flex-end;
+}
+
+.qsub-user-top-uesr{
+	/* margin-top: 100px; */
+	background-color: rgba(255,255,255,0.55);
+	height: 110px;
+	width: 100%;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	position: relative;
+}
+
+.qsub-user-top-uesr-img{
+	position: absolute;
+	top: -40px;
+	left: 20px;
+	width: 100px;
+	height: 100px;
+}
+.qsub-user-top-uesr-name{
+	margin-left: 130px;
+	margin-top: 10px;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.qsub-user-top-uesr-sign{
+	margin-left: 130px;
+	margin-top: 10px;
+	font-size: 10px;
+	color: #3f3f3f;
+}
+
+.qsub-user-top-uesr-attention-botton{
+	color: #FFFFFF;
+	background-color: #6964FF;
+	border-radius: 8px;
+	border: 0;
+}
+
+

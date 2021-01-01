@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>启动页面</title>
+		<script src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="./css/run.css" />
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+		<script src="login/js/windows.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+	<body>
+		<!-- <div class="mui-content qusb-run-content" id="">
+		
+	</div> -->
+		<img class="qusb-run-content" src="./img/run.png">
+	</body>
+	<script type="text/javascript">
+		
+		
+		
+		
+		
+		
+		//去登录
+		function goLogin() {
+			//关闭页面
+			console.log("开始执行")
+			
+			var old_back = mui.back;  
+
+			mui.openWindow({
+				url: "./login/login.html",
+				id: 1,
+				styles: {
+					top: 0,
+					bottom: 0
+				},
+				extras: {
+					"index":plus.webview.currentWebview()
+				},
+				createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+				show: {
+					autoShow: true,
+					aniShow: "slide-in-right",
+					duration: 100
+				},
+				waiting: {
+					autoShow: true,
+					title: '正在加载...',
+					options: {
+
+					}
+				},
+			});
+			// mui.back();
+			
+			// var currentView = plus.webview.currentWebview();
+			// currentView.close();  
+			// plus.webview.close(currentView.id)
+		}
+
+
+		if(window.plus){
+		    // 在这里调用5+ API  
+			var PermisList = ["android.permission.CAMERA"];
+			plus.android.requestPermissions(PermisList,
+				function(resultObj) {
+					if(resultObj.granted.length == PermisList.length){
+						// goLogin(); //去登录-------------------------------------------》
+						// newWebview("./home/homeframe.html","homeframe");
+						setTimeout("goLogin()","3000");
+					}else{
+						var btnArray = ['取消', '确定'];
+						mui.confirm('请同意软件申请的必要权限', '校友会', btnArray, function(e) {
+							if (e.index == 1) {  //确定
+								// GetPermissions();
+								//重新启动
+								
+								plus.runtime.restart();
+							} else {  //取消
+								plus.runtime.quit();
+							}
+						})
+					}
+					// 若所需权限被永久拒绝,则打开APP设置界面,可以在APP设置界面打开相应权限  
+					if (resultObj.deniedAlways.length > 0) {
+						var Intent = plus.android.importClass("android.content.Intent");
+						var Settings = plus.android.importClass("android.provider.Settings");
+						var Uri = plus.android.importClass("android.net.Uri");
+						var mainActivity = plus.android.runtimeMainActivity();
+						var intent = new Intent();
+						intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+						var uri = Uri.fromParts("package", mainActivity.getPackageName(), null);
+						intent.setData(uri);
+						mainActivity.startActivity(intent);
+					}
+				},
+				function(error) {
+					console.log('申请权限错误：' + error.code + " = " + error.message);
+				});
+		}else{// 兼容老版本的plusready事件  
+		    document.addEventListener('plusready',function(){
+				var PermisList = ["android.permission.CAMERA"];
+				plus.android.requestPermissions(PermisList,
+					function(resultObj) {
+						if(resultObj.granted.length == PermisList.length){
+							// goLogin(); //去登录   //去登录-------------------------------------------》
+							setTimeout("goLogin()","3000");
+						// newWebview("./home/homeframe.html","homeframe");
+						}else{
+							var btnArray = ['取消', '确定'];
+							mui.confirm('请同意软件申请的必要权限', '校友会', btnArray, function(e) {
+								if (e.index == 1) {  //确定
+									// this.Object() 
+									
+									//重新启动
+									plus.runtime.restart();
+								} else {  //取消
+									plus.runtime.quit();
+								}
+							})
+						}
+						// 若所需权限被永久拒绝,则打开APP设置界面,可以在APP设置界面打开相应权限  
+						if (resultObj.deniedAlways.length > 0) {
+							var Intent = plus.android.importClass("android.content.Intent");
+							var Settings = plus.android.importClass("android.provider.Settings");
+							var Uri = plus.android.importClass("android.net.Uri");
+							var mainActivity = plus.android.runtimeMainActivity();
+							var intent = new Intent();
+							intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+							var uri = Uri.fromParts("package", mainActivity.getPackageName(), null);
+							intent.setData(uri);
+							mainActivity.startActivity(intent);
+						}
+					},
+					function(error) {
+						console.log('申请权限错误：' + error.code + " = " + error.message);
+					});
+			},false);  
+		} 
+
+		
+		
+		
+		
+		 
+		
+		
+		
+		
+		
+		
+		// setTimeout("goLogin()", "1000"); //2000毫秒后执行test()函数，只执行一次。
+	</script>
+</html>

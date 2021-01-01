@@ -1,0 +1,68 @@
+/**
+ * @desc 这个文件定义公用的样式信息
+ * @By :秋枫 
+ */
+
+
+/* 输入框 */
+#qsub-input {
+	background: url() repeat fixed center;
+	margin-top: 3.125rem;
+	/* align-self:flex-start; */
+	/* margin: 6px; */
+	width: 80%;
+	border: 1px solid #e1e8ed;
+	border-radius: 4px;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	/* padding: 12px; */
+	resize: none;
+	color: #657786;
+	float: left;
+	/* width: 49%; */
+	/* margin-right: 2%; */
+	background-color: #f4f5f7;
+	border-bottom: 2px solid rgba(196, 200, 220, 1.0);
+}
+
+/* 按钮的样式 */
+.qsub-botton {
+	cursor: pointer;
+	width: 80%;
+	height: 2.9rem;
+	line-height: 52px;
+	margin-top: 26px;
+	margin-bottom: 10px;
+	text-align: center;
+	font-size: 16px;
+	border-radius: 4px;
+	background-image: linear-gradient(90deg, #4870FF 0%, #00DFFF 100%);
+	border: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

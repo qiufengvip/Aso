@@ -1,0 +1,49 @@
+.mui-table-view-cell{
+	overflow: auto;
+	padding: 0;
+}
+
+.qsub-top{
+	display: flex;
+	/* text-align: center; */
+	align-items:center;
+}
+
+.mui-slider-item{
+	background-color: #efeff4;
+}
+
+.qsub-top-ss{
+	height: 40px;
+	width: 40px;
+	display: flex;
+	align-items:center;
+	justify-content: center;
+	border-left: #e2e2e2 solid 1px;
+}
+.qsub-top-ss svg{
+	height: 25px;
+	width: 25px;                
+} 
+
+/**
+ * @desc tab 导航动画
+ */
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+    transition-property: font-size;
+    transition-duration: 100ms;
+	color: #6968ff;
+	font-size: 25px;
+	font-weight: bold;
+    border-bottom: 2px solid #6968ff;
+    background: none;
+	
+	
+}
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item {
+    transition-property: font-size;
+    transition-duration: 100ms;
+	font-size: 1.2rem;
+	color: inherit;
+    border: 0;
+}

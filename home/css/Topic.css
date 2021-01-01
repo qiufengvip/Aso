@@ -98,13 +98,16 @@ img{
 	
 }
 .topic-test-bottom-img-nr{
-	width: 30px;
-	height: 30px;
-	margin-left: 6px;
+	margin-left: 10px;
 	fill:#6964FF;
-	
+	display: flex;
+	align-items:center;
 }
 
+.topic-test-bottom-img-nr svg{
+	width: 30px;
+	height: 30px;
+}
 
 
 

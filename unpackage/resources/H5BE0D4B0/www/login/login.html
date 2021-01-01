@@ -1,0 +1,225 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<script src="../js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init();
+		</script>
+		<link rel="stylesheet" type="text/css" href="./css/login.css" />
+		<link rel="stylesheet" type="text/css" href="css/whole.css" />
+		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/windows.js" type="text/javascript" charset="utf-8"></script>
+		<!-- <script src="js/windows.js" type="text/javascript" charset="utf-8"></script> -->
+	</head>
+
+	<body>
+		<div class="qsub-body">
+			<div class="qsub-div-top" id="">
+				<!-- <span class="tishishutu">登录</span> -->
+				<img id="qsub-user-img" class="img_tou" src="./img/userimg.png" onerror="onerror=null;src='http://file.qsub.cn/userimg.png'"  >
+				<input type="text" id="qsub-input" placeholder="手机号/邮箱" name="shouji">
+				<input id="qsub-submit" type="submit" value="人脸识别" class="div-ly-box-botton">
+			</div>
+
+
+			<div class="qsub-div-bopttom" id="">
+				<div class="qsub-div-bopttom-01" id="">
+					<div id="">
+						还没有创建账户？
+					</div>
+					<a>
+						<div id="qsub-zhuche">
+							注册
+						</div>
+					</a>
+				</div>
+				<div class="qsub-div-bopttom-02" id="">
+					<a>
+						<div id="qsub-mimalogin">
+							账号密码登录
+						</div>
+					</a>
+
+					<a>
+						<div id="qsub-wangjimima">
+							忘记密码
+						</div>
+					</a>
+					<!-- <a id = "qsub-text-rl">
+						测试人脸
+					</a> -->
+
+					<a>
+						<div id="qsub-toindex">
+							点击此处<=进入主页面=>测试用
+						</div>
+					</a>
+				</div>
+				
+
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			//返回键
+			mui.back = function() {
+				// old_back();  
+				// var currentView = plus.webview.currentWebview();   //获取本窗口
+				//currentView.close();  
+				// plus.webview.close(currentView.id)
+				// var wvall = plus.webview.all();  
+				// for(var i=0;i<wvall.length;i++  ){    
+				// console.log('返回', 'webView', i, ':::::', wvall[i].id);  
+				console.log("退出个几把");
+				// }
+			};
+
+			mui.plusReady(function() {
+				/***
+				 * 获取上一个页面所传的值
+				 */
+				var self = plus.webview.currentWebview(); //获取当前窗体对象
+				var currentView = self.index; //接收A页面传入的id参数值
+				if(currentView != undefined){
+					// currentView.close();  //关闭当前页面
+					plus.webview.close(currentView.id) //关闭当前的webview窗口  
+					console.log("登录销毁");
+				}
+			});
+			
+			
+			
+			document.getElementById('qsub-zhuche').addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+			    // mui.toast('ok');  // mui弹出提示
+				// 跳转注册
+				newWebview("sign-up.html","signup");
+			});
+			
+			document.getElementById('qsub-mimalogin').addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+			    // mui.toast('ok');  // mui弹出提示
+				// 跳转账密登录
+				newWebview("Login-user.html","sign-up");
+			});
+			
+			
+			document.getElementById('qsub-wangjimima').addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+			    // mui.toast('ok');  // mui弹出提示
+				// 跳转忘记密码
+				// newWebview("sign-up.html","sign-up");
+			});
+			
+			
+			//测试用的
+			// document.getElementById('qsub-text-rl').addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+			//     // mui.toast('ok');  // mui弹出提示
+			// 	// 跳转忘记密码
+			// 	// newWebview("sign-up.html","sign-up");
+				
+			// 	newWedViewData("login-face.html","login-face",{
+			// 		"type": 1,  //一为注册
+			// 		"token": "3BC2B3FA431053DDC8471EA34428FA9B",  //token
+			// 	});
+				
+				
+			// });
+			
+			//登录按钮
+			document.getElementById('qsub-submit').addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+			    // mui.toast('ok');  // mui弹出提示
+				console.log(document.getElementById('qsub-input').value);
+				//验证账号
+				httpPost(url_user_loginverify,
+						{
+							"username":document.getElementById('qsub-input').value,
+						},
+					function(data){
+						if(data!=undefined){
+							if(data.code == 200){
+								console.log(data.data.img)
+								// 进行 人脸验证登录  切换窗口 ---------------------------------------
+								if(data.data.state==5 || data.data.state== 6 || data.data.state== 7){ //注册信息不全 
+									mui.toast(data.msg+"请使用密码登录！");
+									newWedViewData("Login-user.html","Login-user",{
+										"type":2,
+										"user":document.getElementById('qsub-input').value
+									});
+									// newWebview("Login-user.html","Login-user");
+								}else{
+									newWedViewData("login-face.html","login-face",{
+										"type":2,
+										"user":document.getElementById('qsub-input').value
+									});
+								}
+							}else{
+								mui.toast(data.msg);
+							}
+							console.log(data.msg)
+						}else{
+							mui.toast("网络异常");
+						}
+					}
+				);
+			});
+			
+			//输入账号获取头像处理函数
+			document.getElementById("qsub-input").addEventListener('input', function() {
+				console.log(this.value)
+				console.log(document.getElementById('qsub-input').value);
+				//验证账号
+				httpPost(url_user_loginverify,
+						{
+							"username":document.getElementById('qsub-input').value,
+						},
+					function(data){
+						if(data.code== 200){
+							console.log(data.data.img)
+							document.getElementById('qsub-user-img').src = data.data.img;
+							// mui.toast(data.msg);
+						}else{
+							console.log(data.msg)
+						}
+						
+					}
+				);
+			});
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			mui("#qsub-toindex")[0].addEventListener("tap",function(){
+				newWedViewData("../home/homeframe.html","hot",{
+					"index":plus.webview.currentWebview()
+				})
+			});
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</script>
+
+	</body>
+
+
+
+</html>

@@ -1,0 +1,42 @@
+/**
+ * @desc  搜索详情展示页
+ * @By：秋枫
+ */
+.qsub-search-header{
+	display: flex;
+	justify-content:space-between;
+	align-items:center;
+}
+.qsub-back svg{
+	width: 20px;
+	height: 20px;
+}
+
+.qsub-top-sousuo{
+	
+	width: 50px;
+	/* height: 50px; */
+}
+
+.qsub-input-ss{
+	width: 90%;
+}
+.qsub-top-sousuo svg{
+	margin: 5px 0 0 10px;
+	width: 60%;
+	height: 60%;
+}
+
+input[type='text']{
+	/* background: #000000; */
+	border: 0;
+	border-bottom : 1px solid #d0d0d0;
+	/* border-left:  1px solid #d0d0d0; */
+	background-color: #f7f7f7;
+	border-radius: 0;
+	margin-bottom:0;
+}
+
+
+
+

@@ -1,0 +1,64 @@
+/**
+ * @desc 底部弹窗
+ * @By qsub
+ */
+
+.qsub-bottoms-wind{
+	width: 100%;
+	height: 100%;
+	background:transparent;
+	background-color:rgba(0,0,0,0.55);
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1000;
+	
+}
+
+
+
+.qsub-bottoms-wind-frame{
+	width: 100%;
+	/* height: 200px; */
+	background-color: #FFFFFF;
+	position: absolute;
+	bottom: 0;
+	border-top-left-radius : 1.25rem;
+	border-top-right-radius: 1.25rem;
+	padding-bottom: 30px;
+}
+
+.qsub-bottoms-wind-frame-test{
+	padding: 1.4rem;
+	font-size: 1.2rem;
+}
+
+.qsub-bottoms-wind-frame-info{
+	padding-top: 0rem;
+	padding-left: 1.4rem;
+	padding-right: 1.4rem;
+	font-size: 1.2rem;
+}
+.qsub-bottoms-wind-list img{
+	width: 80%;
+	height: 80%;
+}
+.qsub-bottoms-wind-list{
+	float: left;
+	width: 3rem;
+	height: 3rem;
+	text-align: center;
+	font-size: 9px;
+	margin: 9px;
+}
+
+
+
+
+
+
+
+
+
+
+

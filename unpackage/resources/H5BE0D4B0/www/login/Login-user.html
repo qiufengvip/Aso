@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<script src="../js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init();
+		</script>
+		<link rel="stylesheet" type="text/css" href="./css/login-user.css" />
+		<link rel="stylesheet" type="text/css" href="./css/whole.css" />
+		<!-- <script src="js/windows.js" type="text/javascript" charset="utf-8"></script> -->
+		<script src="./js/windows.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+
+		<div class="qsub-body">
+			<div class="qsub-div-top" id="">
+				<!-- <span class="tishishutu">登录</span> -->
+				<img class="img_tou" src="./img/userimg.png" onerror="onerror=null;src='http://file.qsub.cn/userimg.png'" >
+				<input type="text" id="qsub-input" placeholder="手机号/邮箱" name="shouji">
+				<input type="password" id="qsub-input-password" placeholder="密码" name="shouji">
+				<input type="submit" id="qsub-submit" value="登录" class="div-ly-box-botton">
+			</div>
+
+
+			<div class="qsub-div-bopttom" id="">
+				<div class="qsub-div-bopttom-01" id="">
+					<div id="">
+						还没有创建账户？
+					</div>
+					<a>
+						<div id="qsub-zhuche">
+							注册
+						</div>
+					</a>
+				</div>
+				<div class="qsub-div-bopttom-02" id="">
+					<a>
+						<div id="qsub-login-mima">
+							人脸登录
+						</div>
+					</a>
+
+					<a>
+						<div id="">
+							忘记密码
+						</div>
+					</a>
+					
+					
+					
+				</div>
+			</div>
+		</div>
+	<script type="text/javascript">
+		
+		mui.plusReady(function() {
+			/***
+			 * 获取上一个页面所传的值
+			 */
+			var self = plus.webview.currentWebview(); //获取当前窗体对象
+			var currentView = self; //接收A页面传入的id参数值
+			if(currentView != undefined){
+				if(currentView.user != undefined){
+					document.getElementById('qsub-input').value = currentView.user;
+				}
+				if(currentView.view != undefined){
+					plus.webview.close(currentView.view.id) //关闭当前的webview窗口  
+				}
+			}
+		});
+		
+		
+		
+		mui("#qsub-zhuche")[0].addEventListener('tap',function(){
+			console.log("注册");
+			// newWebview("sign-up.html","sign-up");
+			newWebview("./sign-up.html","signup");
+		});
+		//人脸登录
+		mui("#qsub-login-mima")[0].addEventListener('tap',function(){
+			// console.log("注册");
+			// newWebview("sign-up.html","sign-up");
+			newWebview("./login.html","login");
+		});
+		
+		
+		
+		mui("#qsub-submit")[0].addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+		    // mui.toast('ok');  // mui弹出提示
+			var uesr = document.getElementById('qsub-input').value;
+			var pwd = document.getElementById('qsub-input-password').value;
+			
+			httpPost(url_user_login_face,{
+				"type":"2",
+				"username":uesr,
+				"userpwd":pwd
+			},function(data){
+				if(data!=undefined){
+					if(data.code==200){
+						localStorage.setItem("token",data.data.token)//：将token存储到本地
+						//验证用户状态
+						if(data.data.state == 5){  //未验证人脸
+							newWedViewData("login-face.html","login-face",{
+								"type": 1,  //一为注册
+								"token": data.data.token,  //token
+							});
+							
+						}else if(data.data.state == 6){  //未验证手机
+							mui.toast("新的验证码已发送！");
+							// newWedViewData("ver-code.html","ver-code",{})
+							
+							newWedViewData("ver-code.html","ver-code",{
+								"type": 1,  //一为注册
+								"phone": usercode  //手机号
+							});
+							
+						}else if(data.data.state == 7){   //未选择学校
+							mui.toast("请选择学校！");
+							// newWedViewData("ver-code.html","ver-code",{})
+							
+							// newWedView("selechool.html","selechool");
+							newWebview("selechool.html","selechool");
+						}else{
+							
+							newWedViewData("../home/homeframe.html","hot",{
+								"index":plus.webview.currentWebview()
+							})
+						}
+						
+						
+					}else{  //错误信息
+						mui.toast(data.msg);
+					}
+				}
+			})
+			
+			
+			
+		});
+		
+		
+		
+	</script>
+
+
+	</body>
+
+</html>

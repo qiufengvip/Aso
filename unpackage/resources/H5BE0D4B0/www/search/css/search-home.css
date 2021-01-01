@@ -1,0 +1,138 @@
+/**
+ * @desc  搜索首页
+ * @By ：秋枫
+ */
+
+.qsub-search-header{
+	display: flex;
+	justify-content:space-between;
+	align-items:center;
+}
+.qsub-back svg{
+	width: 20px;
+	height: 20px;
+}
+
+.qsub-top-sousuo{
+	
+	width: 50px;
+	/* height: 50px; */
+}
+
+.qsub-input-ss{
+	width: 90%;
+}
+.qsub-top-sousuo svg{
+	margin: 5px 0 0 10px;
+	
+	width: 60%;
+	height: 60%;
+}
+
+
+/* 热门 */
+.qsub-search-hotrec{
+	margin: 15px 40px 0 40px;
+}
+input[type='text']{
+	/* background: #000000; */
+	border: 0;
+	border-bottom : 1px solid #d0d0d0;
+	/* border-left:  1px solid #d0d0d0; */
+	background-color: #f7f7f7;
+	border-radius: 0;
+	margin-bottom:0;
+}
+
+.qsub-search-hotrec-top{
+	padding-left: 25px;
+	background: url(../img/rd.png) no-repeat left ;
+	color: #ff0000;
+	font-weight: bolder;
+	font-size: 14px;
+	background-size: 20px;
+	/* background-position: 5px 5px */
+}
+
+
+
+
+/* 历史记录 */
+.qsub-search-history{
+	display: flex;
+}
+.ul-02{
+	border-left: #bebebe solid 1px;
+	margin-left: 0rem;
+	padding-left: 10px;
+	text-overflow: ellipsis; 
+}
+.qsub-search-history-ul{
+	list-style: none;
+	/* padding: 0; */
+	/* margin: 0; */
+	padding-right: 0.625rem;
+	margin-top: 8px;
+	margin-left: 0rem;
+	width: 50%;
+}
+.qsub-search-history-ul-div{
+	display: flex;
+	align-items:center;
+	height: 28px;
+	font-weight: bold;
+}
+.qsub-search-history-ul-div-serial{
+	width: 25px;
+	font-size: 0.625rem;
+}
+
+.qsub-search-history-ul-div-test{
+	font-size: 0.625rem;
+	width: 150px;
+	/* height: 35px; */
+	line-height: 10px;
+	white-space: nowrap;      /*超出的空白区域不换行*/
+	overflow: hidden;         /*超出隐藏*/
+	text-overflow: ellipsis;  /*文本超出显示省略号*/
+}
+
+
+
+
+/* 历史记录 */
+
+.qsub-history{
+	/* padding-left: 5px; */
+	border-top: 1px solid #e2e2e2;
+	padding-top: 20px;
+	color: #656665;
+	font-weight: bolder;
+	font-size: 14px;
+	background-size: 20px;
+	display: flex;
+	align-items:center;
+	justify-content:space-between;
+}
+
+.qsub-history-delete{
+	width: 25px;
+	height: 25px;
+}
+
+
+.qsub-history-contue{
+	margin: 10px;
+	margin-left: 0px;
+	padding-left: 25px;
+	background: url(../img/ls.png) no-repeat left ;
+	color: #bababa;
+	/* font-weight: bolder; */
+	font-size: 14px;
+	background-size: 15px;
+}
+
+
+
+
+
