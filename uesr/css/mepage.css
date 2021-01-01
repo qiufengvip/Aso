@@ -14,12 +14,13 @@
 
 .qsub-user-top-uesr{
 	/* margin-top: 100px; */
-	background-color: rgba(255,255,255,0.55);
-	height: 110px;
+	background-color: rgba(255,255,255,0.67);
+	/* height: 110px; */
 	width: 100%;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	position: relative;
+	/* align-items: center; */
 }
 
 .qsub-user-top-uesr-img{
@@ -29,9 +30,25 @@
 	width: 100px;
 	height: 100px;
 }
+.qsub-user-top-uesr-attention{
+	margin-top: 20px;
+	
+}
+.qsub-user-info{
+	display: flex;
+}
+
+.qsub-user-top-uesr-info{
+	/* align-self:flex-start; */
+	margin-top: 20px;
+	width: 80%;
+}
+
+
+
 .qsub-user-top-uesr-name{
 	margin-left: 130px;
-	margin-top: 10px;
+	/* margin-top: 10px; */
 	font-size: 25px;
 	font-weight: bold;
 }
@@ -50,4 +67,32 @@
 	border: 0;
 }
 
+.qsub-user-social-info{
+	display: flex;
+	justify-content:center
+}
+
+.qsub-user-social-nr{
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+	align-items:center;
+	margin-bottom: 5px;
+}
+
+.qsub-user-social-number{
+	color: #6968ff;
+	font-weight: bold;
+}
+
+.qsub-user-social-text{
+	font-size: 10px;
+}
+
+
+/* 下半部分开始 */
+.qsub-user-content{
+	height: 50%;
+	width: 100%;
+}
 
