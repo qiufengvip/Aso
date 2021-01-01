@@ -110,8 +110,9 @@
 					function(resultObj) {
 						if(resultObj.granted.length == PermisList.length){
 							// goLogin(); //去登录   //去登录-------------------------------------------》
-							setTimeout("goLogin()","3000");
-						// newWebview("./home/homeframe.html","homeframe");
+							// setTimeout("goLogin()","3000");
+							
+						newWebview("./user/mepage.html","homeframe");
 						}else{
 							var btnArray = ['取消', '确定'];
 							mui.confirm('请同意软件申请的必要权限', '校友会', btnArray, function(e) {

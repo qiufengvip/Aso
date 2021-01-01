@@ -92,7 +92,6 @@
 
 /* 下半部分开始 */
 .qsub-user-content{
-	height: 50%;
-	width: 100%;
+	position: relative;
 }
 
