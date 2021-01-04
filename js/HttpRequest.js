@@ -5,12 +5,12 @@ var url_user_sign_verify_phone ="/api/user/signverify";  //注册 验证手机�
 var url_user_sign_verify_face = "/api/user/setface";  //注册  录入人脸
 var url_user_getchool = "/api/user/getschool"; //加载学校
 var url_user_setchool = "/api/user/setschool"; //录入学校信息
+var url_circle_hot = "/api/circle/hot";  //推荐获取
+var url_circle_plate = "/api/circle/plate"; //获取单个页面的帖子
 
 
-
-mui.init();
 function httpPost(urls,data,returnfun){
-	var url = "http://10.203.19.3:8080/FriendAssociation"+urls;
+	var url = "http://xiaoyouhui.cn1.utools.club/FriendAssociation"+urls;
 	console.log(url)
 	console.log(JSON.stringify(data))
 	mui.ajax(url, {
@@ -33,3 +33,5 @@ function httpPost(urls,data,returnfun){
 		}
 	})
 }
+
+

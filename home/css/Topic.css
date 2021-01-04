@@ -102,6 +102,7 @@ img{
 	fill:#6964FF;
 	display: flex;
 	align-items:center;
+	min-width: 50px;
 }
 
 .topic-test-bottom-img-nr svg{

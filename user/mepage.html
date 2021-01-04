@@ -125,13 +125,13 @@
 					console.log();
 					li.appendChild(dynamiclist("../home/img/x18.png","秋枫<br>","我发布的第"+ (length + (reverse ? (count - i) : (i + 1))) +"条说说","表白","http://file.qsub.cn/1672813b53be4b1fa8a2c9e69559df301608468083664.prifix",(length + (reverse ? (count - i) : (i + 1)))));
 					fragment.appendChild(li);
-					li.onclick = function(){
-					   // show(certid.value,i);
-					   //var tezst = "这是" +(length + (reverse ? (count - i) : (i + 1)));
+					// li.onclick = function(){
+					//    // show(certid.value,i);
+					//    //var tezst = "这是" +(length + (reverse ? (count - i) : (i + 1)));
 					   
-					   newWebview("postdetails.html","postdetails");
-					   //mui.toast(tezst);
-					};
+					//    newWebview("postdetails.html","postdetails");
+					//    //mui.toast(tezst);
+					// };
 				}
 				return fragment;
 			};

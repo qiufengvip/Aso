@@ -112,7 +112,12 @@
 							// goLogin(); //去登录   //去登录-------------------------------------------》
 							// setTimeout("goLogin()","3000");
 							
-						newWebview("./user/mepage.html","homeframe");
+						//测试专用
+						localStorage.setItem("token","adasdasda")//：将token存储到本地
+						
+						newWebview("./home/homeframe.html","homeframe");
+						
+						
 						}else{
 							var btnArray = ['取消', '确定'];
 							mui.confirm('请同意软件申请的必要权限', '校友会', btnArray, function(e) {
