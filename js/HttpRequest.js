@@ -7,7 +7,8 @@ var url_user_getchool = "/api/user/getschool"; //加载学校
 var url_user_setchool = "/api/user/setschool"; //录入学校信息
 var url_circle_hot = "/api/circle/hot";  //推荐获取
 var url_circle_plate = "/api/circle/plate"; //获取单个页面的帖子
-
+var url_circle_detailpage ="/api/circle/detailpage";  //获取帖子的详细信息
+var url_circle_detailpage_comment = "/api/circle/topcomment";  //获取帖子一级评论
 
 function httpPost(urls,data,returnfun){
 	var url = "http://xiaoyouhui.cn1.utools.club/FriendAssociation"+urls;
@@ -32,6 +33,13 @@ function httpPost(urls,data,returnfun){
 			console.log('error:' + type);
 		}
 	})
+}
+
+function isnull(datas){
+	if(datas!=undefined & datas != "" & datas != null & isNaN(datas)){
+		return true;
+	}
+	return false
 }
 
 

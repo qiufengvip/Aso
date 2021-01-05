@@ -10,8 +10,6 @@ var postshare = "" // 分享数量
 var Circleid  = "1" //圈子的id
 
 
-
-
 function dynamiclist(headimg,username,contents,Circlename,imgurl,id,postzan,postos,postshare,Circleid){
 	//全部的
 	var topic_test =  document.createElement('div');
@@ -104,9 +102,37 @@ function dynamiclist(headimg,username,contents,Circlename,imgurl,id,postzan,post
 		mui.toast(id+"的顶部提示");  // mui弹出提示
 	});
 	
+	/***
+	 * 获得根目录
+	 * @returns
+	 */
+	var patas =  function() {
+	    var strFullPath = window.document.location.href;
+	    var strPath = window.document.location.pathname;
+	    var pos = strFullPath.indexOf(strPath);
+	    var prePath = strFullPath.substring(0, pos);
+	    var postPath = strPath.substring(0, strPath.substr(1).indexOf('/') + 1);
+	    return (prePath + postPath);
+	}
+	
 	//中部 - 
 	topic_test_content.addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
-		mui.toast(id+"的中部提示");  // mui弹出提示
+		// mui.toast(id+"的中部提示");  // mui弹出提示
+		mui.openWindow({
+			url: "../home/postdetails.html",
+			id: "postdetails",
+			extras: {
+				"postid":id
+			},
+			createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+			show: {
+				autoShow: true,
+				aniShow: "slide-in-right",
+				duration: 100
+			},
+		});
+		
+		
 	});
 	
 	//圈子
@@ -160,7 +186,8 @@ function dynamiclist(headimg,username,contents,Circlename,imgurl,id,postzan,post
 
 
 /**
- * @param {Object} data //从json 解析到 html
+ * @description  从json 解析到 html
+ * @param {Object} data 
  * @
  */
 function Parsepost(data){
@@ -197,7 +224,18 @@ if(data!=undefined & data != null & data != ""){
 			data.placa.placaid
 			)
 		}else if(data.type ==3){   //视频
-			
+			return dynamiclist(
+			data.userinfo.useravatar,
+			data.userinfo.uname,
+			data.posttext,
+			data.placa.placaname,
+			"",
+			data.postid,
+			data.postzan,
+			data.postos,
+			data.postshare,
+			data.placa.placaid
+			)
 		}
 	}
 }

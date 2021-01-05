@@ -74,7 +74,6 @@
 				</ul>
 			</div>
 		</div>
-		<script src="../js/mui.min.js"></script>
 		<script>
 			mui.init({
 				pullRefresh: {
@@ -98,6 +97,7 @@
 					}
 				}, 100);
 			}
+			
 			if (mui.os.plus) {
 				mui.plusReady(function() {
 					setTimeout(function() {
@@ -111,7 +111,7 @@
 			console.log(x.length);
 			for (i = 0; i < x.length; i++) {
 				console.log(i);
-			    x[i].appendChild(createFragment01(x[i], i,100));
+			    x[i].appendChild(createFragment01(x[i], i,10));
 			}
 
 			//document.getElementsByClassName('mui-table-view')[0].appendChild(createFragment01( document.getElementsByClassName('mui-table-view')[0], index, 5));
