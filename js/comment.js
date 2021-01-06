@@ -41,10 +41,64 @@ function yicomment(commentid,imgurl,username,time,commentinfo,reply,isgive,giveq
 	//显示回复的条数   不等于空
 	if(reply != undefined & reply != "" & reply != "0" & reply != null){
 		comment_info_bottom_zuo.textContent = reply + "条回复";
+		//中部被单击 直接进入详细内容区域
+		comment_info_bottom_zuo.addEventListener('tap',function(){
+			console.log("kais")
+			mui.openWindow({
+				url: "comment.html",
+				id: "comment",
+				extras: {
+					"commentid":commentid,
+					"postid":id
+				},
+				createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+				show: {
+					autoShow: true,
+					aniShow: "slide-in-right",
+					duration: 100
+				},
+			});
+		})
 	}else{
-		comment_info_bottom_zuo.className = "";
-		comment_info_bottom_zuo.innerHTML = "";
+		// 现在是没有一条回复  只可直接回复
+		comment_info_bottom_zuo.innerHTML = "回复";
+		
+		comment_info_bottom_zuo.addEventListener('tap',function(){
+			event.detail.gesture.preventDefault(); //阻止默认事件
+			document.getElementById('input-comment').placeholder = "回复@"+username;
+			mui.focus(document.getElementById('input-comment'));
+			replyid = commentid;  //写入评论id
+			
+		})
+		
 	}
+	
+	//进入评论详情窗口
+	comment_info_content.addEventListener('tap',function(){
+		console.log("kais")
+		mui.openWindow({
+			url: "comment.html",
+			id: "comment",
+			extras: {
+				"commentid":commentid,
+				"postid":id
+			},
+			createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+			show: {
+				autoShow: true,
+				aniShow: "slide-in-right",
+				duration: 100
+			},
+		});
+	});
+
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -73,15 +127,7 @@ function yicomment(commentid,imgurl,username,time,commentinfo,reply,isgive,giveq
 	return comment;
 }
 
-// var commentid = "1";  //评论id
-// var imgurl = "img/x18.png";  //评论人头像
-// var username = "秋枫";  //评论人昵称
-// var time = "2021-1-5 9:12"; //评论时间
-// var commentinfo = "我来装逼了"; //评论内容
-// var reply = "21"; //回复数量
-// var isgive = true; //是否点赞
-// var givequantity = "544";  //点赞数量
-// var userid = ""  //用户id
+
 
 
 
@@ -98,6 +144,50 @@ function yicommenttoHTML(data){
 	data.userinfo.id
 	)
 }
+// var commentid = "1";  //评论id
+// var imgurl = "img/x18.png";  //评论人头像
+// var username = "秋枫";  //评论人昵称
+// var time = "2021-1-5 9:12"; //评论时间
+// var commentinfo = "我来装逼了"; //评论内容
+// var reply = "21"; //回复数量
+// var isgive = true; //是否点赞
+// var givequantity = "544";  //点赞数量
+// var userid = ""  //用户id
+function ercommenttoHTML(data){
+	var commenttoRoot = yicomment(
+		data.osfirstid,
+		data.userinfo.useravatar,
+		data.userinfo.uname,
+		data.commenttime,
+		data.comment,
+		undefined,
+		data.isgreat,
+		data.postzan,
+		data.userinfo.idreplyList
+	)
+	if(isnull(data.superior)){
+		var commenttosuperior = yicomment(
+			data.superior.osfirstid,
+			data.superior.userinfo.useravatar,
+			data.superior.userinfo.uname,
+			data.superior.commenttime,
+			data.superior.comment,
+			undefined,
+			data.superior.isgreat,
+			data.superior.postzan,
+			data.superior.userinfo.id
+		)
+		
+		var comment_super =  document.createElement('div');  //总div
+		comment_super.className = "comment-super";
+		comment_super.appendChild(commenttosuperior);
+		commenttoRoot.appendChild(comment_super);
+	}
+	return commenttoRoot;
+}
+
+
+
 
 /**
 <div class="comment" id="comment">

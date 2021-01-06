@@ -98,7 +98,12 @@
 }
 
 .comment-info-bottom-zuo{
-	
+	border-radius: 0.625rem;
+	background-color: #e8e8e8;
+	padding: 0.0875rem;
+	padding-left: 0.6375rem;
+	padding-right: 0.6375rem;
+	font-size: 0.625rem;
 }
 .comment-info-time{
 	align-self:flex-end;

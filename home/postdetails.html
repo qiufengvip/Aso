@@ -96,7 +96,7 @@
 			<div class="mui-input-row qiufeng-comment-input-div">
 				<input id="input-comment" class="qiufeng-comment-input" type="text" placeholder="请输入内容">
 			</div>
-			<button type="button" class="qiufeng-comment-submit">发布</button>
+			<button type="button" id="qsub-comment-sub" class="qiufeng-comment-submit">发布</button>
 		</nav>
 
 
@@ -104,6 +104,11 @@
 
 		<script type="text/javascript">
 			var token = localStorage.getItem("token");  //检索
+			var id;  //帖子的id
+			var page = 2;    //帖子的页数
+			var replyid=0  ; //回复的id
+			
+			
 			mui.init({
 				swipeBack: true, //右滑关闭功能
 				pullRefresh: {
@@ -117,16 +122,50 @@
 			/**
 			 * 上拉加载具体业务实现
 			 */
+			
+			// mui('#pullrefresh')[0].pullRefresh().endPullupToRefresh(true);
 			function pullupRefresh() {
 				setTimeout(function() {
-					mui('#pullrefresh').pullRefresh().endPullupToRefresh(true); //参数为true代表没有更多数据了。
+					
 					var table = document.body.querySelector('.mui-table-view');
 					var cells = document.body.querySelectorAll('.mui-table-view-cell');
-					// for (var i = cells.length, len = i + 5; i < len; i++) {
-					// 	mui("#mui-table-view-id")[0].appendChild(createFragment01(mui("#mui-table-view-id")[0], 0,1));
-					// }
 					console.log("要刷新了");
-				}, 100);
+					
+					httpPost(url_circle_detailpage_comment,{
+						"postid":id,
+						"token":token,
+						"page" : page
+					},function(data){
+						console.log(JSON.stringify(data))
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh();
+						if(isnull(data)){
+							if(data.code==200){
+								if(isnull(data.data)){
+									for(var i = 0 ; i<data.data.length;i++){
+										mui("#comment-all")[0].appendChild(yicommenttoHTML(data.data[i]));
+									}
+								}
+								page+=1;
+								
+							}else if(data.code == -3){   //完毕了
+								console.log("完毕");
+								mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+							}else{
+								//其他错误
+								mui.toast(data.msg)
+							}
+							
+							
+						}else{
+							
+							mui.toast("网络异常")
+						}
+						
+					})
+					
+				}, 1000);
+	
+				
 			}
 
 			if (mui.os.plus) {
@@ -146,7 +185,7 @@
 			//窗口创建完毕执行
 			mui.plusReady(function() {
 			    var self = plus.webview.currentWebview(); //获取当前窗体对象
-			    var id = self.postid; //接收A页面传入的id参数值
+			    id = self.postid; //接收A页面传入的id参数值
 			    if(id != undefined){
 					//接受到上个页面的id值  开始获取帖子的信息
 					httpPost(url_circle_detailpage,{
@@ -159,14 +198,18 @@
 								mui("#qsub-top-post")[0].appendChild(Parsepost(data.data));
 								console.log(data.data.hotcomments);
 								if(isnull(data.data.hotcomments)){
-									mui("#comment-hot").appendChild();
-									
+									for(var i = 0 ; i<data.data.hotcomments.length;i++){
+										mui("#comment-hot")[0].appendChild(yicommenttoHTML(data.data.hotcomments[i]));
+									}
 								}else{
 									mui("#comment-hot")[0].style.display="none";
 								}
 								
 								if(isnull(data.data.genecomments)){
-									
+									for(var i = 0 ; i<data.data.genecomments.length;i++){
+										mui("#comment-all")[0].appendChild(yicommenttoHTML(data.data.genecomments[i]));
+									}
+									mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
 								}
 								
 								
@@ -183,27 +226,59 @@
 				}
 			});
 			
-
-
-
-			// document.getElementById('comment').addEventListener('tap', function() { /*tap表示单击屏幕，此处可换双击，滑动等等事件*/
-			// 	// mui.toast('ok');  // mui弹出提示
-			// 	// 跳转账密登录
-			// 	newWebview("comment.html", "comment");
-			// });
-			// document.getElementById('bottoms-s').addEventListener('tap', function() { /*tap表示单击屏幕，此处可换双击，滑动等等事件*/
-			// 	//开启
-			// 	// document.getElementById("bottoms-v").style.display="block";
-			// 	event.detail.gesture.preventDefault(); //阻止默认事件
-			// 	mui.focus(document.getElementById('input-comment'));
-			// });
-
-			// document.getElementById('bottoms-v').addEventListener('tap', function() { /*tap表示单击屏幕，此处可换双击，滑动等等事件*/
-			// 	// mui.toast('ok');  // mui弹出提示
-			// 	this.style.display = "none";
-			// });
+			//输入框失去焦点blur  用来清空回复的人的东西
+			mui("#input-comment")[0].addEventListener('blur',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+				// mui.toast('ok');  // mui弹出提示
+				// mui("#qsub-comment-input")[0].value = "";
+				replyid = 0;
+				 document.getElementById("input-comment").placeholder = "说点什么吧...";
+			});
+			
+			
+			
+			
+			
+			// 添加评论
+			mui("#qsub-comment-sub")[0].addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+				var putdata
+				var isadd = true;
+				if(replyid == 0){
+					putdata = {
+						"token":token,
+						"postid": id,
+						"comment": mui("#input-comment")[0].value   //评论内容
+					}
+					isadd = true;
+				}else{
+					putdata = {
+						"token":token,
+						"postid": id,
+						"comment": mui("#input-comment")[0].value   ,//评论内容
+						"osfirstid":replyid  //上级评论id
+					}
+					isadd = false;
+				}
+				
+				httpPost(url_circle_pushcomment,putdata,
+				function(data){
+					if(isnull(data)){
+						
+						if(data.code ==200){
+							mui("#input-comment")[0].value = "";
+							console.log(mui("#comment-all")[0].firstChild);
+							if(isadd){
+								mui("#comment-all")[0].insertBefore(yicommenttoHTML(data.data), mui("#comment-all")[0].children[1]);
+							}
+							mui.toast("发布成功");
+						}else{
+							mui.toast(data.msg);
+						}
+					}else{
+						mui.toast("网络异常");
+					}
+				});
+			});
+			
 		</script>
-
-
 	</body>
 </html>
