@@ -110,8 +110,28 @@
 					function(resultObj) {
 						if(resultObj.granted.length == PermisList.length){
 							// goLogin(); //去登录   //去登录-------------------------------------------》
-							setTimeout("goLogin()","3000");
-						// newWebview("./home/homeframe.html","homeframe");
+							// setTimeout("goLogin()","3000");
+							
+						//测试专用
+						localStorage.setItem("token","adasdasda")//：将token存储到本地
+						
+						// mui.openWindow({
+						// 	url: "home/postdetails.html",
+						// 	id: "postdetailss",
+						// 	extras: {
+						// 		"postid":"1"
+						// 	},
+						// 	createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+						// 	show: {
+						// 		autoShow: true,
+						// 		aniShow: "slide-in-right",
+						// 		duration: 100
+						// 	},
+						// });
+						
+						// newWebview("./home/postdetails.html","postdetails");  //去帖子详情
+						newWebview("./home/homeframe.html","homeframe");
+						
 						}else{
 							var btnArray = ['取消', '确定'];
 							mui.confirm('请同意软件申请的必要权限', '校友会', btnArray, function(e) {

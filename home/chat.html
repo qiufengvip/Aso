@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>聊天窗口</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<script src="../js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+		<link rel="stylesheet" type="text/css" href="css/chat.css" />
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">与jzh的聊天</h1>
+		</header>
+		<div class="mui-content" id="pullrefresh">
+
+
+			<div class="qsub-chat-me">
+				<img class="qsub-chat-img" src="./img/qq.png">
+				<div class="qsub-chat-msg">
+					<span class="qsub-chat-reply">看美看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女女！</span>
+				</div>
+			</div>
+
+			<div class="qsub-chat-me">
+				<img class="qsub-chat-img" src="./img/qq.png">
+				<div class="qsub-chat-msg">
+					<img class="qsub-chat-reply-img" src="./img/x18.png" alt="">
+				</div>
+			</div>
+
+			<div class="qsub-chat-user ">
+				<img class="qsub-chat-img" src="./img/qq.png">
+				<div class="qsub-chat-msg qsub-user">
+					<span class="qsub-chat-user-reply ">卧槽，尊类</span>
+				</div>
+			</div>
+
+			<div class="qsub-chat-user">
+				<img class="qsub-chat-img" src="./img/qq.png">
+				<div class="qsub-chat-msg qsub-user">
+					<img class="qsub-chat-reply-img" src="./img/x18.png" alt="">
+				</div>
+			</div>
+		</div>
+		<div class="mui-bottom">
+			
+		</div>
+		<nav class="mui-bar mui-bar-tab qsub-chat-base">
+			<input class="qiufeng-comment-input" id="input-comment" type="text" placeholder="发涩...咻`咻`咻`">
+			<button id="qsub-comment-sub" type="button" class="qiufeng-comment-submit">发布</button>
+		</nav>
+
+		<script type="text/javascript">
+			mui.init({
+				swipeBack: true, //右滑关闭功能
+				pullRefresh: {
+					container: '#pullrefresh',
+				}
+			});
+		</script>
+
+	</body>
+
+</html>
