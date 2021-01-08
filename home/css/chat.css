@@ -1,7 +1,9 @@
 .mui-bottom{
 	height: 60px;
 }
-
+#pullrefresh{
+	/* height: 800px; */
+}
 
 .qsub-chat-me{
 	display: flex;
