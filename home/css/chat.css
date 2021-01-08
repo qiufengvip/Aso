@@ -16,6 +16,7 @@
 .qsub-chat-img{
 	width: 50px;
 	height: 50px;
+	border-radius: 100%;
 }
 .qsub-chat-msg{
 	/* width: 80%; */
@@ -28,7 +29,8 @@
 	border-top-left-radius: 15px;
 	color: #FFFFFF;
 	font-weight: 500;
-	margin-top: 5px;
+	/* margin-top: 5px; */
+	margin: 5px;
 	/* padding: 5px 0 5px 0; */
 	/* padding-top: 5px; */
 }

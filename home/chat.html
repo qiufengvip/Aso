@@ -9,48 +9,34 @@
 		<script src="../js/mui.js"></script>
 		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
-			mui.init()
+			mui.init();
 		</script>
 		<link rel="stylesheet" type="text/css" href="css/chat.css" />
+		<script src="mess" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="http://cdn.goeasy.io/goeasy-1.0.17.js"></script>
+
+		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			var goEasy = new GoEasy({
+				host: "hangzhou.goeasy.io", //应用所在的区域地址: 【hangzhou.goeasy.io | singapore.goeasy.io】 
+				appkey: "BS-c5ad7650e6c84896840617daa524dc31"
+			});
+		</script>
+		
+		<script src="../js/char.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 
-	<body >
+	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">与jzh的聊天</h1>
+			<h1 class="mui-title" id = "username"></h1>
 		</header>
 		<div class="mui-content" id="pullrefresh">
-			
-			<div class="qsub-chat-me">
-				<img class="qsub-chat-img" src="./img/qq.png">
-				<div class="qsub-chat-msg">
-					<span class="qsub-chat-reply">看美看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女看美女女！</span>
-				</div>
-			</div>
-			
-			<div class="qsub-chat-me">
-				<img class="qsub-chat-img" src="./img/qq.png">
-				<div class="qsub-chat-msg">
-					<img class="qsub-chat-reply-img" src="http://file.qsub.cn/082cfad61e9a4461a93d786c9a248c111608481610394.jpg" alt="">
-				</div>
-			</div>
-			
-			<div class="qsub-chat-user ">
-				<img class="qsub-chat-img" src="./img/qq.png">
-				<div class="qsub-chat-msg qsub-user">
-					<span class="qsub-chat-user-reply ">卧槽，尊类</span>
-				</div>
-			</div>
 
-			<div class="qsub-chat-user">
-				<img class="qsub-chat-img" src="./img/qq.png">
-				<div class="qsub-chat-msg qsub-user">
-					<img class="qsub-chat-reply-img" src="http://file.qsub.cn/082cfad61e9a4461a93d786c9a248c111608481610394.jpg" alt="">
-				</div>
-			</div>
 		</div>
 		<div class="mui-bottom">
-			
+
 		</div>
 		<nav class="mui-bar mui-bar-tab qsub-chat-base">
 			<input class="qiufeng-comment-input" id="input-comment" type="text" placeholder="发涩...咻`咻`咻`">
@@ -58,25 +44,79 @@
 		</nav>
 
 		<script type="text/javascript">
-			
+			var token = localStorage.getItem("token"); //我的token
+			var unread;
+			var userimg;  //对方的头像
 			mui.init({
 				swipeBack: true, //右滑关闭功能
 				pullRefresh: {
 					container: '#pullrefresh',
 				}
 			});
+
 			
-			$('html').animate({
-				scrollTop: $('.mui-bottom').offset().top
-			}, 800);
-			
-			// var scroll = mui('#pullrefresh').scroll();
-			 //重新计算布局值，最大滚动的高度等等
-			// scroll.reLayout();
-			//滚动到底部
-			// scroll.scrollToBottom(100);
-			
-			
+
+
+			//传递数据
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview(); //获取当前窗体对象
+				unread = self.unread; //接收A页面传入的id参数值
+				userimg = self.userimg;
+				mui("#username")[0].textContent = "与"+self.username+"的聊天";
+				if (unread != undefined) {
+
+					//消息置为已读
+					httpPost(url_char_messageread, {
+						"token": token,
+						"targetid": unread,
+						"chatid": "all" //消息全部收到
+					}, function(data) {
+
+					});
+					//刷新消息列表
+
+					httpPost(url_char_gethistory, {
+						"token": token,
+						"targetid": unread
+					}, function(data) {
+						if(isnull(data)){
+							if(data.code == 200){
+								mui("#pullrefresh").innerHTML="";
+								console.log(JSON.stringify(data));
+								for(var i =0;i<data.data.length;i++){
+									// console.log(MsgtoHTML(data.data[i]));
+									document.getElementById("pullrefresh").appendChild(MsgtoHTML(data.data[i]));
+									// appendChild(MsgtoHTML(data.data[i]));
+								}
+								
+								$('body').animate({
+									scrollTop: $('.mui-bottom').offset().top
+								}, 800);
+							}else{
+								mui.toast(data.msg);
+							}
+						}else{
+							mui.toast("通讯异常");
+						}
+						
+					});
+
+				}
+			});
+			//收到消息处理
+			goEasy.subscribe({
+				channel: token, //你的收消息字段
+				onSuccess: function() {
+					console.log("订阅成功");
+				},
+				onFailed: function(error) {
+					console.log("订阅失败: " + error.content);
+				},
+				onMessage: function(message) {
+					//如果有的话就重新加载消息
+
+				}
+			});
 		</script>
 	</body>
 </html>
