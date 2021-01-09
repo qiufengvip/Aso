@@ -102,15 +102,20 @@
 				"username":uesr,
 				"userpwd":pwd
 			},function(data){
+				console.log(JSON.stringify(data));
 				if(data!=undefined){
 					if(data.code==200){
+						
 						localStorage.setItem("token",data.data.token)//：将token存储到本地
 						//验证用户状态
 						if(data.data.state == 5){  //未验证人脸
-							newWedViewData("login-face.html","login-face",{
+							console.log("开始录入人脸");
+							newWedViewData("login-face.html","login-face-l",{
 								"type": 1,  //一为注册
 								"token": data.data.token,  //token
 							});
+							
+							
 							
 						}else if(data.data.state == 6){  //未验证手机
 							mui.toast("新的验证码已发送！");

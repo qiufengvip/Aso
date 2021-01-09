@@ -88,7 +88,7 @@ function MsgtoHTML(data){
 				userimg,
 				data.data.data
 			);
-		}else if(data.data.type == 1){
+		}else if(data.data.type == 2){
 			//图片
 			return userMsgAdd(
 				userimg,
