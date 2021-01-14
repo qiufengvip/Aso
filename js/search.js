@@ -93,11 +93,49 @@ function searchone(tximg,name,contents,attentionnum,fansnum,isattention){
 	return search_uesr_list;
 	
 }
+
+/**
+ * @desc 用户
+ * @param {Object} tximg 头像
+ * @param {Object} name 昵称
+ * @param {Object} contents 信息
+ * @param {Object} attentionnum 关注数量
+ * @param {Object} fansnum 粉丝数量
+ * @param {Object} isattention 是否关注
+ */
+function ChoneToHTML(data){
+	return searchone(
+		data.uavatar,
+		data.uname,
+		data.usign,
+		data.ufocus,
+		data.ufans,
+		data.isfocus
+	);
+}
+
+
+/**
+ * @desc  圈子
+ * @param {Object} data
+ */
+function HtwoToHTML(data){
+	return searchtwo(
+		data.pavatar,
+		data.pname,
+		data.pinfo,
+		data.puser,
+		data.pdynamic
+	);
+	
+}
+
+
 /**
  * @param {Object} tximg 头像
  * @param {Object} name 昵称
  * @param {Object} contents 信息
- * @param {Object} attentionnumm 关注数量
+ * @param {Object} attentionnumm 圈友
  * @param {Object} fansnum 粉丝数量
  */
 function searchtwo(tximg,name,contents,attentionnumm,fansnum){

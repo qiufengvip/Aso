@@ -5,7 +5,11 @@
 		<meta charset="utf-8">
 		<title>搜索结果页面</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!-- mui -->
 		<link href="../css/mui.css" rel="stylesheet" />
+		<!-- 页面UI -->
+		<link rel="stylesheet" type="text/css" href="css/hot.css" />
+		<!-- 页面UI2 -->
 		<link rel="stylesheet" type="text/css" href="css/searchdetails.css" />
 		<!-- 帖子 -->
 		<link rel="stylesheet" type="text/css" href="../home/css/Topic.css" />
@@ -15,10 +19,12 @@
 		<link rel="stylesheet" type="text/css" href="../css/searchuesrlist.css" />
 		<!-- 字体 -->
 		<link rel="stylesheet" type="text/css" href="../html/css/whole.css" />
-
-		<link rel="stylesheet" type="text/css" href="css/hot.css" />
-
+		<!-- mui -->
 		<script src="../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 用户UI and 圈子UI 数据渲染 -->
+		<script src="../js/search.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 帖子数据渲染 -->
+		<script src="../js/dynamiclist.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 
 	<body>
@@ -30,7 +36,7 @@
 				</svg>
 			</a>
 			<div class="mui-input-row qsub-input-ss">
-				<input type="text" placeholder="键入内容搜索">
+				<input type="text" id="qsub-comment" placeholder="键入内容搜索">
 			</div>
 			<div class="qsub-top-sousuo">
 				<svg t="1608556250474" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3182"
@@ -163,7 +169,7 @@
 							<div id="scroll1" class="mui-scroll-wrapper">
 								<div class="mui-scroll">
 									<ul class="mui-table-view" id="list-view">
-										
+
 									</ul>
 								</div>
 							</div>
@@ -222,7 +228,7 @@
 					"3": "cir", //圈子
 				}
 				//上拉加载doc对象
-				var refreshdoc = undefined;
+				var refreshdoc = {};
 
 
 				//初始化mui()
@@ -235,72 +241,88 @@
 						top: 0, //内容页面顶部位置,需根据实际页面布局计算，若使用标准mui导航，顶部默认为48px；
 					}
 				});
-				
+
 				//页面切换完毕  --  加载数据
 				mui.plusReady(function() {
-				    var self = plus.webview.currentWebview(); //获取当前窗体对象
-				    wd = self.comment; //接收A页面传入的id参数值
-					console.log("搜索词为："+wd);
-				    if(wd == undefined){
-				       mui.toast("搜索词为空");
-				    }
-					
-				});
-				
-				
-				
-				//选项卡切换面板监听器
-				document.getElementById('slider').addEventListener('slide', function(e) {
-					console.log(e.detail.slideNumber);
-					//置选中页面
-					page = e.detail.slideNumber;
-					//获取url开始刷新
-					var ul = mui(".mui-table-view")[e.detail.slideNumber];
-					lilist = ul.getElementsByTagName('li').length;
-					console.log(lilist);
-					if (lilist == 0) {
-						console.log("------开始首次加载数据-------");
-						//这里是因为一条数据也没有所以要加载数据
-						//page为当前页面
-						ToLoadData(page)
+					var self = plus.webview.currentWebview(); //获取当前窗体对象
+					wd = self.comment; //接收A页面传入的id参数值
+					console.log("搜索词为：" + wd);
+					if (wd == undefined) {
+						mui.toast("搜索词为空");
+					} else {
+						page = 0;
+						console.log("切换完毕事件");
+						// mui('.mui-scroll')[0].pullRefresh();
+						// var pullRefreshApi = mui.data[mui('.mui-scroll')[0]];  
+						// pullRefreshApi.pullRefresh().pullUpLoading();
+						// ToLoadData(page);
+						
 					}
-				});
-				
-
-				(function($) {
-					//阻尼系数
-					var deceleration = mui.os.ios ? 0.003 : 0.0009;
-					$('.mui-scroll-wrapper').scroll({
-						bounce: true,
-						indicators: true, //是否显示滚动条
-						deceleration: deceleration
-					});
+					//上拉加载回调
+					(function($) {
+						//阻尼系数
+						var deceleration = mui.os.ios ? 0.003 : 0.0009;
+						$('.mui-scroll-wrapper').scroll({
+							bounce: true,
+							indicators: true, //是否显示滚动条
+							deceleration: deceleration
+						});
 					
-					$.ready(function() {
-						//循环初始化所有下拉刷新，上拉加载。
-						$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
-							console.log("-------")
-							console.log(pullRefreshEl.className)
-							$(pullRefreshEl).pullToRefresh({
-								up: {  //上拉加载数据
-									callback: function() {
-										
-										// setTimeout(function() {
-										// 	slef.endPullUpToRefresh();
-										// }, 1000);
-										
-										refreshdoc = this;
-										console.log("开始上拉加载数据");
-										ToLoadData(index);
-										
-										
-										
+						$.ready(function() {
+							//循环初始化所有下拉刷新，上拉加载。
+							$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+								console.log("-------")
+								console.log(pullRefreshEl.className)
+								$(pullRefreshEl).pullToRefresh({
+									up: { //上拉加载数据
+										auto: true,
+										callback: function() {
+					
+											// setTimeout(function() {
+											// 	slef.endPullUpToRefresh();
+											// }, 1000);
+					
+											refreshdoc[index] = this;
+											// this.endPullUpToRefresh(false);
+											// this.enablePullupToRefresh()
+											
+											console.log("开始上拉加载数据");
+											ToLoadData(index);
+											// this.refresh(true);
+										}
 									}
-								}
+								});
 							});
 						});
-					});
-				})(mui);
+					})(mui);
+				});
+				
+				
+				
+
+
+
+				//选项卡切换面板监听器
+				// document.getElementById('slider').addEventListener('slide', function(e) {
+				// 	console.log(e.detail.slideNumber);
+				// 	//置选中页面
+
+				// 	page = e.detail.slideNumber;
+				// 	//获取url开始刷新
+				// 	var ul = mui(".mui-table-view")[e.detail.slideNumber];
+				// 	lilist = ul.getElementsByTagName('li').length;
+				// 	console.log(lilist);
+				// 	if (lilist == 0) {
+				// 		console.log("------开始首次加载数据-------");
+				// 		//这里是因为一条数据也没有所以要加载数据
+				// 		//page为当前页面
+				// 		console.log("选项卡切换-空数据所以加载数据");
+				// 		ToLoadData(page)
+				// 	}
+				// });
+
+
+
 
 
 				/**
@@ -310,7 +332,8 @@
 				function ToLoadData(pid) {
 
 					if (pagenumber[pid] == undefined) {
-						pagenumber[pid] = 0;
+						pagenumber[pid] = 1;
+						refreshdoc[pid].refresh(true);
 					}
 
 
@@ -328,22 +351,31 @@
 							if (isnull(data.code)) {
 								if (data.code == 200) {
 									//数据OK了
-									refreshdoc.endPullUpToRefresh();
-									
+									//mui('#pullup-container').pullRefresh().refresh(true);
+									// pagenumber[pid].endPullupToRefresh(true);
+									refreshdoc[pid].endPullUpToRefresh();
 									for (var i = 0; i < data.data.length; i++) {
-										
+										if (data.data[i].searchdata == 1) { //帖子
+											doc.appendChild(Parsepost(data.data[i]));
+										} else if (data.data[i].searchdata == 2) { //用户
+											doc.appendChild(ChoneToHTML(data.data[i]))
+										} else if (data.data[i].searchdata == 3) { //圈子
+											doc.appendChild(HtwoToHTML(data.data[i]))
+										}
 									}
+									pagenumber[pid] = pagenumber[pid] + 1;
 								} else {
 									// mui(".mui-scroll").pullRefresh().endPullUpToRefresh(true);
-									refreshdoc.endPullUpToRefresh(true); 
-									mui.toast(data.msg);
+									console.log("2112121212");
+									refreshdoc[pid].endPullUpToRefresh(true);
+									// mui.toast(data.msg);
 								}
 							} else {
-								refreshdoc.endPullUpToRefresh();
+								refreshdoc[pid].endPullUpToRefresh();
 								mui.toast("网络异常");
 							}
 						} else {
-							refreshdoc.endPullUpToRefresh();
+							refreshdoc[pid].endPullUpToRefresh();
 							mui.toast("网络异常");
 						}
 					});
@@ -351,8 +383,9 @@
 
 				//搜索按钮被单击
 				document.getElementsByClassName('qsub-top-sousuo')[0].addEventListener('tap', function() { /*tap表示单击屏幕，此处可换双击，滑动等等事件*/
-					//上拉加载doc 置为空
-					refreshdoc = undefined;
+					//页面置为空
+					pagenumber = {};
+					wd = document.getElementById("qsub-comment").value;
 					// newWebview("../search/search-home.html", "search-home");
 					var doclist = document.getElementsByClassName("mui-table-view");
 					//清空数据
@@ -360,7 +393,11 @@
 						doclist[i].innerHTML = "";
 					}
 					//加载数据
-					ToLoadData(page);
+					console.log("搜索按钮被单击 加载数据");
+					ToLoadData(0);
+					ToLoadData(1);
+					ToLoadData(2);
+					ToLoadData(3);
 
 
 				});
