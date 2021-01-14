@@ -7,10 +7,11 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="./css/search-home.css" />
-		<link rel="stylesheet" type="text/css" href="../html/css/whole.css"/>
-		
+		<link rel="stylesheet" type="text/css" href="../html/css/whole.css" />
+
 		<script src="../login/js/windows.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/mui.js"></script>
+		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init()
 		</script>
@@ -20,10 +21,13 @@
 	<body>
 		<header class="mui-bar mui-bar-nav qsub-search-header">
 			<a class="mui-action-back mui-pull-left qsub-back">
-				<svg t="1608637122522" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13011"><path d="M295.031467 597.333333H938.666667c47.1296 0 85.333333-38.203733 85.333333-85.333333s-38.203733-85.333333-85.333333-85.333333H293.8112L529.066667 191.4112c33.322667-33.322667 33.322667-87.3472 0-120.6784-33.322667-33.322667-87.355733-33.322667-120.6784 0L28.066133 451.054933a85.0688 85.0688 0 0 0-24.994133 60.330667c0 21.845333 8.337067 43.690667 25.002667 60.347733l380.3136 380.322134c33.322667 33.322667 87.355733 33.322667 120.6784 0 33.322667-33.3312 33.322667-87.355733 0-120.686934L295.031467 597.333333z" p-id="13012" fill="#6964FF"></path></svg>
+				<svg t="1608637122522" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13011">
+					<path d="M295.031467 597.333333H938.666667c47.1296 0 85.333333-38.203733 85.333333-85.333333s-38.203733-85.333333-85.333333-85.333333H293.8112L529.066667 191.4112c33.322667-33.322667 33.322667-87.3472 0-120.6784-33.322667-33.322667-87.355733-33.322667-120.6784 0L28.066133 451.054933a85.0688 85.0688 0 0 0-24.994133 60.330667c0 21.845333 8.337067 43.690667 25.002667 60.347733l380.3136 380.322134c33.322667 33.322667 87.355733 33.322667 120.6784 0 33.322667-33.3312 33.322667-87.355733 0-120.686934L295.031467 597.333333z"
+					 p-id="13012" fill="#6964FF"></path>
+				</svg>
 			</a>
 			<div class="mui-input-row qsub-input-ss">
-				<input type="text" placeholder="键入内容搜索">
+				<input type="text" id="qsub-comment" placeholder="键入内容搜索">
 			</div>
 			<div class="qsub-top-sousuo" id="qsub-top-ss">
 				<svg t="1608556250474" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3182"
@@ -34,13 +38,14 @@
 			</div>
 		</header>
 		<div class="mui-content">
-			<div class="qsub-search-hotrec">
+			<div class="qsub-search-hotrec" style="display: none;">
 				<div class="qsub-search-hotrec-top">
 					热门搜索
 				</div>
 			</div>
 
-			<div class="qsub-search-history">
+			<div class="qsub-search-history" style="display: none;">
+
 				<ul class="qsub-search-history-ul">
 					<li>
 						<div class="qsub-search-history-ul-div">
@@ -54,14 +59,15 @@
 					</li>
 					<li>
 						<div class="qsub-search-history-ul-div">
-							<div  style="color: #e1db2f;" class="qsub-search-history-ul-div-serial">
+							<div style="color: #e1db2f;" class="qsub-search-history-ul-div-serial">
 								2
 							</div>
 							<div class="qsub-search-history-ul-div-test">
 								2021年运势
 							</div>
 						</div>
-					</li><li>
+					</li>
+					<li>
 						<div class="qsub-search-history-ul-div">
 							<div style="color: #e1db2f;" class="qsub-search-history-ul-div-serial">
 								3
@@ -70,7 +76,8 @@
 								马保国之我的老师打算打打三ASDDASDDASDASDASDADASDASDASD
 							</div>
 						</div>
-					</li><li>
+					</li>
+					<li>
 						<div class="qsub-search-history-ul-div">
 							<div class="qsub-search-history-ul-div-serial">
 								4
@@ -79,7 +86,8 @@
 								我的2020
 							</div>
 						</div>
-					</li><li>
+					</li>
+					<li>
 						<div class="qsub-search-history-ul-div">
 							<div class="qsub-search-history-ul-div-serial">
 								5
@@ -100,7 +108,8 @@
 								河软干饭王
 							</div>
 						</div>
-					</li><li>
+					</li>
+					<li>
 						<div class="qsub-search-history-ul-div">
 							<div class="qsub-search-history-ul-div-serial">
 								7
@@ -109,7 +118,9 @@
 								表白软技JAVA
 							</div>
 						</div>
-					</li><li>
+					</li>
+
+					<li>
 						<div class="qsub-search-history-ul-div">
 							<div class="qsub-search-history-ul-div-serial">
 								8
@@ -118,7 +129,8 @@
 								秋枫-让世界变得更美好
 							</div>
 						</div>
-					</li><li>
+					</li>
+					<li>
 						<div class="qsub-search-history-ul-div">
 							<div class="qsub-search-history-ul-div-serial">
 								9
@@ -127,7 +139,8 @@
 								我与你同在
 							</div>
 						</div>
-					</li><li>
+					</li>
+					<li>
 						<div class="qsub-search-history-ul-div">
 							<div class="qsub-search-history-ul-div-serial">
 								10
@@ -139,65 +152,204 @@
 					</li>
 				</ul>
 			</div>
-			
-			
-			<div class="qsub-search-hotrec">
-				<div class="qsub-search-history qsub-history" id="">
-					<div id="">
-						历史记录
-					</div>
-					<div class="qsub-history-delete" id="">
-						<svg t="1608636846888" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6562" =><path d="M609.52730743 753.07354737a30.04211426 30.04211426 0 0 1-30.13357543-30.13275148V391.4607544a30.13357544 30.13357544 0 1 1 60.26715088 0v331.47921753a30.04211426 30.04211426 0 0 1-30.13357545 30.13357544z m-195.04385376 0a30.04211426 30.04211426 0 0 1-30.13357543-30.13275148V391.4607544a30.13357544 30.13357544 0 0 1 60.26715088 0v331.47921753a30.04211426 30.04211426 0 0 1-30.13357545 30.13357544z m489.25799561-502.05596924H753.07357209v-70.49185181C753.07357209 130.73706055 712.81746856 90.125 663.37569611 90.125H361.3362674a90.54327393 90.54327393 0 0 0-90.40072632 90.40072632v70.49102783H120.25860016A30.04211426 30.04211426 0 0 0 90.12502471 281.10006714c0 16.71432495 13.41842651 32.16796875 30.13357544 32.16796875h783.48284912c16.71514893 0 30.13357544-15.4536438 30.13357544-32.16796875a30.04211426 30.04211426 0 0 0-30.13357544-30.08331299z m-572.50744628-70.49185181a30.19454956 30.19454956 0 0 1 30.13357544-30.13357544h302.04766845c16.48114013 0 29.43237305 13.22479248 29.43237304 30.13357544v70.49102783H331.234003v-70.49102783zM723.06194488 933.875H301.18200103a90.54327393 90.54327393 0 0 1-90.40072632-90.40072632V390.99273682a30.13357544 30.13357544 0 1 1 60.26715088 0v452.48153686a30.19454956 30.19454956 0 0 0 30.13357544 30.15417481h421.99200441a30.19454956 30.19454956 0 0 0 30.13357542-30.13357544V392.28472901a30.13357544 30.13357544 0 1 1 60.26715088 0v451.18954467C813.45278352 893.26293945 772.88109771 933.875 723.03145783 933.875z" p-id="6563" fill="#8a8a8a"></path></svg>
-					</div>
-				</div>
-				<div class="qsub-history-contue">
-					java怎么样
-				</div>
-				<div class="qsub-history-contue">
-					java月薪
-				</div>
-				<div class="qsub-history-contue">
-					java最高挣多少
-				</div>
-				<div class="qsub-history-contue">
-					java是什么
-				</div>
-				<div class="qsub-history-contue">
-					java是什么
-				</div>
-				<div class="qsub-history-contue">
-					java是什么
-				</div>
-				<div class="qsub-history-contue">
-					java是什么
-				</div>
-				<div class="qsub-history-contue">
-					java是什么
-				</div>
-				<div class="qsub-history-contue">
-					java是什么
-				</div>
-				<div class="qsub-history-contue">
-					java是什么
-				</div>
-				<div class="qsub-history-contue">
-					java是什么
-				</div>
+
+
+			<div class="qsub-search-hotrec" style="display: none;">
+
 			</div>
 		</div>
-		
-		
-		
-		<script type="text/javascript">
-			document.getElementById('qsub-top-ss').addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
-			    newWebview("searchdetails.html","searchdetails");
-			});
-			
-			
-			
-		</script>
-		
-		
-	</body>
 
+
+
+
+		<script type="text/javascript">
+			var token = localStorage.getItem("token");
+
+			//窗口切换完毕事件
+			mui.plusReady(function() {
+				GetPast(); //获取历史记录
+				httpPost(url_search_hot, {
+					"token": token,
+				}, function(data) {
+					console.log(JSON.stringify(data))
+					if (isnull(data)) {
+						if (isnull(data.code)) {
+							if (data.code == 200) {
+								console.log(JSON.stringify(data.data));
+								for (var i = 0; i < data.data.length; i++) {
+									//文字赋值对象
+									var docObject = document.getElementsByClassName("qsub-search-history-ul-div-test")[i];
+									docObject.textContent = data.data[i];
+									sethistorytap(mui(".qsub-search-history-ul-div")[i], data.data[i]);
+								}
+
+								console.log(data.data.length)
+								if (data.data.length == 10) {
+									console.log(data.data.length);
+									document.getElementsByClassName("qsub-search-history")[0].style.display = "flex";
+									document.getElementsByClassName("qsub-search-hotrec")[0].style.display = "block";
+									// mui(".qsub-search-history")[0].
+									// mui(".qsub-search-hotrec")[0].style.display = "block";
+								}
+
+								// qsub-search-hotrec
+							} else {
+								mui.toast(data.msg);
+							}
+						}
+					}
+				});
+			});
+
+
+			//赋予热搜对象事件
+			function sethistorytap(doc, text) {
+				doc.addEventListener("tap", function() {
+					console.log(text);
+					mui("#qsub-comment")[0].value = text;
+					// 点击提交按钮
+					document.getElementById("qsub-top-ss").click();
+					
+					
+					
+				});
+			}
+
+
+			//存入历史记录
+			function SetPast(data) {
+				console.log("sadasddsadsa")
+				if (!isnull(data)) {
+					return;
+				}
+				//取出数据
+				var locadata = localStorage.getItem("history");
+				console.log(locadata)
+
+				if (isnull(locadata)) {
+					//以前有过数据  -- 添加操作
+					console.log("这里");
+					locadata = JSON.parse(locadata);
+					//加入元素
+					locadata.splice(0, 0, data);
+					//遍历去重
+					for (var i = 1; i < locadata.length; i++) {
+						if (locadata[i] == data) {
+							//从i开始删除一个元素
+							locadata.splice(i, 1);
+						}
+					}
+					if (locadata.length > 10) {
+						//如果长度大于十则只要前十个
+						var jialocadata = [];
+						for (var i = 0; i < 10; i++) {
+							jialocadata.push(locadata[i]);
+						}
+						locadata = jialocadata
+					}
+
+					localStorage.setItem("history", JSON.stringify(locadata));
+				} else {
+					//以前没数据--存入数据操作
+					locadata = [data];
+					console.log("无数据");
+					localStorage.setItem("history", JSON.stringify(locadata));
+				}
+				console.log(localStorage.getItem("history"));
+			}
+
+			/**
+			 * @desc 取历史记录
+			 */
+			function GetPast() {
+				var locadata = localStorage.getItem("history");
+				if (isnull(locadata)) {
+					console.log(locadata);
+					historytoHTML(JSON.parse(locadata)); //加载数据
+
+					document.getElementsByClassName("qsub-history-delete")[0].addEventListener('tap',function(){
+						console.log("删除数据");
+						localStorage.removeItem("history");
+						mui(".qsub-search-hotrec")[1].style.display = "none";
+					});
+					
+				}
+
+			}
+
+
+
+
+
+
+
+			/**
+			 * @desc 渲染数据 -> 历史数据
+			 * @param {Object} data
+			 */
+			function historytoHTML(data) {
+				
+				var qsub_search_hotrec = mui(".qsub-search-hotrec")[1]
+				qsub_search_hotrec.style.display = "block";
+				var class_data = '<div class="qsub-search-history qsub-history" id="">' +
+					'<div id="">' +
+					'	历史记录' +
+					'</div>' +
+					'<div class="qsub-history-delete" id="">' +
+					'<svg t="1608636846888" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6562"=>' +
+					'	<path d="M609.52730743 753.07354737a30.04211426 30.04211426 0 0 1-30.13357543-30.13275148V391.4607544a30.13357544 30.13357544 0 1 1 60.26715088 0v331.47921753a30.04211426 30.04211426 0 0 1-30.13357545 30.13357544z m-195.04385376 0a30.04211426 30.04211426 0 0 1-30.13357543-30.13275148V391.4607544a30.13357544 30.13357544 0 0 1 60.26715088 0v331.47921753a30.04211426 30.04211426 0 0 1-30.13357545 30.13357544z m489.25799561-502.05596924H753.07357209v-70.49185181C753.07357209 130.73706055 712.81746856 90.125 663.37569611 90.125H361.3362674a90.54327393 90.54327393 0 0 0-90.40072632 90.40072632v70.49102783H120.25860016A30.04211426 30.04211426 0 0 0 90.12502471 281.10006714c0 16.71432495 13.41842651 32.16796875 30.13357544 32.16796875h783.48284912c16.71514893 0 30.13357544-15.4536438 30.13357544-32.16796875a30.04211426 30.04211426 0 0 0-30.13357544-30.08331299z m-572.50744628-70.49185181a30.19454956 30.19454956 0 0 1 30.13357544-30.13357544h302.04766845c16.48114013 0 29.43237305 13.22479248 29.43237304 30.13357544v70.49102783H331.234003v-70.49102783zM723.06194488 933.875H301.18200103a90.54327393 90.54327393 0 0 1-90.40072632-90.40072632V390.99273682a30.13357544 30.13357544 0 1 1 60.26715088 0v452.48153686a30.19454956 30.19454956 0 0 0 30.13357544 30.15417481h421.99200441a30.19454956 30.19454956 0 0 0 30.13357542-30.13357544V392.28472901a30.13357544 30.13357544 0 1 1 60.26715088 0v451.18954467C813.45278352 893.26293945 772.88109771 933.875 723.03145783 933.875z"' +
+					'	 p-id="6563" fill="#8a8a8a"></path>' +
+					'</svg>' +
+					'</div>' +
+					'</div>';
+
+
+				//清空元素
+				qsub_search_hotrec.innerHTML = class_data;
+
+				for (var i = 0; i < data.length; i++) {
+					var newclasse = document.createElement('div');
+					newclasse.className = "qsub-history-contue";
+					newclasse.textContent = data[i];
+					qsub_search_hotrec.appendChild(newclasse);
+					sethistorytap(newclasse, data[i]);
+				}
+			}
+
+
+
+
+
+
+
+
+
+
+			document.getElementById('qsub-top-ss').addEventListener('tap', function() { /*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+				// newWebview("searchdetails.html", "searchdetails");
+				//写入历史记录
+				SetPast(mui("#qsub-comment")[0].value);
+				GetPast();
+				console.log("开始");
+				if(isnull(mui("#qsub-comment")[0].value)){
+					mui.openWindow({
+						url: "search-result.html",
+						id: "search-result",
+						extras: {
+							"comment":mui("#qsub-comment")[0].value
+						},
+						createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+						show: {
+							autoShow: true,
+							aniShow: "slide-in-right",
+							duration: 100
+						},
+					});
+				}
+				
+				
+				
+			});
+		</script>
+	</body>
 </html>

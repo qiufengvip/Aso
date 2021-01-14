@@ -1,4 +1,4 @@
-var servers = "https://xiaoyouhui1.cn1.utools.club";
+var servers = "http://xiaoyouhui1.cn1.utools.club/FriendAssociation";
 var url_user_loginverify = "/api/user/loginverify";  //账号验证 获取头像
 var url_user_login_face = "/api/user/login"; //登录-密码登录-人脸登录
 var url_uesr_sign = "/api/user/sign";    //注册新账号
@@ -21,6 +21,10 @@ var url_chat_getmesslist = "/api/chat/getmesslist";  //获取消息列表
 var url_char_send2usermsg =  "/api/chat/send2usermsg";  //发送消息和图片
 var url_char_messageread =  "/api/chat/messageread";    //置为已读
 var url_char_gethistory  = "/api/user/gethistory";   //获取历史消息记录
+//---------------------------搜索开始----------------------------//
+var url_search_hot = "/api/search/hot";  //搜索-热点
+var url_search_getdata = "/api/search/getdata";  //搜索-数据展示
+
 
 
 function httpPost(urls,data,returnfun){
