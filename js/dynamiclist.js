@@ -191,55 +191,55 @@ function dynamiclist(headimg,username,contents,Circlename,imgurl,id,postzan,post
  * @
  */
 function Parsepost(data){
-console.log("解析数据");
-if(data!=undefined & data != null & data != ""){
-	if(data.type!=undefined & data.type != null & data.type != ""){
-		if(data.type ==1){ //文字帖
-			return dynamiclist(
-			data.userinfo.useravatar,
-			data.userinfo.uname,
-			data.posttext,
-			data.placa.placaname,
-			"",
-			data.postid,
-			data.postzan,
-			data.postos,
-			data.postshare,
-			data.placa.placaid
-			)
-			
-			
-			
-		}else if(data.type ==2){  //图片帖子
-			return dynamiclist(
-			data.userinfo.useravatar,
-			data.userinfo.uname,
-			data.posttext,
-			data.placa.placaname,
-			data.postimg,
-			data.postid,
-			data.postzan,
-			data.postos,
-			data.postshare,
-			data.placa.placaid
-			)
-		}else if(data.type ==3){   //视频
-			return dynamiclist(
-			data.userinfo.useravatar,
-			data.userinfo.uname,
-			data.posttext,
-			data.placa.placaname,
-			"",
-			data.postid,
-			data.postzan,
-			data.postos,
-			data.postshare,
-			data.placa.placaid
-			)
+	console.log("解析数据");
+	if(data!=undefined & data != null & data != ""){
+		if(data.type!=undefined & data.type != null & data.type != ""){
+			if(data.type ==1){ //文字帖
+				return dynamiclist(
+				data.userinfo.useravatar,
+				data.userinfo.uname,
+				data.posttext,
+				data.placa.placaname,
+				"",
+				data.postid,
+				data.postzan,
+				data.postos,
+				data.postshare,
+				data.placa.placaid
+				)
+				
+				
+				
+			}else if(data.type ==2){  //图片帖子
+				return dynamiclist(
+				data.userinfo.useravatar,
+				data.userinfo.uname,
+				data.posttext,
+				data.placa.placaname,
+				data.postimg,
+				data.postid,
+				data.postzan,
+				data.postos,
+				data.postshare,
+				data.placa.placaid
+				)
+			}else if(data.type ==3){   //视频
+				return dynamiclist(
+				data.userinfo.useravatar,
+				data.userinfo.uname,
+				data.posttext,
+				data.placa.placaname,
+				"",
+				data.postid,
+				data.postzan,
+				data.postos,
+				data.postshare,
+				data.placa.placaid
+				)
+			}
 		}
 	}
-}
-return undefined;
+	return undefined;
 }
 
 

@@ -25,10 +25,13 @@
 		<!-- <link rel="stylesheet" type="text/css" href="./css/hot.css"/> -->
 		
 		
+		
 		<script type="text/javascript">
 			mui.init();
 			
 		</script>
+		
+		<script src="../js/search.js" type="text/javascript" charset="utf-8"></script>
 		
 	</head>
 
@@ -80,27 +83,8 @@
 								<div id="scroll1" class="mui-scroll-wrapper">
 									<div class="mui-scroll">
 										<ul class="mui-table-view">
-											<li>
-												<div class="search-uesr-list" id="">
-													<div class="search-uesr-list-left" id="">
-														<img src="./img/x18.png" >
-													</div>
-													<div class="search-uesr-list-centre" id="">
-														<div class="search-uesr-list-centre-name" id="">
-															<span>就业一姐</span>
-														</div>
-														<div class="search-uesr-list-centre-sign" id="">
-															<span>阿里HR，阅历丰富，姐姐带你吃软饭</span>
-														</div>
-														<div class="search-uesr-list-centre-info" id="">
-															<span>2333 关注 </span>·
-															<span>51211 粉丝</span>
-														</div>
-													</div>
-													<div class="search-uesr-list-right" id="">
-														<button type="button" class="search-uesr-list-right-botton">+关注</button>
-													</div>
-												</div>
+											<li id="lili">
+
 											</li>
 											
 											
@@ -550,6 +534,12 @@
 								}
 							}
 						});
+						
+						document.getElementById("lili").append(
+							searchtwo('http://file.qsub.cn/082cfad61e9a4461a93d786c9a248c111608481610394.jpg',
+								'软饭姐姐','阿里HR，阅历丰富，姐姐带你吃软饭。','6666','6666'
+							)
+						);
 						
 						var sliderSegmentedControl = document.getElementById('sliderSegmentedControl');
 						$('.mui-input-group').on('change', 'input', function() {

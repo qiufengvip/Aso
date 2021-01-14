@@ -1,0 +1,116 @@
+*{
+	padding: 0px;
+	margin: 0px;
+}
+.top-jb-div{
+	width: 100%;
+	height: 250px;
+	background: linear-gradient(#6968FF, #98defd);
+	border-radius: 0 0 30px 30px;
+}
+.top-jb-div-white{
+	position: absolute;
+	top: 100px;
+	margin-left: 5%;
+	width: 90%;
+	height: 200px;
+	background: white;
+	border-radius: 30px;
+	display: flex;
+	flex-direction: column;
+}
+.box1{
+	width: 100%;
+	height: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.top-white-top{
+	width: 60%;
+	display: flex;
+	
+}
+.top-white-top-img{
+	width: 3rem;
+	height: 3rem;
+	border-radius: 100%;
+	object-fit: cover;
+}
+.top-jb-div-02{
+	margin-top: 30px;
+	width: 90%;
+	margin-left: 5%;
+	height: 80px;
+	background: #dbf5fe;
+	border-radius: 0 0 30px 30px;
+}
+.centerbox{
+	margin-top: 10px;
+	width: 90%;
+	height: 250px;
+	margin-left: 5%;
+	background: white;
+	border-radius: 10px;
+}
+.tx-left{
+	margin-left: 10px;
+	display: flex;
+	flex-direction: column;
+}
+.nicheng{
+	margin-top: 8px;
+	font-weight: bold;
+}
+.geqian{
+	font-size: 10px;
+	margin-top: 5px;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+}
+.mememe{
+	width: 30%;
+	height: 100%;
+}
+.mememe div{
+	
+	margin-top: 55px;
+	font-size: 8px;
+	color:#bebebe ;
+}
+.box2{
+	width: 100%;
+	height: 50%;
+	display: flex;
+}
+.box2 div{
+	flex: 1;
+	display: flex;
+}
+.xx1{
+	
+	flex-direction: column;
+
+}
+.xx1 div{
+	/* border: red solid 1px; */
+	line-height: 100%;
+}
+.numb{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	font-weight: bold;
+}
+.box2>div{
+	margin-top: 10px;
+	height: 55%;
+	border-right: black solid 2px; 
+}
+.box2>div:nth-child(4){
+	border: none;
+}

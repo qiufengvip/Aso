@@ -94,24 +94,3 @@ function NewMessageDocToHTML(data){
 
 
 
-// <div class="qsub-infonews" id="">
-// 	<img class="qsub-infonews-img" src="img/x18.png">
-// 	<div class="qsub-infonews-left" id="">
-// 		<div class="qsub-infonews-left-top">
-// 			<div class="qsub-infonews-username">
-// 				秋枫
-// 			</div>
-// 			<div class="qsub-infonews-number">
-// 				99+
-// 			</div>
-// 		</div>
-// 		<div class="qsub-infonews-left-bottom">
-// 			<div class="qsub-infonews-info">
-// 				你号我是的hi大撒法你号我是的hi大撒法你号我是的hi大撒法你号我是的hi大撒法你号我是的hi大撒法
-// 			</div>
-// 			<div class="qsub-infonews-time">
-// 				12:12
-// 			</div>
-// 		</div>
-// 	</div>
-// </div>

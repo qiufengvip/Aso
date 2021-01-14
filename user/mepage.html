@@ -8,7 +8,10 @@
 		<link href="../css/mui.css" rel="stylesheet" />
 		<script src="../js/mui.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/mepage.css" />
-		<link rel="stylesheet" type="text/css" href="../home/css/Topic.css"/>
+		<link rel="stylesheet" type="text/css" href="../home/css/Topic.css" />
+		<script src="../js/dynamiclist.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/dynamiclist.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init();
@@ -24,26 +27,26 @@
 						<!-- 顶部 -->
 						<div class="qsub-user-top">
 							<div class="qsub-user-top-uesr">
-								<img class="qsub-user-top-uesr-img" src="../login/img/userimg.png">
+								<img id="userimg" class="qsub-user-top-uesr-img" src="../login/img/userimg.png">
 								<div class="qsub-user-info">
 									<div class="qsub-user-top-uesr-info" id="">
-										<div class="qsub-user-top-uesr-name">
+										<div class="qsub-user-top-uesr-name" id="username">
 											秋枫
 										</div>
-										<div class="qsub-user-top-uesr-sign">
+										<div class="qsub-user-top-uesr-sign" id="usersign">
 											让世界变得更美好
 										</div>
 									</div>
 
 									<div class="qsub-user-top-uesr-attention" id="">
-										<button type="button" class="qsub-user-top-uesr-attention-botton">+关注</button>
+										<button type="button" id="butguanzhu" class="qsub-user-top-uesr-attention-botton">+关注</button>
 									</div>
 								</div>
 
 
 								<div class="qsub-user-social-info" id="">
 									<div class="qsub-user-social-nr">
-										<div class="qsub-user-social-number">
+										<div class="qsub-user-social-number" id="zan">
 											50w
 										</div>
 										<div class="qsub-user-social-text">
@@ -51,7 +54,7 @@
 										</div>
 									</div>
 									<div class="qsub-user-social-nr" style="border-right: #d4d4d4 solid 1px;border-left: #d4d4d4 solid 1px ;">
-										<div class="qsub-user-social-number">
+										<div class="qsub-user-social-number" id="fans">
 											50
 										</div>
 										<div class="qsub-user-social-text">
@@ -59,22 +62,37 @@
 										</div>
 									</div>
 									<div class="qsub-user-social-nr">
-										<div class="qsub-user-social-number">
+										<div class="qsub-user-social-number" id="gz">
 											100
 										</div>
 										<div class="qsub-user-social-text">
 											关注
 										</div>
 									</div>
+
+									<div class="qsub-user-social-nr" style="border-right: #d4d4d4 solid 1px;border-left: #d4d4d4 solid 1px ;">
+										<div class="qsub-user-social-number" id="sendmsg">
+											聊天
+										</div>
+										<div class="qsub-user-social-text">
+											快和他联系吧
+										</div>
+									</div>
+
 								</div>
 							</div>
 						</div>
 					</li>
-					
+
 				</ul>
 			</div>
 		</div>
 		<script>
+			var userid = 0;
+			var token = localStorage.getItem('token');
+			var page = 1;
+			var useravatar = null;
+			var username = null;
 			mui.init({
 				pullRefresh: {
 					container: '#pullrefresh',
@@ -83,21 +101,69 @@
 					}
 				}
 			});
+
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview(); //获取当前窗体对象
+				userid = self.userid; //接收A页面传入的评论id参数值
+
+
+				httpPost(url_mepage, {
+					'token': token,
+					'userid': userid
+				}, function(data) {
+					var code = data.code;
+					if (code == "200") {
+						var datas = data.data;
+						username = data.data.username;
+						var uesrsign = data.data.uesrsign;
+						var isconcern = data.data.isconcern;
+						useravatar = data.data.useravatar;
+						var great = data.data.great;
+						var fans = data.data.fans;
+						var concern = data.data.concern;
+
+						var dynamiclist = data.data.dynamiclist;
+						for (var i = 0; i < dynamiclist.length; i++) {
+							mui('#mui-table-view-id')[0].appendChild(Parsepost(dynamiclist[i]));
+
+						}
+						setview(username, uesrsign, isconcern, useravatar, great, fans, concern);
+					} else {
+						mui.toast(data.msg);
+					}
+
+				});
+
+			});
+
 			var count = 0;
 			/**
 			 * 上拉加载具体业务实现
 			 */
 			function pullupRefresh() {
-				setTimeout(function() {
-					mui('#pullrefresh').pullRefresh().endPullupToRefresh(false); //参数为true代表没有更多数据了。
-					var table = document.body.querySelector('.mui-table-view');
-					var cells = document.body.querySelectorAll('.mui-table-view-cell');
-					for (var i = cells.length, len = i + 5; i < len; i++) {
-						mui("#mui-table-view-id")[0].appendChild(createFragment01(mui("#mui-table-view-id")[0], 0,1));
+				httpPost(url_mepage_xl, {
+					'token': token,
+					'userid': userid,
+					'page': page,
+					'size': '1'
+				}, function(data) {
+					console.log(JSON.stringify(data));
+					var codes = data.code;
+					if (codes == '200') {
+						var dataall = data.data;
+						for (var i = 0; i < dataall.length; i++) {
+							mui('#mui-table-view-id')[0].appendChild(Parsepost(dataall[i]));
+
+						}
+						page++;
+					} else {
+						mui.toast(data.msg);
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
 					}
-				}, 100);
+					mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+				});
 			}
-			
+
 			if (mui.os.plus) {
 				mui.plusReady(function() {
 					setTimeout(function() {
@@ -105,14 +171,8 @@
 					}, 10);
 				});
 			}
-			
-			var x = document.getElementsByClassName('mui-table-view');
-			var i;
-			console.log(x.length);
-			for (i = 0; i < x.length; i++) {
-				console.log(i);
-			    x[i].appendChild(createFragment01(x[i], i,10));
-			}
+
+
 
 			//document.getElementsByClassName('mui-table-view')[0].appendChild(createFragment01( document.getElementsByClassName('mui-table-view')[0], index, 5));
 			function createFragment01(ul, index, count, reverse) {
@@ -123,34 +183,59 @@
 					li = document.createElement('li');
 					li.className = 'qsub';
 					console.log();
-					li.appendChild(dynamiclist("../home/img/x18.png","秋枫<br>","我发布的第"+ (length + (reverse ? (count - i) : (i + 1))) +"条说说","表白","http://file.qsub.cn/1672813b53be4b1fa8a2c9e69559df301608468083664.prifix",(length + (reverse ? (count - i) : (i + 1)))));
+					li.appendChild(dynamiclist("../home/img/x18.png", "秋枫<br>", "我发布的第" + (length + (reverse ? (count - i) : (i + 1))) +
+						"条说说", "表白", "http://file.qsub.cn/1672813b53be4b1fa8a2c9e69559df301608468083664.prifix", (length + (reverse ? (
+							count - i) : (i + 1)))));
 					fragment.appendChild(li);
 					// li.onclick = function(){
 					//    // show(certid.value,i);
 					//    //var tezst = "这是" +(length + (reverse ? (count - i) : (i + 1)));
-					   
+
 					//    newWebview("postdetails.html","postdetails");
 					//    //mui.toast(tezst);
 					// };
 				}
 				return fragment;
 			};
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
+
+			document.getElementById('butguanzhu').addEventListener("tap", function() {
+				mui.toast("关你妈......");
+			});
+
+			function setview(username, usersign, isconcern, useravatar, great, fans, concern) {
+				$('#userimg').attr("src", useravatar);
+				$('#username').text(username);
+				$('#usersign').text(usersign);
+				$('#zan').text(great);
+				$('#fans').text(fans);
+				$('#gz').text(concern);
+				var guanzhu = $('#butguanzhu');
+				if (isconcern) {
+					guanzhu.text("已关注");
+				} else {
+					guanzhu.text("+关注");
+				}
+			}
+
+
+			document.getElementById('sendmsg').addEventListener('tap', function() {
+				mui.openWindow({
+					url: "../home/chat.html",
+					id: "chat",
+					extras: {
+						"unread": userid, //对方的id
+						"userimg": useravatar,
+						"username": username,
+					},
+					createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+					show: {
+						autoShow: true,
+						aniShow: "slide-in-right",
+						duration: 100
+					}
+				});
+			});
 		</script>
 	</body>
 
