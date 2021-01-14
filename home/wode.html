@@ -8,6 +8,8 @@
 		<link href="../css/mui.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="./css/wodestyle.css"/>
 		<script src="../js/mui.js"></script>
+		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init()
 		</script>
@@ -23,16 +25,16 @@
 			<div class="box1">
 				<div class="top-white-top">
 					<div>
-						<img class="top-white-top-img" src="http://file.qsub.cn/1672813b53be4b1fa8a2c9e69559df301608468083664.prifix" alt="">
+						<img id="yonghutouxiang" class="top-white-top-img" src="" alt="">
 					</div>
 					<div class="tx-left">
-						<div class="nicheng">仙人掠夺者</div>
-						<div class="geqian">巴雷特激光大炮8888888元。</div>
+						<div class="nicheng" id="yonghuming">NULL</div>
+						<div class="geqian" id="yonghuqianming">null</div>
 					</div>
 				</div>
 				
 				<div class="mememe">
-					<div style="font-size: 15px;">
+					<div style="font-size: 15px;" id="meinfo">
 						个人资料
 						<svg t="1610377007583" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1872" width="20" height="10"><path d="M512.113587 960.438359c-6.737448 0-13.475919-2.572592-18.618033-7.723915-10.29139-10.293437-10.29139-26.974351 0-37.265742l263.312034-263.572978c10.286274-10.296507 26.950815-10.296507 37.237089 0 10.29139 10.293437 10.29139 26.974351 0 37.268812L530.73469 952.715467C525.589506 957.865767 518.851035 960.438359 512.113587 960.438359zM933.441495 538.725688 90.788749 538.725688c-14.543228 0-26.336832-11.806907-26.336832-26.358321 0-14.558577 11.793604-26.360368 26.336832-26.360368l779.073708 0L493.495554 109.287055c-10.29139-10.296507-10.29139-26.974351 0-37.270858 10.286274-10.296507 26.950815-10.296507 37.239136 0l421.324838 421.715741c7.53665 7.538697 9.798157 18.868743 5.706979 28.725228C953.705004 532.299325 944.085926 538.725688 933.441495 538.725688z" p-id="1873" fill="#bebebe"></path></svg>
 					</div>
@@ -43,7 +45,7 @@
 				
 				<div class="xx1" >
 					<div class="numb">
-						<div style="display: inline;margin-top: 5px;">5</div>
+						<div style="display: inline;margin-top: 5px;" id="dongtai">5</div>
 					</div>
 					<div class="numb">
 						<div style="display: inline;">发布动态</div>
@@ -55,7 +57,7 @@
 				
 				<div class="xx1" >
 					<div class="numb">
-						<div style="display: inline;margin-top: 5px;">5</div>
+						<div style="display: inline;margin-top: 5px;" id="guanzhu">5</div>
 					</div>
 					<div class="numb">
 						<div style="display: inline;">关注</div>
@@ -64,7 +66,7 @@
 				
 				<div class="xx1" >
 					<div class="numb">
-						<div style="display: inline;margin-top: 5px;">5</div>
+						<div style="display: inline;margin-top: 5px;" id="shoucangjia">0</div>
 					</div>
 					<div class="numb">
 						<div style="display: inline;">收藏夹</div>
@@ -73,10 +75,10 @@
 				
 				<div class="xx1" >
 					<div class="numb">
-						<div style="display: inline;margin-top: 5px;">5</div>
+						<div style="display: inline;margin-top: 5px;" id="zuijinliulan">5</div>
 					</div>
 					<div class="numb">
-						<div style="display: inline;">最近浏览</div>
+						<div style="display: inline;" >最近浏览</div>
 					</div>
 				</div>
 				
@@ -88,6 +90,46 @@
 		<div class="centerbox">
 			
 		</div>
+		
+		<script type="text/javascript">
+			var token = localStorage.getItem('token');
+			mui.plusReady(function() {
+				httpPost(url_get_me_info, {
+					'token': token
+				}, function(data) {
+					console.log(JSON.stringify(data))
+					var code = data.code;
+					if (code == "200") {
+						
+						var uesrsign = data.data.uesrsign;
+						var useravatar = data.data.useravatar;
+						var username = data.data.username;
+						var dynamic = data.data.dynamic;//发布动态
+						var concern = data.data.concern;//关注
+						var history = data.data.history;//历史记录
+						setview(username,uesrsign,dynamic,concern,history,useravatar);
+					} else {
+						mui.toast(data.msg);
+					}
+				});
+			});
+			
+			function setview(username,usersign,dynamic,concern,history,useravatar){
+				$('#yonghuming').text(username);
+				$('#yonghuqianming').text(usersign);
+				$('#dongtai').text(dynamic);
+				$('#guanzhu').text(concern);
+				$('#zuijinliulan').text(history);
+				$('#yonghutouxiang').attr('src',useravatar);
+			}
+			document.getElementById('meinfo').addEventListener("tap",function(){
+				
+				mui.openWindow({
+					url:'./modify_self_info.html',
+					id:'modify_self_info'
+				});
+			});
+		</script>
 	</body>
 
 </html>

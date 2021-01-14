@@ -24,7 +24,7 @@
 
 		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
 
-
+		<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
 
 		<script type="text/javascript">
 			mui.init()
@@ -50,7 +50,7 @@
 		</div>
 
 		<div class="body-tx-img">
-			<div>
+			<div id="modify_tx">
 				<div class="camera">
 					<svg t="1610423542439" class="icon" viewBox="0 0 1311 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4317"
 					 width="45" height="45">
@@ -98,7 +98,7 @@
 								
 							"
 							 type="text" placeholder="快速让别人了解你" id="usersign" value="" /></div>
-<!-- 						<div style="width: 0%;">
+						<!-- 						<div style="width: 0%;">
 
 						</div> -->
 					</div>
@@ -199,7 +199,7 @@
 					<div class="item-01">
 						<div class="contenttext" style="width: 25%">是否在校</div>
 						<div style="width: 80%">
-							<input id="inschool" type="text" style="
+							<input id="inschool" type="text" disabled="disabled" style="
 								
 								margin:0px; 
 								padding: 0px;
@@ -207,11 +207,11 @@
 								margin-left: 20px;
 								border: none;
 								background: no-repeat;
-							"/>
+							" />
 
 						</div>
-						<svg id="isinschool" style="width: 13%;" disabled="disabled"  t="1610428709380" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-						 p-id="5801" width="32" height="32">
+						<svg id="isinschool" style="width: 13%;" t="1610428709380" class="icon" viewBox="0 0 1024 1024" version="1.1"
+						 xmlns="http://www.w3.org/2000/svg" p-id="5801" width="32" height="32">
 							<path d="M512.113587 960.438359c-6.737448 0-13.475919-2.572592-18.618033-7.723915-10.29139-10.293437-10.29139-26.974351 0-37.265742l263.312034-263.572978c10.286274-10.296507 26.950815-10.296507 37.237089 0 10.29139 10.293437 10.29139 26.974351 0 37.268812L530.73469 952.715467C525.589506 957.865767 518.851035 960.438359 512.113587 960.438359zM933.441495 538.725688 90.788749 538.725688c-14.543228 0-26.336832-11.806907-26.336832-26.358321 0-14.558577 11.793604-26.360368 26.336832-26.360368l779.073708 0L493.495554 109.287055c-10.29139-10.296507-10.29139-26.974351 0-37.270858 10.286274-10.296507 26.950815-10.296507 37.239136 0l421.324838 421.715741c7.53665 7.538697 9.798157 18.868743 5.706979 28.725228C953.705004 532.299325 944.085926 538.725688 933.441495 538.725688z"
 							 p-id="5802" fill="#949494"></path>
 						</svg>
@@ -240,14 +240,14 @@
 						var userbir = data.data.userbir;
 						var username = data.data.username;
 						var ugraduate = data.data.ugraduate;
-						setview(useravatar, username, uesrsign, usersex, userbir, usermajor, uschool,ugraduate);
+						setview(useravatar, username, uesrsign, usersex, userbir, usermajor, uschool, ugraduate);
 					} else {
 						mui.toast(data.msg);
 					}
 				});
 			});
 
-			document.getElementById('save').addEventListener("tap",function(){
+			document.getElementById('save').addEventListener("tap", function() {
 				var username = $('#username').val();
 				var usersign = $('#usersign').val();
 				var usersex = $('#usersex').val();
@@ -257,25 +257,25 @@
 				var inscid = 0;
 				if (inschool == "在校生") {
 					inscid = 1;
-				} else{
+				} else {
 					inscid = 0;
 				}
-				
-				httpPost(url_modify_info,{
-					'token':token,
-					'uname':username,
-					'usigntext':usersign,
-					'usex':usersex,
-					'umajor':zy,
-					'ubir':userbir,
-					'ugraduate':inscid,
-				},function(data){
-					
+
+				httpPost(url_modify_info, {
+					'token': token,
+					'uname': username,
+					'usigntext': usersign,
+					'usex': usersex,
+					'umajor': zy,
+					'ubir': userbir,
+					'ugraduate': inscid,
+				}, function(data) {
+
 					mui.toast(data.msg);
 				});
 			});
 
-			function setview(tx, username, usersign, usersex, userbir, usermajor, school,ugraduate) {
+			function setview(tx, username, usersign, usersex, userbir, usermajor, school, ugraduate) {
 				$('#tx').attr('src', tx);
 				$('#username').attr('value', username);
 				$('#usersign').attr('value', usersign);
@@ -284,25 +284,25 @@
 				$('#zy').attr('value', usermajor);
 				$('#school').attr('value', school);
 				if (ugraduate == "1") {
-					$('#inschool').attr('value',"在校生");
-				} else{
-					$('#inschool').attr('value',"毕业生");
+					$('#inschool').attr('value', "在校生");
+				} else {
+					$('#inschool').attr('value', "毕业生");
 				}
-				
+
 			}
 			document.getElementById('shengri').addEventListener("tap", function() {
 				var dtPicker = new mui.DtPicker({
-						type:"date",
-						beginDate: new Date(1900, 01, 01),//设置开始日期 
-						endDate: new Date(2088, 01, 01),//设置结束日期 
+					type: "date",
+					beginDate: new Date(1900, 01, 01), //设置开始日期 
+					endDate: new Date(2088, 01, 01), //设置结束日期 
 				});
 
 				dtPicker.show(function(selectItems) {
 					var year = selectItems.y.text;
 					var month = selectItems.m.text;
 					var day = selectItems.d.text;
-					
-					$("#userbir").attr('value',year + "-" + month + "-" + day);
+
+					$("#userbir").attr('value', year + "-" + month + "-" + day);
 				})
 
 			});
@@ -326,8 +326,8 @@
 				});
 
 			});
-			
-			document.getElementById('isinschool').addEventListener("tap",function(){
+
+			document.getElementById('isinschool').addEventListener("tap", function() {
 				var userPicker = new mui.PopPicker();
 				userPicker.setData([{
 					value: 1,
@@ -338,14 +338,199 @@
 				}]);
 				userPicker.show(function(item) {
 					var id = item[0].value;
-					if(id == "1"){
-						$("#inschool").attr('value',"在校生" );
-					}else{
-						$("#inschool").attr('value',"毕业生" );
+					if (id == "1") {
+						$("#inschool").attr('value', "在校生");
+					} else {
+						$("#inschool").attr('value', "毕业生");
 					}
-					
+
 				});
 			});
 		</script>
+
+		<script type="text/javascript">
+			(function($) {
+				$.init();
+				$.plusReady(function() {
+					//初始化头像，和预览图
+					// setTimeout(function() {
+						//赋值一个默认的头像
+						
+						setTimeout(function() {
+							initImgPreview();
+						}, 200);
+					// }, 0);
+
+					//弹出菜单
+					document.getElementById('modify_tx').addEventListener("tap", function(e) {
+						
+						if (mui.os.plus) {
+							var a = [{
+								title: "拍照"
+							}, {
+								title: "从手机相册选择"
+							}];
+							plus.nativeUI.actionSheet({
+								title: "修改头像",
+								cancel: "取消",
+								buttons: a
+							}, function(b) {
+								switch (b.index) {
+									case 0:
+										break;
+									case 1:
+										getImage();
+										break;
+									case 2:
+										console.log("从手机");
+										galleryImg();
+										break;
+									default:
+										break
+								}
+							})
+						}
+
+					});
+				});
+
+				//拍照
+				function getImage() {
+					var c = plus.camera.getCamera();
+					c.captureImage(function(e) {
+						//存储到本地
+						plus.io.resolveLocalFileSystemURL(e, function(entry) {
+							cutImage(entry.toLocalURL()); //裁剪图片，传入绝对地址
+						}, function(e) {
+							console.log("读取拍照文件错误：" + e.message);
+						});
+					}, function(s) {
+						console.log("error" + s.text);
+					}, {
+						filename: "_doc/head.jpg"
+					})
+				}
+
+				//相册
+				function galleryImg() {
+					plus.gallery.pick(function(a) {
+						plus.io.resolveLocalFileSystemURL(a, function(entry) { //entry为图片原目录（相册）流
+							cutImage(entry.toLocalURL());
+						}, function(e) {
+							console.log("读取图片错误：" + e.message);
+						});
+					}, function(a) {}, {
+						filter: "image"
+					})
+				};
+
+
+				//预览图像
+
+
+				function initImgPreview() {
+					var imgs = document.querySelectorAll("img.mui-action-preview");
+					imgs = mui.slice.call(imgs);
+
+					if (imgs && imgs.length > 0) {
+						var slider = document.createElement("div");
+						slider.setAttribute("id", "__mui-imageview__");
+						slider.classList.add("mui-slider");
+						slider.classList.add("mui-fullscreen");
+						slider.style.display = "none";
+						slider.addEventListener("tap", function() {
+							slider.style.display = "none";
+						});
+						slider.addEventListener("touchmove", function(event) {
+							event.preventDefault();
+						})
+						var slider_group = document.createElement("div");
+						slider_group.setAttribute("id", "__mui-imageview__group");
+						slider_group.classList.add("mui-slider-group");
+						imgs.forEach(function(value, index, array) {
+							//给图片添加点击事件，触发预览显示；
+							value.addEventListener('tap', function() {
+								slider.style.display = "block";
+								_slider.refresh();
+								_slider.gotoItem(index, 0);
+							})
+							var item = document.createElement("div");
+							item.classList.add("mui-slider-item");
+							var a = document.createElement("a");
+							var img = document.createElement("img");
+							img.setAttribute("src", value.src);
+							a.appendChild(img)
+							item.appendChild(a);
+							slider_group.appendChild(item);
+						});
+						slider.appendChild(slider_group);
+						document.body.appendChild(slider);
+						var _slider = mui(slider).slider();
+					}
+				}
+
+				//裁剪图片
+				function cutImage(path) {
+					
+					$.openWindow({
+						url: 'cropper.html',
+						id: 'cropper',
+						extras: {
+							path: path,
+						},
+						show: {
+							aniShow: 'zoom-fade-in',
+							duration: 800
+						},
+						waiting: {
+							autoShow: true
+						}
+					});
+				}
+
+				//更新用户头像，主要是裁剪页面裁剪完后触发的
+				//添加updateHeadImg自定义事件监听
+				window.addEventListener('updateHeadImg', function(event) {
+					console.log("---------------------------------------------------------------");
+					//获得事件参数
+					var my_icon = event.detail.url;
+					upLoadFile(my_icon,token);
+					console.log(my_icon);
+					//根据id向服务器请求新闻详情
+					
+				});
+
+			})(mui);
+			
+			function upLoadFile(fileSrc, tokens) {
+				var wt = plus.nativeUI.showWaiting();
+				var task = plus.uploader.createUpload(servers + url_modify_tx, {
+						method: "POST"
+					},
+					function(t, status) { //上传成功服务器返回文件对象
+						if (status == 200) {
+							var data = JSON.parse(t.responseText)
+							console.log(JSON.stringify(data));
+							mui.toast(data.msg);
+							$('#tx').attr('src', fileSrc);
+							wt.close(); //关闭等待提示按钮
+						} else {
+							mui.alert("上传失败：" + status);
+							wt.close(); //关闭等待提示按钮
+						}
+					}
+				);
+				//设置参数
+				
+				task.addData("token", tokens);
+				task.addFile(fileSrc, {
+					key: "useravatar"
+				});
+				//go*-*
+				task.start();
+			}
+		</script>
+		
+
 	</body>
 </html>

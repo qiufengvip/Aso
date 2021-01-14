@@ -14,7 +14,9 @@ var url_circle_pushcomment = "/api/circle/pushcomment";   //发布评论
 var url_circle_commentdetail = "/api/circle/commentdetail";  //获取一级评论的详情
 var url_circle_pagecomment = "/api/circle/pagecomment";  //获取一级评论下面的评论分页
 
-
+var url_get_me_info = "/api/user/getmyuserinfo"//获取个人信息
+var url_modify_info = "/api/info/modify"//修改个人资料
+var url_modify_tx = "/api/info/amenduseravatar";//修改用户头像
 
 // ----------------------聊天开始---------------------- //
 var url_chat_getmesslist = "/api/chat/getmesslist";  //获取消息列表

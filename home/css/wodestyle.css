@@ -105,11 +105,13 @@
 	align-items: center;
 	text-align: center;
 	font-weight: bold;
+	font-size: 15px;
 }
 .box2>div{
+	color: #6968FF;
 	margin-top: 10px;
 	height: 55%;
-	border-right: black solid 2px; 
+	border-right: #5e5e5e solid 1px; 
 }
 .box2>div:nth-child(4){
 	border: none;
