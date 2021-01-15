@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>发送帖子</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.css">
+		<link rel="stylesheet" type="text/css" href="css/uploadpost.css" />
+		<script src="../js/mui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/qsub_video.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="../css/video.css" />
+		<script src="js/addphotos.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<!-- <h1 class="mui-title">发送动态</h1> -->
+			<button type="button" class="mui-btn mui-pull-right">发表</button>
+		</header>
+
+		<div class="mui-content" id="">
+			<textarea id="textarea" rows="5" placeholder="快来分享你的快乐吧!"></textarea>
+			<div class="" id="">
+				<div class="imgpage" id="">
+					<div id="video-data-boy" class="qsub-ands-video">
+
+
+					</div>
+
+
+					<div class="select" id="">
+						<svg t="1610698728893" class="iconss" viewBox="0 0 1027 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+						 p-id="2527" width="40" height="40">
+							<path d="M984.191664 461.608438h-428.184484v-415.402859c0-19.17244-19.17244-44.735692-44.735693-44.735692-25.563253 0-44.735692 25.563253-44.735692 51.126506v415.402858H51.132936c-25.563253-6.390813-51.126506 19.17244-51.126505 44.735693s25.563253 44.735692 44.735692 44.735692h415.402859v415.402858c6.390813 25.563253 25.563253 51.126506 51.126505 51.126506s44.735692-25.563253 44.735693-44.735692v-421.793672h421.793671c25.563253 0 44.735692-25.563253 44.735693-44.735692s-12.781626-51.126506-38.34488-51.126506z"
+							 fill="#9c9c9c" p-id="2528"></path>
+							</viewBoxsvg>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+
+
+
+		<script type="text/javascript">
+			var doc_controls = document.createElement("div");
+			doc_controls.className = "video-data"
+			document.getElementById("video-data-boy").appendChild(doc_controls);
+			new_qsub_video(doc_controls, "http://file.qsub.cn/1024.mp4");
+			
+
+			var vcurrent = document.getElementsByClassName("select")[0];
+			//在什么之上添加
+			vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
+			vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
+			vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
+			vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
+			vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
+			vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
+			vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
+			vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
+			vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
+
+
+			document.getElementsByClassName('select')[0].addEventListener('tap', function() {
+				if (mui.os.plus) {
+					var a = [{
+							title: "拍照"
+						},
+						{
+							title: "拍摄视频"
+						},
+						{
+							title: "从手机相册选择图片"
+						},
+						{
+							title: "从手机相册选择视频"
+						}
+					];
+					plus.nativeUI.actionSheet({
+						title: "上传文件",
+						cancel: "取消",
+						buttons: a
+					}, function(b) { /*actionSheet 按钮点击事件*/
+						switch (b.index) {
+							case 0:
+								break;
+							case 1:
+								getImage(); /*拍照*/
+								break;
+							case 3:
+								galleryImg(); /*打开相册*/
+								break;
+							case 2:
+								galleryVideo(); /*视频*/
+								break;
+							case 4:
+								gatVideo(); /*相册选择视频*/
+								break;
+							default:
+								break;
+						}
+					})
+				}
+			}, false);
+
+			// 获取  拍照图片
+			function getImage() {
+				var c = plus.camera.getCamera();
+				c.captureImage(function(e) {
+					plus.io.resolveLocalFileSystemURL(e, function(entry) {
+						var imgSrc = entry.toLocalURL() + "?version=" + new Date().getTime(); //拿到图片路径  
+						// upLoadFile(imgSrc, 'image');
+						mui("#imgs")[0].innerHTML = "";
+						setHtml(imgSrc);
+					}, function(e) {
+						console.log("读取拍照文件错误：" + e.message);
+					});
+				}, function(s) {
+					console.log("error" + s.message);
+				}, {
+					filename: "_doc/camera/"
+				})
+			}
+
+
+
+			// 获取拍照视频
+			function galleryVideo() {
+				var cam = plus.camera.getCamera();
+				cam.startVideoCapture(function(t) {
+					plus.io.resolveLocalFileSystemURL(t, function(entry) {
+						var videoSrc = entry.toLocalURL() + "?version=" + new Date().getTime(); //拿到图片路径  
+						// console.log(videoSrc)
+						mui("#imgs")[0].innerHTML = "";
+						setHtmlVideo(videoSrc);
+						// upLoadFile(videoSrc, 'video');
+					}, function(e) {
+						console.log("读取拍照文件错误：" + e.message);
+					});
+				}, function(e) {
+
+				}, {
+					filename: '_downloads/video/', //录像文件保存的路径
+					format: cam.supportedVideoFormats[0], //摄像的文件格式
+					index: 1, //摄像默认使用的摄像头
+					videoMaximumDuration: 10, //视频长度
+					resolution: cam.supportedVideoResolutions[0], //摄像使用的分辨率
+					popover: { //摄像界面弹出指定区域
+						top: "10px",
+						left: "10px",
+						width: "200px",
+						height: "200px"
+					}
+				})
+			}
+
+			//gatVideo  相册获取视频
+
+			function gatVideo() {
+				console.log("开始");
+				plus.gallery.pick(function(e) {
+					mui("#imgs")[0].innerHTML = "";
+					for (var i in e.files) {
+						var fileSrc = e.files[i];
+						// upLoadFile(fileSrc, 'image');
+						console.log(fileSrc);
+						setHtmlVideo(fileSrc);
+					}
+				}, function(e) {
+					console.log("取消选择视频");
+				}, {
+					filter: "video",
+					multiple: true,
+					maximum: 1,
+					system: false,
+					onmaxed: function() {
+						plus.nativeUI.alert('最多只能选择1个视频');
+					}
+				});
+			}
+
+
+
+			//获取相册图片
+			function galleryImg() {
+				console.log("开始");
+				
+				 var docimg =document.getElementsByClassName("img-data");
+				 console.log(docimg)
+				 if(docimg!=undefined){
+					 mui.toast(docimg.length)
+					 
+				 }
+				
+				
+				plus.gallery.pick(function(e) {
+					mui("#imgs")[0].innerHTML = "";
+					for (var i in e.files) {
+						var fileSrc = e.files[i];
+						// upLoadFile(fileSrc, 'image');
+						console.log(fileSrc);
+
+						setHtml(fileSrc);
+					}
+				}, function(e) {
+					console.log("取消选择图片");
+				}, {
+					filter: "image",
+					multiple: true,
+					maximum: 9,
+					system: false,
+					onmaxed: function() {
+						plus.nativeUI.alert('最多只能选择4张图片');
+					}
+				});
+			}
+			
+
+			var fileData = [];
+			var i = 0;
+
+
+			function upLoadFile(fileSrc, type) {
+				i++;
+				var wt = plus.nativeUI.showWaiting();
+				var upload_api = baseUrl + '/dfs/mongodb/file/upload'
+				var task = plus.uploader.createUpload(upload_api, {
+						method: "POST"
+					},
+					function(t, status) { //上传成功服务器返回文件对象
+						if (status == 200) {
+							// mui.alert("上传成功！" + t.responseText);
+							var objData = JSON.parse(t.responseText)
+							var obj = [{
+								type: type,
+								uid: objData[0].id,
+								name: objData[0].name ? objData[0].name : 'uploadFile' + i,
+								url: objData[0].path,
+								size: objData[0].size,
+								duartion: 0,
+								status: 'done'
+							}];
+							fileData = fileData.concat(obj);
+							wt.close(); //关闭等待提示按钮
+						} else {
+							mui.alert("上传失败：" + status);
+							wt.close(); //关闭等待提示按钮
+						}
+					}
+				);
+				task.setRequestHeader('token', localStorage.getItem('access_token'));
+				task.addData("sysChannel", '');
+				task.addData("applyId", '');
+				task.addFile(fileSrc, {
+					key: "file"
+				});
+				task.start();
+			}
+		</script>
+
+
+
+
+	</body>
+</html>

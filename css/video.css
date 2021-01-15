@@ -1,0 +1,121 @@
+html {
+    padding: 0;
+    margin: 0;
+}
+
+.video_warp {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    position: relative;
+    text-align: center;
+}
+
+video {
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+}
+
+.controls {
+	
+    top: 0;
+    width: 100%;
+    height: 100%;
+    line-height: 20px;
+    text-align: left;
+    box-sizing: border-box;
+    /* padding-left: 5px; */
+	display: flex;
+	
+	justify-content: center;
+	align-items: center;
+	
+    position: absolute;
+	
+}
+
+.progress {
+    display: inline-block;
+    width: 80%;
+    height: 5px;
+    line-height: 10px;
+    background: #e5e9ef30;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.video_timer {
+	/* align-self: flex-end; */
+	font-size: 15px;
+    width: 100%;
+    /* padding: 10px; */
+    display: inline-block;
+    vertical-align: bottom;
+    position: absolute;
+    bottom: 0;
+	padding: 5px;
+	margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.timrBar {
+    height: 5px;
+    background-color: #6968ff;
+}
+
+
+/*yinliang*/
+
+.video_sound {
+    position: absolute;
+    width: 100px;
+    height: 10px;
+    background: #6968ff;
+    bottom: 5px;
+    right: 48px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.soundBar {
+    height: 100%;
+    background: #00a1d6;
+}
+
+
+/*全屏*/
+
+
+/*时间*/
+
+.qsub_currentTime {
+    padding-left: 10px;
+    color: #fff;
+	
+}
+
+.qsub_duration {
+    color: #fff;
+}
+
+.qsub_video_play {
+    /* position: absolute; */
+    width: 50px;
+    height: 50px;
+    /* top: 40%; */
+    /* left: 45%; */
+}
+
+.qsub_quanping {
+    margin-left: 5px;
+    align-self: flex-end;
+    background: url(../img/qp.png);
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+	padding: 5px;
+}
