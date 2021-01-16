@@ -41,7 +41,7 @@
 									</div>
 
 									<div class="qsub-user-top-uesr-attention" id="">
-										<button type="button" id="butguanzhu" class="qsub-user-top-uesr-attention-botton">+关注</button>
+										<button type="button" id="butguanzhu" class="qsub-user-top-uesr-attention-botton" >+关注</button>
 									</div>
 								</div>
 
@@ -202,17 +202,19 @@
 
 
 			document.getElementById('butguanzhu').addEventListener("tap", function() {
-				var guanzhu = $('#butguanzhu');
+				var guanzhu = document.getElementById("butguanzhu");
+				// console.log(guanzhu.innerHTML);
 				httpPost(url_add_guanzhu, {
 					'token': token,
 					'userid': userid,
 				}, function(data) {
 					if(isnull(data)){
 						if(data.code == 200){
-							if (guanzhu.text == "已关注") {
-								guanzhu.text = "+关注";
+							// console.log(guanzhu.innerHTML)
+							if (guanzhu.innerHTML == "已关注") {
+								guanzhu.innerHTML = "+关注";
 							} else {
-								guanzhu.text = "已关注";
+								guanzhu.innerHTML = "已关注";
 							}
 						}
 						mui.toast(data.msg);
