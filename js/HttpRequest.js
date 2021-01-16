@@ -17,6 +17,7 @@ var url_circle_pagecomment = "/api/circle/pagecomment";  //获取一级评论下
 var url_get_me_info = "/api/user/getmyuserinfo"//获取个人信息
 var url_modify_info = "/api/info/modify"//修改个人资料
 var url_modify_tx = "/api/info/amenduseravatar";//修改用户头像
+var url_add_guanzhu = "/api/user/focus";//关注用户
 
 // ----------------------聊天开始---------------------- //
 var url_chat_getmesslist = "/api/chat/getmesslist";  //获取消息列表

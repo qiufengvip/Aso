@@ -202,7 +202,27 @@
 
 
 			document.getElementById('butguanzhu').addEventListener("tap", function() {
-				mui.toast("关你妈......");
+				var guanzhu = $('#butguanzhu');
+				httpPost(url_add_guanzhu, {
+					'token': token,
+					'userid': userid,
+				}, function(data) {
+					if(isnull(data)){
+						if(data.code == 200){
+							if (guanzhu.text == "已关注") {
+								guanzhu.text = "+关注";
+							} else {
+								guanzhu.text = "已关注";
+							}
+						}
+						mui.toast(data.msg);
+					}
+					
+					
+				});
+				
+
+				
 			});
 
 			function setview(username, usersign, isconcern, useravatar, great, fans, concern) {
