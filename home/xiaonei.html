@@ -12,14 +12,23 @@
 		<script src="../js/dynamiclist.js" type="text/javascript" charset="utf-8"></script>
 		<link rel="stylesheet" type="text/css" href="./css/Topic.css" />
 		<link rel="stylesheet" type="text/css" href="css/xiaonei.css" />
+		<link rel="stylesheet" type="text/css" href="css/pushpost.css"/>
 		<!-- <script src="../js/mui.js" type="text/javascript" charset="utf-8"></script> -->
 		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../login/js/windows.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/pushpostbutton.js" type="text/javascript" charset="utf-8"></script>
+		
 		<style>
 			html,
 			body {
 				background-color: #efeff4;
 			}
+			.mui-content{
+				overflow: hidden;
+				position: relative;
+				height: 100vh;
+			}
+			
 		
 			.mui-bar~.mui-content .mui-fullscreen {
 				top: 44px;
@@ -203,9 +212,7 @@
 				</div>
 			</div>
 			<!-- 发布新消息按钮 -->
-			<div class="qsub-publish">
-
-			</div>
+			
 
 		</div>
 
@@ -214,6 +221,7 @@
 		<script src="js/mui.pullToRefresh.material.js"></script>
 		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
 		<script>
+			addpushbutton()
 			var platetype = {
 				1: "25", //表白墙
 				2: "24", //寻物

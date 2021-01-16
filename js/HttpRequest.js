@@ -29,6 +29,13 @@ var url_search_getdata = "/api/search/getdata";  //搜索-数据展示
 
 
 
+//-------------------------------发送 动态-----------------------------//
+var url_issue_circle  =  "/api/issue/circle";  //获取圈子信息
+var url_issue_dynamic =  "/api/issue/dynamic"; //发布动态
+ 
+
+
+
 function httpPost(urls,data,returnfun){
 	var url = servers+urls;
 	console.log(url)

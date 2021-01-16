@@ -120,6 +120,12 @@ function new_qsub_video(maindoc, videourl) {
                     if (v.timer.style.display == "none") {
                         console.log(v.timer.style.display);
                         shows();
+						setTimeout(function() {
+						    // alert("Hello");
+						   if (isstop) {
+						       hides();
+						   }
+						}, 3000);
                     }
 
                 }

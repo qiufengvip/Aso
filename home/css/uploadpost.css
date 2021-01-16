@@ -4,9 +4,21 @@ body{
 
 
 
+
+
+
+.video-data{
+	position: relative;
+}
+
+
 .qsub-ands-video{
-	width: 100%;
+	/* width: 100%; */
+	
 	height: auto;
+	/* height-max: 200px; */
+	max-height: 500px;
+	margin: 18px;
 	position: relative;
 }
 
@@ -83,7 +95,39 @@ body{
 	object-fit: cover;
 }
 
+
+
 .icon{
 	position: absolute;
 	right: 0;
+}
+
+
+
+
+
+
+.circle{
+	margin-top: 80px;
+	border-top: 1px solid #efefef;
+	border-bottom:1px solid #efefef;
+	display: flex;
+	align-items:center;
+}
+
+.qsub-fakeinput {
+    /* align-self: flex-start; */
+    width: 80%;
+    /* height: 40px; */
+	/* line-height: 40px; */
+    /* border-bottom: 1px solid #dadada; */
+    /* margin-top: 50px; */
+    padding-left: 10px;
+	font-size: 17px;
+}
+
+.circle-left{
+	width: 30px;
+	height: 30px;
+	margin: 8px;
 }

@@ -109,11 +109,11 @@
 				plus.android.requestPermissions(PermisList,
 					function(resultObj) {
 						if(resultObj.granted.length == PermisList.length){
-							// goLogin(); //去登录   //去登录-------------------------------------------》
+							goLogin(); //去登录   //去登录-------------------------------------------》
 							// setTimeout("goLogin()","3000");
 							
 						//测试专用
-						localStorage.setItem("token","mengban")//：将token存储到本地
+						// localStorage.setItem("token","mengban")//：将token存储到本地
 						
 						
 						// mui.openWindow({
@@ -131,7 +131,7 @@
 						// });
 						
 						// newWebview("./home/postdetails.html","postdetails");  //去帖子详情
-						newWebview("./home/uploadpost.html","uploadpost");
+						// newWebview("./home/uploadpost.html","uploadpost");
 						// newWebview("./home/wode.html","wode");  //去 搜索
 						
 						}else{

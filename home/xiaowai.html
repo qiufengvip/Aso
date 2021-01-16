@@ -15,10 +15,17 @@
 		<!-- <script src="../js/mui.js" type="text/javascript" charset="utf-8"></script> -->
 		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../login/js/windows.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/pushpostbutton.js" type="text/javascript" charset="utf-8"></script>
+		
 		<style>
 			html,
 			body {
 				background-color: #efeff4;
+			}
+			.mui-content{
+				overflow: hidden;
+				position: relative;
+				height: 100vh;
 			}
 		
 			.mui-bar~.mui-content .mui-fullscreen {
@@ -213,6 +220,9 @@
 		<script src="js/mui.pullToRefresh.material.js"></script>
 		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
 		<script>
+			
+			
+			addpushbutton()
 			var platetype = {
 				1: "11", //招聘求职
 				2: "12", //校园动态

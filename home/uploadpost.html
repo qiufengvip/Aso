@@ -13,23 +13,24 @@
 		<script src="../js/qsub_video.js" type="text/javascript" charset="utf-8"></script>
 		<link rel="stylesheet" type="text/css" href="../css/video.css" />
 		<script src="js/addphotos.js" type="text/javascript" charset="utf-8"></script>
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<script src="../js/mui.picker.min.js"></script>
+		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<!-- <h1 class="mui-title">发送动态</h1> -->
-			<button type="button" class="mui-btn mui-pull-right">发表</button>
+			<button type="button" id="publish" class="mui-btn mui-pull-right">发表</button>
 		</header>
 
 		<div class="mui-content" id="">
 			<textarea id="textarea" rows="5" placeholder="快来分享你的快乐吧!"></textarea>
 			<div class="" id="">
 				<div class="imgpage" id="">
-					<div id="video-data-boy" class="qsub-ands-video">
-
-
-					</div>
 
 
 					<div class="select" id="">
@@ -41,6 +42,16 @@
 					</div>
 				</div>
 			</div>
+			
+			
+			<div class="circle" > 
+				<div class="circle-left">
+					<svg t="1610779090763" class="iconaaa" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2572"><path d="M590.72037761 364.42670295c0 43.77082241 35.48103787 79.25086187 79.25086291 79.25086293s79.24986453-35.48003947 79.24986454-79.25086293c0-43.76982507-35.48003947-79.24986453-79.24986454-79.24986454-43.76982507 0-79.25086187 35.48003947-79.25086293 79.24986454z" fill="#6964FF" p-id="2573"></path><path d="M511.47051308 364.42670295c23.77076907 0 39.62393493-15.8491744 39.62393492-39.62493228 0-23.7767552-15.85316587-39.62493226-39.62393492-39.62493226-130.76766508 0-237.75757653 106.98991148-237.75757548 237.75757654 0 130.76068052 106.98991148 237.750592 237.75757548 237.750592 130.76068052 0 237.750592-106.98991148 237.75059198-237.7515904 0-23.7767552-15.84817708-39.62992107-39.62393493-39.62992108-23.7777536 0-39.6259296 15.85316587-39.62592961 39.62992108 0 87.17245652-71.32926827 158.5017248-158.50172479 158.50172479-87.17744533 0-158.5067136-71.32926827-158.5067136-158.50172479 0-87.17844266 71.32926827-158.5067136 158.50771093-158.5067136z" fill="#6964FF" p-id="2574"></path><path d="M511.47051308 47.41926294c-83.215152 0-166.4342944 23.77575787-237.75757548 63.40068906-19.81346346 11.88688107-23.7777536 35.66263893-15.85017279 55.47510507 11.88688107 19.81346346 35.66164053 23.7767552 55.47610239 11.89087253 59.4373984-31.70333867 126.80138028-51.5158048 198.13164586-51.51580481 217.9391232 0 396.25830293 178.3181824 396.258304 396.26329174 0 217.9391232-178.31917973 396.25930133-396.25930133 396.25930134-217.944112 0-396.2622944-178.32017813-396.26229441-396.25930134 0-71.32926827 19.8114688-138.69325012 51.51580481-198.13164586 11.88488533-19.81346346 3.96329172-43.588224-11.89187093-55.47510401-15.84817708-11.88987413-43.5872256-3.96329172-55.47410667 15.85017173-39.6259296 71.32328213-63.40069013 154.54242453-63.40069012 237.75757654 0 261.5273472 213.97982293 475.50717013 475.51415465 475.50717013 261.5273472 0 475.50816747-213.97982293 475.50816853-475.50816853 0-261.53333333-213.97982293-475.51415467-475.50816853-475.51415359z" fill="#6964FF" p-id="2575"></path></svg>
+				</div>
+				<div class="qsub-fakeinput" id="setcircle">
+					圈子
+				</div>
+			</div>
 
 		</div>
 
@@ -48,23 +59,233 @@
 
 
 		<script type="text/javascript">
-			var doc_controls = document.createElement("div");
-			doc_controls.className = "video-data"
-			document.getElementById("video-data-boy").appendChild(doc_controls);
-			new_qsub_video(doc_controls, "http://file.qsub.cn/1024.mp4");
-			
-
+			mui.init();
+			//总容器
+			var imgpage = document.getElementsByClassName("imgpage")[0];
+			//底部加号
 			var vcurrent = document.getElementsByClassName("select")[0];
-			//在什么之上添加
-			vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
-			vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
-			vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
-			vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
-			vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
-			vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
-			vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
-			vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
-			vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
+			
+			//circle id  选择完毕的圈子id
+			var circleid = -1;
+
+
+			// var doc_controls = document.createElement("div");
+			// doc_controls.className = "video-data"
+			// document.getElementById("video-data-boy").appendChild(doc_controls);
+			// new_qsub_video(doc_controls, "http://file.qsub.cn/1024.mp4");
+
+			// //在什么之上添加
+			// vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
+			// vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
+			// vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
+			// vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
+			// vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
+			// vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
+			// vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
+			// vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
+			// vcurrent.parentNode.insertBefore(addphotos("img/x18.png", 1), vcurrent);
+
+			//获取元素的个数
+			// console.log(imgpage.getElementsByClassName("upload-img").length)
+			
+			
+			//圈子选择
+			//普通示例2 -----------------------------
+			
+			
+			mui.plusReady(function() {
+			    setcircle();  //加载圈子信息
+			});
+			
+			
+			
+			function setcircle(){
+				console.log("进入圈子");
+				var userPicker = new mui.PopPicker();
+				//到时候学校这个框 动态加载
+				userPicker.setData([{
+					value: 1,
+					text: '请选择圈子'
+				}]);
+				
+				httpPost(url_issue_circle, {}, function(data) {
+					if (data != undefined) {
+						console.log(data.data)
+						userPicker.setData(data.data);
+					} else {
+						mui.toast("网络异常");
+					}
+				});
+				
+				
+				
+				var showUserPickerButton = document.getElementById('setcircle');
+				showUserPickerButton.addEventListener('tap', function(event) {
+					userPicker.show(function(items) {
+						//添加到列表
+						showUserPickerButton.innerText = items[0].text;
+						circleid = items[0].value;
+						console.log(circleid)
+						//返回 false 可以阻止选择框的关闭
+						//return false;
+					});
+				}, false);
+			}
+			
+			
+			
+			document.getElementById("publish").addEventListener('tap',function(){
+				if(circleid<0){
+					mui.toast("请选择圈子");
+				}else{
+					//一切都没问题了
+					
+					var data = {};
+					data.placaid = circleid;
+					var textarea  = document.getElementById("textarea").value;
+					if(isnull(textarea)){
+						data.content = textarea;
+						// mui.toast(textarea)
+					}
+					//图片
+					var imgfew = imgpage.getElementsByClassName("upload-img").length;
+					console.log(imgfew)
+					
+					if(imgfew>0){
+						var imgarray = new Array();
+						$("div[class=imgpage] img").each(function() {   
+						    var src=$(this).attr("src");
+							imgarray.push(src);
+						});
+						data.image = imgarray
+					}else{
+						var videofew = imgpage.getElementsByClassName("video-data").length;
+						if(videofew>0){
+							$("div[class=imgpage] video").each(function() {
+							    var src=$(this).attr("src");
+								data.video = src
+							});
+							
+						}
+					}
+					
+					
+					console.log(JSON.stringify(data))
+					
+					//跨窗口通讯  开始   
+					//获取主窗口
+					var preView = plus.webview.getWebviewById('hot');
+					//调用自定义事件
+					mui.fire(preView, 'updatedynamic',data);
+					mui.back();
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+				}
+				
+			});
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			//视频数据到网页 http://file.qsub.cn/1024.mp4
+			function videoToHTML(videourl) {
+				var doc_videodata = document.createElement("div");
+				doc_videodata.className = "video-data"
+				
+				var doc_svg = document.createElement("div");
+				doc_svg.className = "icon";
+				doc_svg.innerHTML = vidoedele
+				
+				var doc_controls = document.createElement("div");
+				doc_controls.className = "qsub-ands-video"
+				new_qsub_video(doc_controls, videourl);
+				
+				doc_videodata.appendChild(doc_svg);
+				doc_videodata.appendChild(doc_controls);
+				vcurrent.parentNode.insertBefore(doc_videodata, vcurrent);
+				document.getElementsByClassName("select")[0].style.display = "none";
+				doc_svg.addEventListener('tap', function() { 
+					console.log("------")
+					document.getElementsByClassName("imgpage")[0].removeChild(doc_videodata);
+					//添加按钮可视
+					document.getElementsByClassName("select")[0].style.display = "flex";
+				});
+				
+				
+			}
+
+			// videoToHTML("http://file.qsub.cn/1024.mp4")
+
+
+
+
+			//加入图片
+			function pushimg(ingurl) {
+				var imgfew = imgpage.getElementsByClassName("upload-img").length;
+				var videofew = imgpage.getElementsByClassName("video-data").length;
+				//移除所有视频
+				if (videofew != 0) {
+					for (var i = 0; i < videofew; i++) {
+						imgpage.removeChild(imgpage.getElementsByClassName("video-data")[0]);
+					}
+				}
+				//加入图片
+				if (imgfew < 8) {
+					vcurrent.parentNode.insertBefore(addphotos(ingurl), vcurrent);
+				} else if (imgfew == 8) {
+					vcurrent.parentNode.insertBefore(addphotos(ingurl), vcurrent);
+					vcurrent.style.display = "none";
+				} else {
+					mui.toast("最多添加九张图片哦");
+				}
+			}
+
+
+			//加入视频
+			function pushvideo(videourl) {
+				//图片数量
+				var imgfew = imgpage.getElementsByClassName("upload-img").length;
+				//视频数量
+				var videofew = imgpage.getElementsByClassName("video-data").length;
+				//移除所有
+				for (var i = 0; i < imgfew; i++) {
+					imgpage.removeChild(imgpage.getElementsByClassName("upload-img")[0]);
+				}
+				//移除所有
+				for (var i = 0; i < videofew; i++) {
+					imgpage.removeChild(imgpage.getElementsByClassName("video-data")[0]);
+				}
+				videoToHTML(videourl);
+			}
+
+
+
+
+
+
 
 
 			document.getElementsByClassName('select')[0].addEventListener('tap', function() {
@@ -116,8 +337,7 @@
 					plus.io.resolveLocalFileSystemURL(e, function(entry) {
 						var imgSrc = entry.toLocalURL() + "?version=" + new Date().getTime(); //拿到图片路径  
 						// upLoadFile(imgSrc, 'image');
-						mui("#imgs")[0].innerHTML = "";
-						setHtml(imgSrc);
+						pushimg(imgSrc);
 					}, function(e) {
 						console.log("读取拍照文件错误：" + e.message);
 					});
@@ -135,10 +355,10 @@
 				var cam = plus.camera.getCamera();
 				cam.startVideoCapture(function(t) {
 					plus.io.resolveLocalFileSystemURL(t, function(entry) {
-						var videoSrc = entry.toLocalURL() + "?version=" + new Date().getTime(); //拿到图片路径  
-						// console.log(videoSrc)
-						mui("#imgs")[0].innerHTML = "";
-						setHtmlVideo(videoSrc);
+						var videoSrc = entry.toLocalURL() + "?version=" + new Date().getTime(); //拿到视频路径  
+						// setHtmlVideo(videoSrc);
+						console.log(videoSrc);
+						pushvideo(videoSrc);
 						// upLoadFile(videoSrc, 'video');
 					}, function(e) {
 						console.log("读取拍照文件错误：" + e.message);
@@ -165,13 +385,9 @@
 			function gatVideo() {
 				console.log("开始");
 				plus.gallery.pick(function(e) {
-					mui("#imgs")[0].innerHTML = "";
-					for (var i in e.files) {
-						var fileSrc = e.files[i];
-						// upLoadFile(fileSrc, 'image');
-						console.log(fileSrc);
-						setHtmlVideo(fileSrc);
-					}
+					var fileSrc = e.files[0];
+					console.log(fileSrc);
+					pushvideo(fileSrc);
 				}, function(e) {
 					console.log("取消选择视频");
 				}, {
@@ -190,37 +406,41 @@
 			//获取相册图片
 			function galleryImg() {
 				console.log("开始");
+				//已存在图片数量
+				var imgfew = imgpage.getElementsByClassName("upload-img").length;
+				var neblt = 0;
+				if(imgfew<9){
+					neblt = 9-imgfew;
+				}else{
+					mui.toast("最多选择9张图片");
+					return;
+				}
 				
-				 var docimg =document.getElementsByClassName("img-data");
-				 console.log(docimg)
-				 if(docimg!=undefined){
-					 mui.toast(docimg.length)
-					 
-				 }
-				
-				
+
+
+
 				plus.gallery.pick(function(e) {
-					mui("#imgs")[0].innerHTML = "";
+				
 					for (var i in e.files) {
 						var fileSrc = e.files[i];
+						//遍历选择完成的图片
 						// upLoadFile(fileSrc, 'image');
 						console.log(fileSrc);
-
-						setHtml(fileSrc);
+						pushimg(fileSrc)
 					}
 				}, function(e) {
 					console.log("取消选择图片");
 				}, {
 					filter: "image",
 					multiple: true,
-					maximum: 9,
+					maximum: neblt,
 					system: false,
 					onmaxed: function() {
-						plus.nativeUI.alert('最多只能选择4张图片');
+						plus.nativeUI.alert('最多只能再选择'+neblt+'张图片');
 					}
 				});
 			}
-			
+
 
 			var fileData = [];
 			var i = 0;
