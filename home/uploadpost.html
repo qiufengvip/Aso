@@ -65,6 +65,9 @@
 			//底部加号
 			var vcurrent = document.getElementsByClassName("select")[0];
 			
+			//token
+			var token = localStorage.getItem("token");
+			
 			//circle id  选择完毕的圈子id
 			var circleid = -1;
 
@@ -108,7 +111,7 @@
 					text: '请选择圈子'
 				}]);
 				
-				httpPost(url_issue_circle, {}, function(data) {
+				httpPost(url_issue_circle, {"token":token}, function(data) {
 					if (data != undefined) {
 						console.log(data.data)
 						userPicker.setData(data.data);
@@ -171,6 +174,12 @@
 					
 					
 					console.log(JSON.stringify(data))
+					if(data.content == undefined  && data.image ==undefined  && data.video ==undefined){
+						mui.toast("请填写发布内容哦");
+						return ;
+					}
+					
+					
 					
 					//跨窗口通讯  开始   
 					//获取主窗口

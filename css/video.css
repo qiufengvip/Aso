@@ -41,7 +41,8 @@ video {
     width: 80%;
     height: 5px;
     line-height: 10px;
-    background: #e5e9ef30;
+    /* background: #e5e9ef30; */
+	background-color: rgba(255, 255, 255, 0.8);
     border-radius: 5px;
     overflow: hidden;
     margin-left: 10px;
@@ -53,7 +54,8 @@ video {
 	font-size: 15px;
 	/* text-stroke:2px #000000; */
 	font-weight: bold;
-	-webkit-text-stroke: 1px #6968ff;
+	-webkit-text-stroke: 0.5px #000000;
+	color: #000000;
     width: 100%;
     /* padding: 10px; */
     display: inline-block;

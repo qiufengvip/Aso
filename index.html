@@ -109,6 +109,7 @@
 				plus.android.requestPermissions(PermisList,
 					function(resultObj) {
 						if(resultObj.granted.length == PermisList.length){
+							localStorage.setItem("token","mengban")//：将token存储到本地
 							goLogin(); //去登录   //去登录-------------------------------------------》
 							// setTimeout("goLogin()","3000");
 							

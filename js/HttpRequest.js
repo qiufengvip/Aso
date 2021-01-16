@@ -1,4 +1,4 @@
-var servers = "http://xiaoyouhui1.cn1.utools.club/FriendAssociation";
+var servers = "http://xiaoyouhui.cn1.utools.club/FriendAssociation";
 var url_user_loginverify = "/api/user/loginverify";  //账号验证 获取头像
 var url_user_login_face = "/api/user/login"; //登录-密码登录-人脸登录
 var url_uesr_sign = "/api/user/sign";    //注册新账号
@@ -32,6 +32,14 @@ var url_search_getdata = "/api/search/getdata";  //搜索-数据展示
 //-------------------------------发送 动态-----------------------------//
 var url_issue_circle  =  "/api/issue/circle";  //获取圈子信息
 var url_issue_dynamic =  "/api/issue/dynamic"; //发布动态
+
+
+//---------------------我的页面------------------------//
+var url_all_guanzhu = "/api/info/noticer";//获取所有关注者
+var url_all_get_fans = "/api/info/bean";//获取所有粉丝
+var url_mepage = "/api/user/userhome";//获取个人数据
+var url_mepage_xl = "/api/user/userdynamiclist";//下拉获取数据接口
+var url_gethistory = "/api/info/history";//获取历史记录
  
 
 

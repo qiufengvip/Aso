@@ -16,6 +16,11 @@
 		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../login/js/windows.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/pushpostbutton.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="css/pushpost.css"/>
+		
+		<script src="../js/qsub_video.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="../css/video.css"/>
+		
 		
 		<style>
 			html,
@@ -248,7 +253,7 @@
 
 			(function($) {
 				//阻尼系数
-				var deceleration = mui.os.ios ? 0.003 : 0.0009;
+				var deceleration = mui.os.ios ? 0.03 : 0.009;
 				$('.mui-scroll-wrapper').scroll({
 					bounce: true,
 					indicators: true, //是否显示滚动条

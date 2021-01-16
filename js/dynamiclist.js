@@ -8,9 +8,10 @@ var postzan = "0"  //点赞数量
 var postos = "0"  //评论数量
 var postshare = "" // 分享数量
 var Circleid  = "1" //圈子的id
+var videourl = "";  //视频url
 
 
-function dynamiclist(headimg,username,contents,Circlename,imgurl,id,postzan,postos,postshare,Circleid){
+function dynamiclist(headimg,username,contents,Circlename,imgurl,id,postzan,postos,postshare,Circleid,videourl,userid){
 	//全部的
 	var topic_test =  document.createElement('div');
 	topic_test.className = "topic-test";
@@ -41,11 +42,49 @@ function dynamiclist(headimg,username,contents,Circlename,imgurl,id,postzan,post
 	content_text.className = "topic-test-content-text";
 	content_text.textContent = contents;
 	topic_test_content.appendChild(content_text);
-	if(imgurl!='' && imgurl!=undefined && imgurl != null){
-		var topic_test_content_img = document.createElement('img');
-		topic_test_content_img.className = "topic-test-content-img";
-		topic_test_content_img.src=imgurl;
-		topic_test_content.appendChild(topic_test_content_img);
+	
+	//加入图片
+	if(isnull(imgurl)){
+		console.log(imgurl);
+		try{
+			imgurl = eval(imgurl);
+			console.log(imgurl);
+		}catch(err){
+			console.log("炸了");
+			imgurl = [imgurl];
+		}
+		console.log(imgurl);
+		
+		
+		
+		
+		
+		
+		
+		if(imgurl.length == 1){
+			var topic_test_content_img = document.createElement('img');
+			topic_test_content_img.className = "topic-test-content-img-1";
+			 console.log(imgurl);
+			topic_test_content_img.src=imgurl[0];
+			topic_test_content.appendChild(topic_test_content_img);
+		}else{
+			console.log("多张图开始工作"+imgurl);
+			for(var i=0;i<imgurl.length;i++){
+				var topic_test_content_img = document.createElement('img');
+				topic_test_content_img.className = "topic-test-content-img-2";
+				topic_test_content_img.src=imgurl[i];
+				topic_test_content.appendChild(topic_test_content_img);
+				
+			}
+		}
+	}else if(isnull(videourl)){
+		var topic_test_content_video = document.createElement('div');
+		topic_test_content_video.className = "topic-test-content-video";
+		new_qsub_video(topic_test_content_video, videourl)
+		// topic_test_content_img.src=imgurl[i];
+		topic_test_content.appendChild(topic_test_content_video);
+		
+		
 	}
 	topic_test_content.className = "topic-test-content";
 	
@@ -99,7 +138,16 @@ function dynamiclist(headimg,username,contents,Circlename,imgurl,id,postzan,post
 	
 	//顶部 -
 	topic_test_top.addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
-		mui.toast(id+"的顶部提示");  // mui弹出提示
+		mui.toast(userid+"的顶部提示");  // mui弹出提示
+		mui.openWindow({
+			url:'../user/mepage.html',
+			id:'mepage',
+			extras: {
+			 	"userid":userid
+			}
+		});
+		
+		
 	});
 	
 	/***
@@ -116,24 +164,12 @@ function dynamiclist(headimg,username,contents,Circlename,imgurl,id,postzan,post
 	}
 	
 	//中部 - 
-	topic_test_content.addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
-		// mui.toast(id+"的中部提示");  // mui弹出提示
-		mui.openWindow({
-			url: "../home/postdetails.html",
-			id: "postdetails",
-			extras: {
-				"postid":id
-			},
-			createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
-			show: {
-				autoShow: true,
-				aniShow: "slide-in-right",
-				duration: 100
-			},
-		});
+	// topic_test_content.addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+	// 	// mui.toast(id+"的中部提示");  // mui弹出提示
 		
 		
-	});
+		
+	// });
 	
 	//圈子
 	test_bottom_left.addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
@@ -162,7 +198,20 @@ function dynamiclist(headimg,username,contents,Circlename,imgurl,id,postzan,post
 	
 	//评论
 	topic_test_bottom_img_nr02.addEventListener('tap',function(){
-		mui.toast(id+"的评论");  // mui弹出提示
+		// mui.toast(id+"的评论");  // mui弹出提示
+		mui.openWindow({
+			url: "../home/postdetails.html",
+			id: "postdetails",
+			extras: {
+				"postid":id
+			},
+			createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+			show: {
+				autoShow: true,
+				aniShow: "slide-in-right",
+				duration: 100
+			},
+		});
 	});
 	
 	//点赞
@@ -191,6 +240,7 @@ function dynamiclist(headimg,username,contents,Circlename,imgurl,id,postzan,post
  * @
  */
 function Parsepost(data){
+	console.log(JSON.stringify(data));
 	console.log("解析数据");
 	if(data!=undefined & data != null & data != ""){
 		if(data.type!=undefined & data.type != null & data.type != ""){
@@ -200,16 +250,15 @@ function Parsepost(data){
 				data.userinfo.uname,
 				data.posttext,
 				data.placa.placaname,
-				"",
+				undefined,
 				data.postid,
 				data.postzan,
 				data.postos,
 				data.postshare,
-				data.placa.placaid
+				data.placa.placaid,
+				undefined,
+				data.userinfo.uid
 				)
-				
-				
-				
 			}else if(data.type ==2){  //图片帖子
 				return dynamiclist(
 				data.userinfo.useravatar,
@@ -221,7 +270,9 @@ function Parsepost(data){
 				data.postzan,
 				data.postos,
 				data.postshare,
-				data.placa.placaid
+				data.placa.placaid,
+				undefined,
+				data.userinfo.uid
 				)
 			}else if(data.type ==3){   //视频
 				return dynamiclist(
@@ -229,12 +280,14 @@ function Parsepost(data){
 				data.userinfo.uname,
 				data.posttext,
 				data.placa.placaname,
-				"",
+				undefined,
 				data.postid,
 				data.postzan,
 				data.postos,
 				data.postshare,
-				data.placa.placaid
+				data.placa.placaid,
+				data.postvideo,
+				data.userinfo.uid
 				)
 			}
 		}

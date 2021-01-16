@@ -7,6 +7,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.css" rel="stylesheet" />
 		<script src="../js/mui.js"></script>
+		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
 			mui.init()
 		</script>
@@ -49,6 +50,7 @@
 				bottom: '51px'
 			};
 			
+			var token = localStorage.getItem("token");
 			
 			var aniShow = {};
 			
@@ -142,14 +144,106 @@
 			// 		defaultTab.classList.add('mui-active');
 			// 	}
 			// });
+			// console.log("测试颜色");
+			// var mui_bar_tab = document.getElementsByClassName("mui-bar-tab")[0];
+			// mui_bar_tab.style.background = "linear-gradient(to right, #bcbcff "+50+"%,#bcbcff 0%,white 0%,white 100%)"
 			
-			window.addEventListener('updatedynamic',function(data){
+			function uploadChangeInfo(upload, status) {
+			    var uploadSize = upload.uploadedSize;  //这是已上传
+			    var totalSize = upload.totalSize;  //一共
+			    // var fileName = $("#fileNum" + upload.priority).attr("thisName");
+				var mui_bar_tab = document.getElementsByClassName("mui-bar-tab")[0];
+			    if (upload.totalSize > 0) {
+			        switch (upload.state) {
+			            case 2:// 已连接服务器
+			                break;
+			            case 3:// 已接收数据
+			                var count = parseInt((uploadSize / totalSize) * 100);
+							
+							//parseInt(3/2)
+			                // console.log(JSON.stringify(upload));
+							// console.log(count);
+							
+							//background: linear-gradient(to right, #bcbcff 98%,#bcbcff 0%,white 0%,white 100%);
+							
+							mui_bar_tab.style.background = "linear-gradient(to right, #bcbcff "+count+"%,#bcbcff 0%,white 0%,white 100%)"
+							
+							
+			                if (count == 100) {
+								console.log(count);
+			                    // $("#fileNum" + upload.priority).html("正在上传：" + count + "%");
+								mui_bar_tab.style.background = "none";
+			                }
+			                break;
+			            case 4:// 上传完成
+			                // $("#fileNum" + upload.priority).html(fileName);
+			                break;
+			        }
+			    }
+			}
+			
+			window.addEventListener('updatedynamic',function(Event){
 				console.log("接收到了");
-				console.log(JSON.stringify(data.detail));
+				console.log(JSON.stringify(Event.detail));
+				var data  = Event.detail;   //这是json 格式的传过来的值
 				
+				// var wt = plus.nativeUI.showWaiting();
 				
-				
-				
+				var task = plus.uploader.createUpload(servers+url_issue_dynamic, {
+						method: "POST"
+					},
+					function(t, status) { //上传成功服务器返回文件对象
+						if (status == 200) {
+							// mui.alert("上传成功！" + t.responseText);
+							var data = JSON.parse(t.responseText)
+							if(isnull(data)){
+								mui.toast(data.msg);
+							}else{
+								mui.toast('网络问题，上传失败');
+							}
+							
+						} else {
+							mui.alert("上传失败：" + status);
+							// wt.close(); //关闭等待提示按钮
+						}
+					}
+				);
+				//添加监听器
+				task.addEventListener("statechanged", uploadChangeInfo, false);
+				if(data.placaid<0){
+					
+					
+					
+				}else{
+					//可以上传了
+					// mui.toast("正在发布");
+					
+					task.addData("token",token);
+					task.addData("placaid",data.placaid);
+					console.log("token:"+token);
+					console.log("placaid:"+data.placaid);
+					if(data.content!=undefined){
+						task.addData("content",data.content);
+						console.log("content:"+data.content);
+					}
+					
+					if(data.image != undefined){
+						for(var i=0;i<data.image.length;i++){
+							task.addFile(data.image[i], {
+								key: "image"
+							});
+							console.log("image:"+data.image[i]);
+						}
+					}else if(data.video!= undefined){
+						task.addFile(data.video, {
+							key: "video"
+						});
+						
+						console.log("video:"+data.video);
+					}
+					
+				}
+				task.start();
 			});
 
 			
