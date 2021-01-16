@@ -43,19 +43,19 @@
 			
 			<div class="box2">
 				
-				<div class="xx1" >
+				<div class="xx1" id="dongtaide">
 					<div class="numb">
 						<div style="display: inline;margin-top: 5px;" id="dongtai">5</div>
 					</div>
 					<div class="numb">
-						<div style="display: inline;">发布动态</div>
+						<div style="display: inline;">动态</div>
 					</div>
 					
 				</div>
 				
 				
 				
-				<div class="xx1" >
+				<div class="xx1" id="guanzhude">
 					<div class="numb">
 						<div style="display: inline;margin-top: 5px;" id="guanzhu">5</div>
 					</div>
@@ -64,16 +64,16 @@
 					</div>
 				</div>
 				
-				<div class="xx1" >
+				<div class="xx1" id="fenside">
 					<div class="numb">
-						<div style="display: inline;margin-top: 5px;" id="shoucangjia">0</div>
+						<div style="display: inline;margin-top: 5px;" id="fensi">0</div>
 					</div>
 					<div class="numb">
-						<div style="display: inline;">收藏夹</div>
+						<div style="display: inline;">粉丝</div>
 					</div>
 				</div>
 				
-				<div class="xx1" >
+				<div class="xx1" id="zuijinliulande">
 					<div class="numb">
 						<div style="display: inline;margin-top: 5px;" id="zuijinliulan">5</div>
 					</div>
@@ -93,6 +93,7 @@
 		
 		<script type="text/javascript">
 			var token = localStorage.getItem('token');
+			var userid = null;
 			mui.plusReady(function() {
 				httpPost(url_get_me_info, {
 					'token': token
@@ -107,26 +108,62 @@
 						var dynamic = data.data.dynamic;//发布动态
 						var concern = data.data.concern;//关注
 						var history = data.data.history;//历史记录
-						setview(username,uesrsign,dynamic,concern,history,useravatar);
+						var fans = data.data.fans;//粉丝
+						userid = data.data.userid;
+						setview(username,uesrsign,dynamic,concern,history,useravatar,fans);
 					} else {
 						mui.toast(data.msg);
 					}
 				});
 			});
 			
-			function setview(username,usersign,dynamic,concern,history,useravatar){
+			function setview(username,usersign,dynamic,concern,history,useravatar,fans){
 				$('#yonghuming').text(username);
 				$('#yonghuqianming').text(usersign);
 				$('#dongtai').text(dynamic);
 				$('#guanzhu').text(concern);
 				$('#zuijinliulan').text(history);
 				$('#yonghutouxiang').attr('src',useravatar);
+				$('#fensi').text(fans);
 			}
 			document.getElementById('meinfo').addEventListener("tap",function(){
 				
 				mui.openWindow({
 					url:'./modify_self_info.html',
 					id:'modify_self_info'
+				});
+			});
+			
+			document.getElementById('guanzhude').addEventListener("tap",function(){
+				mui.openWindow({
+					url:'../user/guanzhu.html',
+					id:'guanzhu'
+				});
+			});
+			
+			document.getElementById('fenside').addEventListener("tap",function(){
+				mui.openWindow({
+					url:'../user/fans.html',
+					id:'fans'
+				});
+			});
+			
+			document.getElementById('dongtaide').addEventListener("tap",function(){
+				mui.openWindow({
+					url:'../user/mepage.html',
+					id:'mepage',
+ 					extras: {
+					 	"userid":userid
+					}
+				});
+			});
+			document.getElementById('zuijinliulande').addEventListener("tap",function(){
+				mui.openWindow({
+					url:'../user/recviewed.html',
+					id:'recviewed',
+					extras: {
+					 	"userid":userid
+					}
 				});
 			});
 		</script>
