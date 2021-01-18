@@ -26,14 +26,7 @@
         "Events" : {
             "description" : "应用扩展事件"
         },
-        "Messaging" : {
-            "description" : "访问通讯能力"
-        },
-        "Speech" : {
-            "description" : "管理语音识别插件"
-        },
-        "VideoPlayer" : {},
-        "Webview-x5" : {}
+        "VideoPlayer" : {}
     },
     "plus" : {
         "splashscreen" : {
@@ -163,9 +156,7 @@
             },
             "plugins" : {
                 "ad" : {},
-                "speech" : {
-                    "ifly" : {}
-                },
+                "speech" : {},
                 "share" : {},
                 "geolocation" : {},
                 "push" : {},

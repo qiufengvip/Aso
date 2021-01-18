@@ -61,7 +61,7 @@
 					container: '#pullrefresh',
 				}
 			});
-			mui.plusReady()
+			
 
 
 
@@ -232,6 +232,8 @@
 			}
 
 
+
+
 			//上传图片  完毕
 			function upLoadFile(fileSrc, type) {
 				var wt = plus.nativeUI.showWaiting(); //开启发送等待框
@@ -286,61 +288,67 @@
 
 
 
-			//发送按钮被单击
-			document.getElementById("qsub-comment-sub-text").addEventListener('tap', function() {
-				
-					if (isnull(document.getElementById('input-comment').value)) {
-						var task = plus.uploader.createUpload(servers + url_char_send2usermsg, {
-								method: "POST"
-							},
-							function(t, status) { //上传成功服务器返回文件对象
-								if (status == 200) {
-									var data = JSON.parse(t.responseText)
-									console.log(JSON.stringify(data));
-									if (isnull(data)) {
-										if (data.code == 200) {
-											var char_json = {
-												"data": data.data[0],
-												"type": 0
-											}
-											// 消息框置为空
-											document.getElementById('input-comment').value = "";
 
-											//渲染
-											document.getElementById("pullrefresh").appendChild(MsgtoHTML(char_json));
-											//消息置为已读
-											httpPost(url_char_messageread, {
-												"token": token,
-												"targetid": unread,
-												"chatid": "all" //消息全部收到
-											}, function(data) {
-
-											});
-											$('body').animate({
-												scrollTop: $('.mui-bottom').offset().top
-											}, 800);
-
-										} else {
-											mui.toast(data.msg);
-										}
-									}
-									// wt.close(); //关闭等待提示按钮
-								} else {
-									mui.alert("上传失败：" + status);
-									// wt.close(); //关闭等待提示按钮
-								}
-							}
-						);
-						//设置参数
-
-						task.addData("token", token);
-						task.addData("targetid", unread);
-						task.addData("contenttext", document.getElementById('input-comment').value);
-						//go*-*
-						task.start();
-					}
-				
-			});
+			mui.plusReady(function () {
+			    //发送按钮被单击
+			    document.getElementById("qsub-comment-sub-text").addEventListener('tap', function() {
+			    	
+			    		if (isnull(document.getElementById('input-comment').value)) {
+			    			var task = plus.uploader.createUpload(servers + url_char_send2usermsg, {
+			    					method: "POST"
+			    				},
+			    				function(t, status) { //上传成功服务器返回文件对象
+			    					if (status == 200) {
+			    						var data = JSON.parse(t.responseText)
+			    						console.log(JSON.stringify(data));
+			    						if (isnull(data)) {
+			    							if (data.code == 200) {
+			    								var char_json = {
+			    									"data": data.data[0],
+			    									"type": 0
+			    								}
+			    								// 消息框置为空
+			    								document.getElementById('input-comment').value = "";
+			    
+			    								//渲染
+			    								document.getElementById("pullrefresh").appendChild(MsgtoHTML(char_json));
+			    								//消息置为已读
+			    								httpPost(url_char_messageread, {
+			    									"token": token,
+			    									"targetid": unread,
+			    									"chatid": "all" //消息全部收到
+			    								}, function(data) {
+			    
+			    								});
+			    								$('body').animate({
+			    									scrollTop: $('.mui-bottom').offset().top
+			    								}, 800);
+			    
+			    							} else {
+			    								mui.toast(data.msg);
+			    							}
+			    						}
+			    						// wt.close(); //关闭等待提示按钮
+			    					} else {
+			    						mui.alert("上传失败：" + status);
+			    						// wt.close(); //关闭等待提示按钮
+			    					}
+			    				}
+			    			);
+			    			//设置参数
+							console.log("token:"+token);
+							console.log("targetid:"+unread);
+							console.log("contenttext:"+document.getElementById('input-comment').value);
+							
+			    			task.addData("token", token);
+			    			task.addData("targetid", unread);
+			    			task.addData("contenttext", document.getElementById('input-comment').value);
+			    			//go*-*
+			    			task.start();
+			    		}
+			    });
+			})
+			
 		</script>
 	</body>
 </html>
