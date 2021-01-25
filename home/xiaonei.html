@@ -262,17 +262,17 @@
 				//选项卡切换面板监听器
 				document.getElementById('slider').addEventListener('slide', function(e) {
 					console.log(e.detail.slideNumber);
+					let index = e.detail.slideNumber;
 					var ul = mui(".mui-table-view")[e.detail.slideNumber];
 					// console.log(ul+"=ul");
-					lilist = ul.getElementsByTagName('li').length;
+					lilist = ul.getElementsByTagName('div').length;
 					console.log(lilist);
 					if (lilist <= 0) {
 						if (e.detail.slideNumber === 0) {
 							console.log("-------------");
-
 							// alert(lis.length); //显示li元素的个数
 						} else {
-							//
+							getplatelist(platetype[index], ul, true);
 						}
 					}
 				});
@@ -343,6 +343,10 @@
 				if (placapages[plateid]==undefined){
 					placapages[plateid] = 1;
 				}
+				//上拉刷新了
+				if (!isappend) {
+					placapages[plateid] = 1;
+				}
 				httpPost(url_circle_plate, {
 					"placaid": plateid, //校内
 					"token": token,
@@ -354,15 +358,21 @@
 						if (data.code == 200) {
 							console.log("请求成功")
 							placapages[plateid]+=1;  //下一页了该着
+							if (!isappend) {
+								
+								hotul.innerHTML = "";
+							}
 							for (var i = 0; i < data.data.length; i++) {
 								var posthtml = Parsepost(data.data[i]);
 								console.log(posthtml);
 								if (posthtml != null & posthtml != undefined & posthtml != "") {
-									if (isappend) {
-										hotul.appendChild(posthtml);
-									} else {
-										hotul.insertBefore(posthtml, hotul.firstChild);
-									}
+									hotul.appendChild(posthtml);
+									// if (isappend) {
+									// 	hotul.appendChild(posthtml);
+									// } else {
+									// 	hotul.appendChild(posthtml);
+									// 	// hotul.insertBefore(posthtml, hotul.firstChild);
+									// }
 								}
 							}
 						} else {
@@ -388,13 +398,19 @@
 					if (data != undefined & data != null & data != "") {
 						if (data.code == 200) {
 							console.log("请求成功")
+							if (!isappend) {
+								//下拉刷新
+								hotul.innerHTML = "";
+							}
 							for (var i = 0; i < data.data.length; i++) {
 								var posthtml = Parsepost(data.data[i]);
 								console.log(posthtml);
 								if (posthtml != null & posthtml != undefined & posthtml != "") {
 									if (isappend) {
+										
 										hotul.appendChild(posthtml);
 									} else {
+										console.log("---------------------上拉刷新---------------")
 										hotul.insertBefore(posthtml, hotul.firstChild);
 									}
 

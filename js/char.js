@@ -97,18 +97,19 @@ function MsgtoHTML(data){
 			);
 		}
 	};
+	var useravatar = localStorage.getItem("useravatar");
 	if(data.type == 0){
 		//自己的消息
 		if(data.data.type ==1){
 			//这里是文字
 			return meMsgAdd(
-				userimg,
+				useravatar,
 				data.data.data
 			);
 		}else if(data.data.type == 2){
 			//图片
 			return meMsgAdd(
-				userimg,
+				useravatar,
 				undefined,
 				data.data.data
 			);

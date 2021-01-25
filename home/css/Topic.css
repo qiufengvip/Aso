@@ -14,7 +14,8 @@ img{
 	-moz-box-shadow: -2px -2px 5px #c3c3c3, 2px 2px 5px #c3c3c3;
 	-webkit-box-shadow: -2px -2px 5px #c3c3c3, 2px 2px 5px #c3c3c3;
 	box-shadow: -2px -2px 5px #c3c3c3, 2px 2px 5px #c3c3c3;
-	padding: 1.25rem;
+	padding-top: 10px;
+	padding-bottom: 10px;
 	margin: 0.3125rem;
 }
 
@@ -31,6 +32,7 @@ img{
 }
 
 .topic-test-top{
+	margin: 0px 10px 0 10px;
 	display: flex;
 	align-items:center;
 }
@@ -44,7 +46,8 @@ img{
 
 .topic-test-content-text{
 	/* padding: 0.5125rem; */
-	margin: 0.3125rem;
+	margin: 5px 10px 5px 10px;
+	/* margin: 0.3125rem; */
 	font-size: 1rem;
 	font-weight: 500;
 	overflow: hidden;
@@ -59,9 +62,11 @@ img{
  * 图片显示方式之一  就一张图片
  */
 .topic-test-content-img-1{
+	margin: 2%;
+	
 	/* width: 50%; */
 	height: auto;
-	max-width: 100%;
+	max-width: 96%;
 	max-height: 400px;
 	vertical-align: bottom;
 	bottom: 0;
@@ -73,6 +78,9 @@ img{
  */
 .topic-test-content-img-2{
 	padding: 2px;
+	
+	margin-left: 10px;
+	margin-bottom: 10px;
 	width: 100px;
 	height: 100px;
 	vertical-align: bottom;
@@ -96,6 +104,7 @@ img{
 
 
 .topic-test-bottom{
+	margin: 0 10px 0 10px;
 	display: flex;
 	align-items:center;
 	justify-content:space-between;

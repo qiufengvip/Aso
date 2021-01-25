@@ -80,6 +80,24 @@
 					}
 					self.append(sub);
 				}
+				
+				httpPost(url_get_me_info, {
+					'token': token
+				}, function(data) {
+					console.log(JSON.stringify(data))
+					var code = data.code;
+					if (code == "200") {
+						
+						
+						var useravatar = data.data.useravatar;
+						localStorage.setItem("useravatar",useravatar);
+						
+					} else {
+						mui.toast(data.msg);
+					}
+				});
+				
+				
 			});
 			 //当前激活选项
 			var activeTab = subpages[1];
@@ -203,16 +221,18 @@
 							}
 							
 						} else {
+							mui.toast('网络问题，上传失败');
 							mui.alert("上传失败：" + status);
 							// wt.close(); //关闭等待提示按钮
+							var mui_bar_tab = document.getElementsByClassName("mui-bar-tab")[0];
+							mui_bar_tab.style.background = "none";
 						}
 					}
 				);
+				
 				//添加监听器
 				task.addEventListener("statechanged", uploadChangeInfo, false);
 				if(data.placaid<0){
-					
-					
 					
 				}else{
 					//可以上传了
@@ -230,7 +250,7 @@
 					if(data.image != undefined){
 						for(var i=0;i<data.image.length;i++){
 							task.addFile(data.image[i], {
-								key: "image"
+								key: "image"+i
 							});
 							console.log("image:"+data.image[i]);
 						}
