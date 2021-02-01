@@ -287,8 +287,6 @@
 			}
 
 
-
-
 			mui.plusReady(function () {
 			    //发送按钮被单击
 			    document.getElementById("qsub-comment-sub-text").addEventListener('tap', function() {
@@ -341,14 +339,13 @@
 							console.log("contenttext:"+document.getElementById('input-comment').value);
 							
 			    			task.addData("token", token);
-			    			task.addData("targetid", unread);
+			    			task.addData("targetid", unread+"");
 			    			task.addData("contenttext", document.getElementById('input-comment').value);
 			    			//go*-*
 			    			task.start();
 			    		}
 			    });
 			})
-			
 		</script>
 	</body>
 </html>

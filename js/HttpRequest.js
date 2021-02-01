@@ -1,4 +1,6 @@
 var servers = "http://aso.qsub.cn";
+// var servers = "http://xiaoyouhui.cn1.utools.club/FriendAssociation";
+
 var url_user_loginverify = "/api/user/loginverify";  //账号验证 获取头像
 var url_user_login_face = "/api/user/login"; //登录-密码登录-人脸登录
 var url_uesr_sign = "/api/user/sign";    //注册新账号

@@ -9,10 +9,10 @@ var postos = "0" //评论数量
 var postshare = "" // 分享数量
 var Circleid = "1" //圈子的id
 var videourl = ""; //视频url
-var isgreat = "";  //点赞
+var isgreat = ""; //点赞
 
 function dynamiclist(headimg, username, contents, Circlename, imgurl, id, postzan, postos, postshare, Circleid,
-	videourl, userid,isgreat) {
+	videourl, userid, isgreat) {
 	//全部的
 	var topic_test = document.createElement('div');
 	topic_test.className = "topic-test";
@@ -108,12 +108,12 @@ function dynamiclist(headimg, username, contents, Circlename, imgurl, id, postza
 	}
 
 
-	if(isgreat){
-		topic_test_bottom_img_nr01.style.fill ="#6968ff"
-	}else{
+	if (isgreat) {
+		topic_test_bottom_img_nr01.style.fill = "#6968ff"
+	} else {
 		topic_test_bottom_img_nr01.style.fill = "#000"
 	}
-	
+
 
 
 
@@ -126,7 +126,7 @@ function dynamiclist(headimg, username, contents, Circlename, imgurl, id, postza
 	var topic_test_bottom_img_nr02_pinglun = document.createElement('div');
 	if (postos == 0 || postos == undefined) {
 		topic_test_bottom_img_nr02_pinglun.textContent = "0";
-	}else{
+	} else {
 		topic_test_bottom_img_nr02_pinglun.textContent = postos;
 	}
 	var topic_test_bottom_img_nr03 = document.createElement('div');
@@ -157,6 +157,10 @@ function dynamiclist(headimg, username, contents, Circlename, imgurl, id, postza
 	//顶部 -
 	topic_test_top.addEventListener('tap', function() { /*tap表示单击屏幕，此处可换双击，滑动等等事件*/
 		mui.toast(userid + "的顶部提示"); // mui弹出提示
+		var videoss = topic_test_content.getElementsByTagName('video')[0];
+		if (videoss != undefined) {
+			videoss.pause();
+		}
 		mui.openWindow({
 			url: '../user/mepage.html',
 			id: 'mepage',
@@ -191,7 +195,12 @@ function dynamiclist(headimg, username, contents, Circlename, imgurl, id, postza
 
 	//圈子
 	test_bottom_left.addEventListener('tap', function() { /*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+		var videoss = topic_test_content.getElementsByTagName('video')[0];
+		if (videoss != undefined) {
+			videoss.pause();
+		}
 		mui.toast(id + "的圈子id为：" + Circleid); // mui弹出提示
+
 	});
 
 	//点赞 
@@ -226,6 +235,16 @@ function dynamiclist(headimg, username, contents, Circlename, imgurl, id, postza
 	//评论
 	topic_test_bottom_img_nr02.addEventListener('tap', function() {
 		// mui.toast(id+"的评论");  // mui弹出提示
+		// .getElementsByTagName('li');
+
+		var videoss = topic_test_content.getElementsByTagName('video')[0];
+		if (videoss != undefined) {
+			videoss.pause();
+		}
+
+
+
+
 		mui.openWindow({
 			url: "../home/postdetails.html",
 			id: "postdetails",
