@@ -48,6 +48,10 @@ var url_mepage_xl = "/api/user/userdynamiclist";//下拉获取数据接口
 var url_gethistory = "/api/info/history";//获取历史记录
  
 
+//-----------------------温湿度监控系统---------------------------//
+var url_monitor_getdata   =  "/api/monitor/getdata";   // 获取实时温湿度
+
+
 
 
 function httpPost(urls,data,returnfun){

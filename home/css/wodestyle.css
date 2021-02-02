@@ -111,8 +111,31 @@
 	color: #6968FF;
 	margin-top: 10px;
 	height: 55%;
-	border-right: #5e5e5e solid 1px; 
+	border-right: #c1c1c1 solid 1px; 
 }
 .box2>div:nth-child(4){
 	border: none;
+}
+
+.visual{
+	width: 100%;
+	height: calc(100vw - 60vw);
+	display: flex;
+	justify-content:space-around;
+	align-items:center;
+}
+
+.centerbox-title{
+	text-align: center;
+	font-size: 1.25rem;
+	font-weight: bold;
+	padding: 20px;
+	color: #6968FF;
+	border-bottom: #dfdfdf solid 1px;
+	margin:0 20px 20px 20px;
+}
+
+.visual_data{
+	width: 140px;
+	height: 110px;
 }
