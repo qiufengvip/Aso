@@ -6,19 +6,27 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-
+		<!-- MUI -->
 		<link rel="stylesheet" href="../css/mui.css">
-		<!-- <link rel="stylesheet" type="text/css" href="./css/hot.css"/> -->
+		<!-- 字体风格 -->
+		<link rel="stylesheet" type="text/css" href="../css/whole.css"/>
+		<!-- 帖子渲染 -->
 		<script src="../js/dynamiclist.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 页面主ui -->
 		<link rel="stylesheet" type="text/css" href="./css/Topic.css" />
+		<!-- 页面UI -->
 		<link rel="stylesheet" type="text/css" href="css/xiaonei.css" />
-		<!-- <script src="../js/mui.js" type="text/javascript" charset="utf-8"></script> -->
+		<!-- jquery -->
 		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 窗口切换器 -->
 		<script src="../login/js/windows.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 发送帖子按钮控制器 -->
 		<script src="../js/pushpostbutton.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 发送帖子按钮风格 -->
 		<link rel="stylesheet" type="text/css" href="css/pushpost.css"/>
-		
+		<!-- 视频播放器 -->
 		<script src="../js/qsub_video.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 视频播放器UI -->
 		<link rel="stylesheet" type="text/css" href="../css/video.css"/>
 		
 		
@@ -543,6 +551,7 @@
 
 
 			document.getElementById('qsub-top-ss').addEventListener('tap', function() { /*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+				$('video').trigger('pause');
 				newWebview("../search/search-home.html", "search-home");
 			});
 		</script>

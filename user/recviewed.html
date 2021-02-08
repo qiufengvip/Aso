@@ -1,16 +1,30 @@
 <!DOCTYPE html>
+<!-- 历史记录 -->
 <html>
 	<head>
 		<meta charset="utf-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!-- mui -->
 		<script src="../js/mui.js" type="text/javascript" charset="utf-8"></script>
+		<!-- mui -->
 		<link rel="stylesheet" type="text/css" href="../css/mui.css"/>
+		<!-- 主UI -->
 		<link rel="stylesheet" type="text/css" href="css/mepage.css"/>
+		<!-- 帖子UI -->
 		<link rel="stylesheet" type="text/css" href="../home/css/Topic.css"/>
+		<!-- jquery -->
+		<script src="../home/js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 网络请求处理器 -->
 		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 帖子渲染器 -->
 		<script src="../js/dynamiclist.js" type="text/javascript" charset="utf-8"></script>
-		
+		<!-- 字体 -->
+		<link rel="stylesheet" type="text/css" href="../css/whole.css"/>
+		<!-- 视频播放器 -->
+		<script src="../js/qsub_video.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 视频播放器UI -->
+		<link rel="stylesheet" type="text/css" href="../css/video.css"/>
 	</head>
 	<body>
 		<header id="header" class="mui-bar mui-bar-nav">
@@ -46,7 +60,7 @@
 					'token': token,
 					'userid': userid,
 					'page': page,
-					'size': '1'
+					'size': '10'
 				}, function(data) {
 					console.log(JSON.stringify(data));
 					var codes = data.code;

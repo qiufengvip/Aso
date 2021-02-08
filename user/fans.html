@@ -1,22 +1,27 @@
 <!doctype html>
+<!-- 粉丝窗口 -->
 <html>
 	<head>
 		<meta charset="utf-8">
 		<title>粉丝</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!-- mui -->
 		<link href="../css/mui.css" rel="stylesheet" />
+		<!-- mui -->
 		<script src="../js/mui.js"></script>
+		<!-- 字体 -->
+		<link rel="stylesheet" type="text/css" href="../css/whole.css"/>
+		<!-- 页面UI -->
 		<link rel="stylesheet" type="text/css" href="../home/css/infonews.css" />
-		<script type="text/javascript" src="http://cdn.goeasy.io/goeasy-1.0.17.js"></script>
+		<!-- 列表渲染器 -->
 		<script src="../js/messagelist.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 网络请求处理器 -->
 		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 关注粉丝处理器 -->
 		<script src="../js/guanzhuandfans.js" type="text/javascript" charset="utf-8"></script>
+		<!-- MUI初始化 -->
 		<script type="text/javascript">
 			mui.init();
-			var goEasy = new GoEasy({
-				host: "hangzhou.goeasy.io", //应用所在的区域地址: 【hangzhou.goeasy.io | singapore.goeasy.io】 
-				appkey: "BS-c5ad7650e6c84896840617daa524dc31"
-			});
 		</script>
 	</head>
 
@@ -33,38 +38,31 @@
 		<script type="text/javascript">
 			var token = localStorage.getItem("token");
 			var msg = null;
-			mui.plusReady(function() {
-				
-				httpPost(url_all_get_fans,{
-					"token":token
-				},function(redata){
-					var code = redata.code;
-					if (code == "200") {
-						var data = redata.data;
-						
-						for(var i=0;i<data.length;i++){
-							console.log(JSON.stringify(data[i]));
-							var uid = data[i].uid;
-							var useras = data[i].useras;
-							var useravatar = data[i].useravatar;
-							var username = data[i].username;
-							document.getElementById('pullrefresh').append(
-								addlist(
-								uid,
-								useravatar,
-								username,
-								useras,
-							));
-						}
-					}else{
-						mui.toast(redata.msg)
+			httpPost(url_all_get_fans,{
+				"token":token
+			},function(redata){
+				var code = redata.code;
+				if (code == "200") {
+					var data = redata.data;
+					
+					for(var i=0;i<data.length;i++){
+						console.log(JSON.stringify(data[i]));
+						var uid = data[i].uid;
+						var useras = data[i].useras;
+						var useravatar = data[i].useravatar;
+						var username = data[i].username;
+						document.getElementById('pullrefresh').append(
+							addlist(
+							uid,
+							useravatar,
+							username,
+							useras,
+						));
 					}
-				});
-				
+				}else{
+					mui.toast(redata.msg)
+				}
 			});
-			//
-		
-			
 		</script>
 		
 

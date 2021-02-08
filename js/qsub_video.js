@@ -92,6 +92,7 @@ function new_qsub_video(maindoc, videourl) {
 		//播放
 		v.play.onclick = function() {
 			// if (v.video.paused || v.video.ended) {
+			$('video').trigger('pause');
 			v.video.play();
 			this.style.display = "none";
 			v.pause.style.display = "inline-block";
@@ -105,6 +106,7 @@ function new_qsub_video(maindoc, videourl) {
 				}
 			}, 3000);
 		}
+
 
 
 
@@ -307,7 +309,7 @@ function new_qsub_video(maindoc, videourl) {
 	
 	
 	
-	//字段播放监听事件  usersuspend =true;
+	//自动播放监听事件  usersuspend =true;
 	window.addEventListener('scroll', function() {
 		var vesselTop = maindoc.getBoundingClientRect().top; //距离顶部边距
 		var vesselleft = maindoc.getBoundingClientRect().left; //距离左边边距
@@ -345,11 +347,13 @@ function new_qsub_video(maindoc, videourl) {
 
 		if (vesselTop < winHeight / 2) {
 			//开始播放
+			$('video').trigger('pause');  //暂停所有视频播放器
 			console.log("=========================开始播放===============================")
 			console.log(vesselTop)
 			console.log("=========================开始播放输出完毕===============================")
 			// if (v.video.paused || v.video.ended) {
 			v.video.play();
+			
 			v.play.style.display = "none";
 			v.pause.style.display = "inline-block";
 			// }

@@ -1,23 +1,31 @@
 <!doctype html>
+<!-- 个人主页 -->
 <html>
 
 	<head>
 		<meta charset="utf-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!-- mui -->
 		<link href="../css/mui.css" rel="stylesheet" />
+		<!-- mui -->
 		<script src="../js/mui.js"></script>
+		<!-- 页面主风格 -->
 		<link rel="stylesheet" type="text/css" href="css/mepage.css" />
+		<!-- 字体 -->
+		<link rel="stylesheet" type="text/css" href="../css/whole.css"/>
+		<!-- 帖子UI -->
 		<link rel="stylesheet" type="text/css" href="../home/css/Topic.css" />
+		<!-- 帖子渲染器 -->
 		<script src="../js/dynamiclist.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 网络请求处理器 -->
 		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+		<!-- jquery -->
 		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../js/dynamiclist.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 视频播放器 -->
 		<script src="../js/qsub_video.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 视频播放器UI -->
 		<link rel="stylesheet" type="text/css" href="../css/video.css"/>
-		<script type="text/javascript">
-			mui.init();
-		</script>
 	</head>
 
 	<body>
@@ -123,17 +131,14 @@
 						var great = data.data.great;
 						var fans = data.data.fans;
 						var concern = data.data.concern;
-
 						var dynamiclist = data.data.dynamiclist;
-						for (var i = 0; i < dynamiclist.length; i++) {
-							mui('#mui-table-view-id')[0].appendChild(Parsepost(dynamiclist[i]));
-
-						}
+						// for (var i = 0; i < dynamiclist.length; i++) {
+						// 	mui('#mui-table-view-id')[0].appendChild(Parsepost(dynamiclist[i]));
+						// }
 						setview(username, uesrsign, isconcern, useravatar, great, fans, concern);
 					} else {
 						mui.toast(data.msg);
 					}
-
 				});
 
 			});
@@ -147,7 +152,7 @@
 					'token': token,
 					'userid': userid,
 					'page': page,
-					'size': '1'
+					'size': '10'
 				}, function(data) {
 					console.log(JSON.stringify(data));
 					var codes = data.code;
@@ -155,7 +160,6 @@
 						var dataall = data.data;
 						for (var i = 0; i < dataall.length; i++) {
 							mui('#mui-table-view-id')[0].appendChild(Parsepost(dataall[i]));
-
 						}
 						page++;
 					} else {

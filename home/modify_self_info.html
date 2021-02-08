@@ -1,37 +1,54 @@
 <!DOCTYPE html>
+<!-- 编辑个人资料 -->
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>modify_self_infomation</title>
+		<title>编辑个人资料</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-
+		<!-- mui -->
 		<link href="../css/mui.css" rel="stylesheet" />
+		<!-- mui -->
 		<script src="../js/mui.js"></script>
-
+		<!-- 页面主风格 -->
 		<link rel="stylesheet" type="text/css" href="./css/mod_info_style.css" />
-
-
+		<!-- 字体 -->
+		<link rel="stylesheet" type="text/css" href="../css/whole.css"/>
+		<!-- mui插件 -->
 		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<!-- mui插件 -->
 		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<!-- mui插件 -->
 		<link rel="stylesheet" type="text/css" href="../css/mui.dtpicker.css" />
-
-		<script src="../js/mui.picker.js" type="text/javascript" charset="utf-8"></script>.
+		<!-- mui插件 -->
+		<script src="../js/mui.picker.js" type="text/javascript" charset="utf-8"></script>
+		<!-- mui插件 -->
 		<script src="../js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>
+		<!-- mui插件 -->
 		<script src="../js/mui.dtpicker.js" type="text/javascript" charset="utf-8"></script>
-
+		<!-- 网络请求处理器 -->
 		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
-
-
+		<!-- jquery -->
 		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
-
+		<!-- 渲染器 -->
 		<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
-
+		<!-- mui初始化 -->
 		<script type="text/javascript">
 			mui.init()
 		</script>
 	</head>
 	<body>
-		<div class="top-menu">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back top-ico-return mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">编辑个人资料</h1>
+			<div class="top-menu-right-text mui-pull-right"  id="save">
+				<div id="">
+					保存
+				</div>
+				</div>
+		</header>
+		
+		
+		<!-- <div class="top-menu">
 			<div class="top-menu-body">
 				<div class="top-ico-return">
 					<svg t="1610420673547" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2895"
@@ -39,15 +56,13 @@
 						<path d="M916.3 466.3H218.1l288.4-288.4c17.8-17.8 17.8-46.9 0-64.7-17.8-17.8-46.9-17.8-64.7 0L75.3 479.7c-17.8 17.8-17.8 46.9 0 64.7l366.5 366.5c17.8 17.8 46.9 17.8 64.7 0 17.8-17.8 17.8-46.9 0-64.7L218.1 557.7h698.2c25.2 0 45.7-20.6 45.7-45.7 0-25.2-20.6-45.7-45.7-45.7z"
 						 fill="#6964ff" p-id="2896"></path>
 					</svg>
-
 				</div>
-
 				<div class="menu-content">编辑个人资料</div>
 			</div>
-			<div class="top-menu-right-text" id="save">
+			<!-- <div class="top-menu-right-text" id="save">
 				保存
-			</div>
-		</div>
+			</div> -->
+		</div> -->
 
 		<div class="body-tx-img">
 			<div id="modify_tx">

@@ -22,6 +22,7 @@ function addpushbutton(){
 			// mui.toast("执行")
 		}else{
 			// mui.toast("开始工作")
+			$('video').trigger('pause');
 			mui.openWindow({
 				url: "uploadpost.html",
 				id: "uploadpost",

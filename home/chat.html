@@ -1,30 +1,34 @@
 <!doctype html>
+<!-- 聊天页面 -->
 <html>
 
 	<head>
 		<meta charset="utf-8">
 		<title>聊天窗口</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!-- mui -->
 		<link href="../css/mui.css" rel="stylesheet" />
+		<!-- mui -->
 		<script src="../js/mui.js"></script>
+		<!-- jquery -->
 		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript">
-			mui.init();
-		</script>
+		<!-- 字体 -->
+		<link rel="stylesheet" type="text/css" href="../css/whole.css"/>
+		<!-- 聊天页面主样式 -->
 		<link rel="stylesheet" type="text/css" href="css/chat.css" />
-		<script src="mess" type="text/javascript" charset="utf-8"></script>
+		<!-- goeasy聊天接收器 -->
 		<script type="text/javascript" src="http://cdn.goeasy.io/goeasy-1.0.17.js"></script>
-
+		<!-- 网络请求处理器 -->
 		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 聊天内容渲染器 -->
+		<script src="../js/char.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 聊天接受初始化 -->
 		<script type="text/javascript">
-			mui.init();
 			var goEasy = new GoEasy({
 				host: "hangzhou.goeasy.io", //应用所在的区域地址: 【hangzhou.goeasy.io | singapore.goeasy.io】 
 				appkey: "BS-c5ad7650e6c84896840617daa524dc31"
 			});
 		</script>
-
-		<script src="../js/char.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 
 	<body>
