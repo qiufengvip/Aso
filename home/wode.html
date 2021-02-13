@@ -128,7 +128,6 @@
 					console.log(JSON.stringify(data))
 					var code = data.code;
 					if (code == "200") {
-
 						var uesrsign = data.data.uesrsign;
 						var useravatar = data.data.useravatar;
 						var username = data.data.username;
@@ -143,6 +142,31 @@
 					}
 				});
 			});
+			
+			
+			//刷新个人信息 ---  自定义事件
+			window.addEventListener('loadinfo',function(Event){
+				console.log("刷新个人信息");
+				httpPost(url_get_me_info, {
+					'token': token
+				}, function(data) {
+					console.log(JSON.stringify(data))
+					var code = data.code;
+					if (code == "200") {
+						var uesrsign = data.data.uesrsign;
+						var useravatar = data.data.useravatar;
+						var username = data.data.username;
+						var dynamic = data.data.dynamic; //发布动态
+						var concern = data.data.concern; //关注
+						var history = data.data.history; //历史记录
+						var fans = data.data.fans; //粉丝
+						userid = data.data.userid;
+						setview(username, uesrsign, dynamic, concern, history, useravatar, fans);
+					} else {
+						mui.toast(data.msg);
+					}
+				});
+			})
 
 			function setview(username, usersign, dynamic, concern, history, useravatar, fans) {
 				$('#yonghuming').text(username);
@@ -153,8 +177,9 @@
 				$('#yonghutouxiang').attr('src', useravatar);
 				$('#fensi').text(fans);
 			}
+			
+			//
 			document.getElementById('meinfo').addEventListener("tap", function() {
-
 				mui.openWindow({
 					url: './modify_self_info.html',
 					id: 'modify_self_info'

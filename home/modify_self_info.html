@@ -288,6 +288,15 @@
 
 					mui.toast(data.msg);
 				});
+				
+				
+				var preView = plus.webview.getWebviewById('wode.html');
+				//调用自定义事件
+				console.log("调用事件*-刷新信息");
+				mui.fire(preView, 'loadinfo', {});
+				
+				mui.back();
+				
 			});
 
 			function setview(tx, username, usersign, usersex, userbir, usermajor, school, ugraduate) {

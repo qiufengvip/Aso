@@ -1,7 +1,7 @@
 .qsub-infonews{
 	height: 70px;
 	background-color: #FFFFFF;
-	margin: 5px 2px 5px  2px;
+	margin: 5px 0px 5px  0px;
 	display: flex;
 	align-items: center;
 	border-top-right-radius: 10px;
@@ -67,7 +67,7 @@
 	
 	color: #888888;
 	font-size: 13px;
-	width: 80%;
+	width: 50%;
 	overflow: hidden;
 	display: -webkit-box;
 	-webkit-box-orient: vertical;

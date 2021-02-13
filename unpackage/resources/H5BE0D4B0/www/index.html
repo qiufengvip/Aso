@@ -31,7 +31,13 @@
 			//关闭页面
 			console.log("开始执行")
 			
-			var old_back = mui.back;  
+			// // var old_back = mui.back;  
+			// if(localStorage.getItem("token")!=undefined){
+			// 	newWedViewData("home/homeframe.html","hot",{
+			// 		"index":plus.webview.currentWebview()
+			// 	})
+			// 	return;
+			// }
 
 			mui.openWindow({
 				url: "./login/login.html",
@@ -57,6 +63,8 @@
 					}
 				},
 			});
+			
+			
 			// mui.back();
 			
 			// var currentView = plus.webview.currentWebview();
@@ -109,11 +117,13 @@
 				plus.android.requestPermissions(PermisList,
 					function(resultObj) {
 						if(resultObj.granted.length == PermisList.length){
+							// localStorage.setItem("token","mengban")//：将token存储到本地
 							// goLogin(); //去登录   //去登录-------------------------------------------》
-							// setTimeout("goLogin()","3000");
+							setTimeout("goLogin()","3000");
 							
 						//测试专用
-						localStorage.setItem("token","adasdasda")//：将token存储到本地
+						// localStorage.setItem("token","mengban")//：将token存储到本地
+						
 						
 						// mui.openWindow({
 						// 	url: "home/postdetails.html",
@@ -130,7 +140,8 @@
 						// });
 						
 						// newWebview("./home/postdetails.html","postdetails");  //去帖子详情
-						newWebview("./home/homeframe.html","homeframe");
+						// newWebview("./home/uploadpost.html","uploadpost");
+						// newWebview("./home/wode.html","wode");  //去 搜索
 						
 						}else{
 							var btnArray = ['取消', '确定'];

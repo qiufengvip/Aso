@@ -37,7 +37,19 @@ function NewMessageDoc(userid,userimg,username,infotest,infonumber,time){
 	}else{
 		qsub_infonews_number.style.display = "none";
 	}
-	qsub_infonews_info.textContent=infotest;  //聊天内容
+	
+	// qsub_infonews_info.textContent=infotest;  //聊天内容
+	if(checkHtmlTag(infotest)){
+		qsub_infonews_info.textContent = infotest;
+	}else{
+		
+		qsub_infonews_info.innerHTML = infotest;
+	}
+	
+	
+	
+	
+	
 	qsub_infonews_time.textContent =time;  //时间
 	qsub_infonews.appendChild(qsub_infonews_img);
 	qsub_infonews.appendChild(qsub_infonews_left);
@@ -66,9 +78,12 @@ function NewMessageDoc(userid,userimg,username,infotest,infonumber,time){
 				}
 			});
 	});
-	
-	
 	return qsub_infonews;
+}
+
+function checkHtmlTag(htmlStr) {
+	var  reg = /<[^>]+>/g;
+	return reg.test(htmlStr);
 }
 
 
@@ -84,7 +99,7 @@ function NewMessageDocToHTML(data){
 		data.targetid,
 		data.targetimg,
 		data.targetname,
-		data.lastone,
+		entitiestoUtf16(data.lastone),
 		data.unread,
 		data.lastonetime,
 	);

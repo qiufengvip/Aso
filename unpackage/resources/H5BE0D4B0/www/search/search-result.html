@@ -1,0 +1,412 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>搜索结果页面</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!-- mui -->
+		<link href="../css/mui.css" rel="stylesheet" />
+		<!-- 页面UI -->
+		<link rel="stylesheet" type="text/css" href="css/hot.css" />
+		<!-- 页面UI2 -->
+		<link rel="stylesheet" type="text/css" href="css/searchdetails.css" />
+		<!-- 帖子 -->
+		<link rel="stylesheet" type="text/css" href="../home/css/Topic.css" />
+		<!-- 圈子css -->
+		<link rel="stylesheet" type="text/css" href="../css/Circle.css" />
+		<!-- 用户css -->
+		<link rel="stylesheet" type="text/css" href="../css/searchuesrlist.css" />
+		<!-- 字体 -->
+		<link rel="stylesheet" type="text/css" href="../css/whole.css" />
+		<!-- mui -->
+		<script src="../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<!-- jquery -->
+		<script src="../home/js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 用户UI and 圈子UI 数据渲染 -->
+		<script src="../js/search.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 帖子数据渲染 -->
+		<script src="../js/dynamiclist.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 播放器渲染 -->
+		<script src="../js/qsub_video.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 播放器风格 -->
+		<link rel="stylesheet" type="text/css" href="../css/video.css"/>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav qsub-search-header">
+			<a class="mui-action-back mui-pull-left qsub-back">
+				<svg t="1608637122522" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="13011">
+					<path d="M295.031467 597.333333H938.666667c47.1296 0 85.333333-38.203733 85.333333-85.333333s-38.203733-85.333333-85.333333-85.333333H293.8112L529.066667 191.4112c33.322667-33.322667 33.322667-87.3472 0-120.6784-33.322667-33.322667-87.355733-33.322667-120.6784 0L28.066133 451.054933a85.0688 85.0688 0 0 0-24.994133 60.330667c0 21.845333 8.337067 43.690667 25.002667 60.347733l380.3136 380.322134c33.322667 33.322667 87.355733 33.322667 120.6784 0 33.322667-33.3312 33.322667-87.355733 0-120.686934L295.031467 597.333333z"
+					 p-id="13012" fill="#6964FF"></path>
+				</svg>
+			</a>
+			<div class="mui-input-row qsub-input-ss">
+				<input type="text" id="qsub-comment" placeholder="键入内容搜索">
+			</div>
+			<div class="qsub-top-sousuo">
+				<svg t="1608556250474" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3182"
+				 width="128" height="128">
+					<path d="M996.352 860.16c17.408 17.408 27.648 40.96 27.648 67.584 0 53.248-43.008 96.256-96.256 96.256-26.624 0-50.176-10.24-67.584-27.648l-281.6-281.6C521.216 748.544 454.656 768 384 768 172.032 768 0 595.968 0 384S172.032 0 384 0s384 172.032 384 384c0 71.68-19.456 137.216-53.248 194.56l281.6 281.6zM384 96.256C225.28 96.256 96.256 225.28 96.256 384c0 158.72 129.024 287.744 287.744 287.744 158.72 0 287.744-129.024 287.744-287.744C671.744 225.28 542.72 96.256 384 96.256z"
+					 fill="#6964FF" p-id="3183"></path>
+				</svg>
+			</div>
+		</header>
+		<!-- <script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script> -->
+		<script src="../login/js/windows.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+			html,
+					body {
+						background-color: #efeff4;
+					}
+				
+					.mui-bar~.mui-content .mui-fullscreen {
+						top: 44px;
+						height: auto;
+					}
+				
+					.mui-pull-top-tips {
+						position: absolute;
+						top: -20px;
+						left: 50%;
+						margin-left: -25px;
+						width: 40px;
+						height: 40px;
+						border-radius: 100%;
+						z-index: 1;
+					}
+				
+					.mui-bar~.mui-pull-top-tips {
+						top: 24px;
+					}
+				
+					.mui-pull-top-wrapper {
+						width: 42px;
+						height: 42px;
+						display: block;
+						text-align: center;
+						background-color: #efeff4;
+						border: 1px solid #ddd;
+						border-radius: 25px;
+						background-clip: padding-box;
+						box-shadow: 0 4px 10px #bbb;
+						overflow: hidden;
+					}
+				
+					.mui-pull-top-tips.mui-transitioning {
+						-webkit-transition-duration: 200ms;
+						transition-duration: 200ms;
+					}
+				
+					.mui-pull-top-tips .mui-pull-loading {
+						/*-webkit-backface-visibility: hidden;
+						-webkit-transition-duration: 400ms;
+						transition-duration: 400ms;*/
+				
+						margin: 0;
+					}
+				
+					.mui-pull-top-wrapper .mui-icon,
+					.mui-pull-top-wrapper .mui-spinner {
+						margin-top: 7px;
+					}
+				
+					.mui-pull-top-wrapper .mui-icon.mui-reverse {
+						/*-webkit-transform: rotate(180deg) translateZ(0);*/
+					}
+				
+					.mui-pull-bottom-tips {
+						text-align: center;
+						background-color: #efeff4;
+						font-size: 15px;
+						line-height: 40px;
+						color: #777;
+					}
+				
+					.mui-pull-top-canvas {
+						overflow: hidden;
+						background-color: #fafafa;
+						border-radius: 40px;
+						box-shadow: 0 4px 10px #bbb;
+						width: 40px;
+						height: 40px;
+						margin: 0 auto;
+					}
+				
+					.mui-pull-top-canvas canvas {
+						width: 40px;
+					}
+				
+					.mui-slider-indicator.mui-segmented-control {
+						background-color: #efeff4;
+					}
+				</style>
+
+		</head>
+
+		<body>
+			<!-- <header class="mui-bar mui-bar-nav">
+					<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+					<h1 class="mui-title">选项卡切换+下拉刷新（div模式）</h1>
+				</header> -->
+			<div class="mui-content">
+				<div id="slider" class="mui-slider mui-fullscreen">
+					<div class="qsub-top" id="">
+						<div id="sliderSegmentedControl" style="" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+							<div class="mui-scroll" style="width: 100%;">
+								<a class="mui-control-item mui-active" href="#item1mobile">
+									全部
+								</a>
+								<a class="mui-control-item" href="#item2mobile">
+									动态
+								</a>
+								<a class="mui-control-item" href="#item3mobile">
+									用户
+								</a>
+								<a class="mui-control-item" href="#item4mobile">
+									圈子
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="mui-slider-group">
+						<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+							<div id="scroll1" class="mui-scroll-wrapper">
+								<div class="mui-scroll">
+									<ul class="mui-table-view" id="list-view">
+
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div id="item2mobile" class="mui-slider-item mui-control-content">
+							<div class="mui-scroll-wrapper">
+								<div class="mui-scroll">
+									<ul class="mui-table-view" id="list-view">
+
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div id="item3mobile" class="mui-slider-item mui-control-content">
+							<div class="mui-scroll-wrapper">
+								<div class="mui-scroll">
+									<ul class="mui-table-view" id="list-view">
+
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div id="item4mobile" class="mui-slider-item mui-control-content">
+							<div class="mui-scroll-wrapper">
+								<div class="mui-scroll">
+									<ul class="mui-table-view" id="list-view">
+
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<script src="../home/js/mui.pullToRefresh.js"></script>
+			<script src="../home/js/mui.pullToRefresh.material.js"></script>
+			<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+
+
+			<script type="text/javascript">
+				//获取token
+				var token = localStorage.getItem("token"); //检索储存池
+				//搜索词
+				var wd = "";
+				//当前页面标记默认为第一页
+				var page = 0;
+				//搜索文本标记
+				var searchtext = undefined;
+				//每个页面刷新页标记
+				var pagenumber = {};
+				//所有类型
+				var type = {
+					"0": "all", //全部
+					"1": "dyn", //动态
+					"2": "user", //用户
+					"3": "cir", //圈子
+				}
+				//上拉加载doc对象
+				var refreshdoc = {};
+
+
+				//初始化mui()
+				mui.init({
+					swipeBack: false,
+					pullRefresh: {
+						container: '#slider'
+					},
+					styles: {
+						top: 0, //内容页面顶部位置,需根据实际页面布局计算，若使用标准mui导航，顶部默认为48px；
+					}
+				});
+
+				//页面切换完毕  --  加载数据
+				mui.plusReady(function() {
+					var self = plus.webview.currentWebview(); //获取当前窗体对象
+					wd = self.comment; //接收A页面传入的id参数值
+					console.log("搜索词为：" + wd);
+					if (wd == undefined) {
+						mui.toast("搜索词为空");
+					} else {
+						page = 0;
+						console.log("切换完毕事件");
+						// mui('.mui-scroll')[0].pullRefresh();
+						// var pullRefreshApi = mui.data[mui('.mui-scroll')[0]];  
+						// pullRefreshApi.pullRefresh().pullUpLoading();
+						// ToLoadData(page);
+						
+					}
+					//上拉加载回调
+					(function($) {
+						//阻尼系数
+						var deceleration = mui.os.ios ? 0.003 : 0.0009;
+						$('.mui-scroll-wrapper').scroll({
+							bounce: true,
+							indicators: true, //是否显示滚动条
+							deceleration: deceleration
+						});
+					
+						$.ready(function() {
+							//循环初始化所有下拉刷新，上拉加载。
+							$.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+								console.log("-------")
+								console.log(pullRefreshEl.className)
+								$(pullRefreshEl).pullToRefresh({
+									up: { //上拉加载数据
+										auto: true,
+										callback: function() {
+					
+											// setTimeout(function() {
+											// 	slef.endPullUpToRefresh();
+											// }, 1000);
+					
+											refreshdoc[index] = this;
+											// this.endPullUpToRefresh(false);
+											// this.enablePullupToRefresh()
+											
+											console.log("开始上拉加载数据");
+											ToLoadData(index);
+											// this.refresh(true);
+										}
+									}
+								});
+							});
+						});
+					})(mui);
+				});
+				
+				
+				
+
+
+
+				//选项卡切换面板监听器
+				// document.getElementById('slider').addEventListener('slide', function(e) {
+				// 	console.log(e.detail.slideNumber);
+				// 	//置选中页面
+
+				// 	page = e.detail.slideNumber;
+				// 	//获取url开始刷新
+				// 	var ul = mui(".mui-table-view")[e.detail.slideNumber];
+				// 	lilist = ul.getElementsByTagName('li').length;
+				// 	console.log(lilist);
+				// 	if (lilist == 0) {
+				// 		console.log("------开始首次加载数据-------");
+				// 		//这里是因为一条数据也没有所以要加载数据
+				// 		//page为当前页面
+				// 		console.log("选项卡切换-空数据所以加载数据");
+				// 		ToLoadData(page)
+				// 	}
+				// });
+
+
+
+
+
+				/**
+				 * @desc 向页面加入数据
+				 * @param {Object} pid  页面编号
+				 */
+				function ToLoadData(pid) {
+
+					if (pagenumber[pid] == undefined) {
+						pagenumber[pid] = 1;
+						refreshdoc[pid].refresh(true);
+					}
+
+
+					//首先找到doc对象
+					var doc = document.getElementsByClassName("mui-table-view")[pid];
+					//网络请求
+					httpPost(url_search_getdata, {
+						"token": token,
+						"wd": wd,
+						"type": type[pid],
+						"page": pagenumber[pid]
+					}, function(data) {
+						console.log(JSON.stringify(data))
+						if (isnull(data)) {
+							if (isnull(data.code)) {
+								if (data.code == 200) {
+									//数据OK了
+									//mui('#pullup-container').pullRefresh().refresh(true);
+									// pagenumber[pid].endPullupToRefresh(true);
+									refreshdoc[pid].endPullUpToRefresh();
+									for (var i = 0; i < data.data.length; i++) {
+										if (data.data[i].searchdata == 1) { //帖子
+											doc.appendChild(Parsepost(data.data[i]));
+										} else if (data.data[i].searchdata == 2) { //用户
+											doc.appendChild(ChoneToHTML(data.data[i]))
+										} else if (data.data[i].searchdata == 3) { //圈子
+											doc.appendChild(HtwoToHTML(data.data[i]))
+										}
+									}
+									pagenumber[pid] = pagenumber[pid] + 1;
+								} else {
+									// mui(".mui-scroll").pullRefresh().endPullUpToRefresh(true);
+									console.log("2112121212");
+									refreshdoc[pid].endPullUpToRefresh(true);
+									// mui.toast(data.msg);
+								}
+							} else {
+								refreshdoc[pid].endPullUpToRefresh();
+								mui.toast("网络异常");
+							}
+						} else {
+							refreshdoc[pid].endPullUpToRefresh();
+							mui.toast("网络异常");
+						}
+					});
+				}
+
+				//搜索按钮被单击
+				document.getElementsByClassName('qsub-top-sousuo')[0].addEventListener('tap', function() { /*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+					//页面置为空
+					pagenumber = {};
+					wd = document.getElementById("qsub-comment").value;
+					// newWebview("../search/search-home.html", "search-home");
+					var doclist = document.getElementsByClassName("mui-table-view");
+					//清空数据
+					for (var i = 0; i < doclist.length; i++) {
+						doclist[i].innerHTML = "";
+					}
+					//加载数据
+					console.log("搜索按钮被单击 加载数据");
+					ToLoadData(0);
+					ToLoadData(1);
+					ToLoadData(2);
+					ToLoadData(3);
+
+
+				});
+			</script>
+		</body>
+</html>

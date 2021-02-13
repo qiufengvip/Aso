@@ -1,18 +1,21 @@
 <!doctype html>
+<!-- 主窗口框架页面底部导航 -->
 <html>
 
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>主窗口框架</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!-- mui -->
 		<link href="../css/mui.css" rel="stylesheet" />
+		<!-- mui -->
 		<script src="../js/mui.js"></script>
-		<script type="text/javascript">
-			mui.init()
-		</script>
+		<!-- 网络请求处理器 -->
+		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 字体 -->
+		<link rel="stylesheet" type="text/css" href="../css/whole.css"/>
 	</head>
 
-	
 	<body class="mui-inner-wrap">
 		<nav class="mui-bar mui-bar-tab">
 			<a class="mui-tab-item" href="xiaowai.html">
@@ -25,10 +28,23 @@
 				<img id="qsub-hot-click" style="display: inline;" class="mui-icon qsub-click" src="img/xiaonei-click.png" >
 				<span class="mui-tab-label">校内</span>
 			</a>
-			<a class="mui-tab-item" href="xiaoxi.html">
+			<a class="mui-tab-item" style="position: relative;" href="xiaoxi.html">
 				<img style="display: inline;"  class="mui-icon qsub-unclick" src="img/liaotian-unclick.png" >
 				<img style="display: none;" class="mui-icon qsub-click"  src="img/liaotian-click.png" >
 				<span class="mui-tab-label">消息</span>
+				<div style="
+				    position: absolute;
+				    z-index: 1000;
+				    top: 0;
+				    left: 55px;
+				    background: #ff0000;
+				    color: #ffffff;
+				    border-radius: 20px;
+				    font-size: 9px;
+				    font-weight: bold;
+				    padding: 5px;
+				    line-height: 1;
+				">2</div>
 			</a>
 			<a class="mui-tab-item" href="wode.html">
 				<img style="display: inline;"  class="mui-icon qsub-unclick" src="img/wode-unclick.png" >
@@ -49,6 +65,7 @@
 				bottom: '51px'
 			};
 			
+			var token = localStorage.getItem("token");
 			
 			var aniShow = {};
 			
@@ -78,6 +95,24 @@
 					}
 					self.append(sub);
 				}
+				
+				httpPost(url_get_me_info, {
+					'token': token
+				}, function(data) {
+					console.log(JSON.stringify(data))
+					var code = data.code;
+					if (code == "200") {
+						
+						
+						var useravatar = data.data.useravatar;
+						localStorage.setItem("useravatar",useravatar);
+						
+					} else {
+						mui.toast(data.msg);
+					}
+				});
+				
+				
 			});
 			 //当前激活选项
 			var activeTab = subpages[1];
@@ -142,6 +177,111 @@
 			// 		defaultTab.classList.add('mui-active');
 			// 	}
 			// });
+			// console.log("测试颜色");
+			// var mui_bar_tab = document.getElementsByClassName("mui-bar-tab")[0];
+			// mui_bar_tab.style.background = "linear-gradient(to right, #bcbcff "+50+"%,#bcbcff 0%,white 0%,white 100%)"
+			
+			function uploadChangeInfo(upload, status) {
+			    var uploadSize = upload.uploadedSize;  //这是已上传
+			    var totalSize = upload.totalSize;  //一共
+			    // var fileName = $("#fileNum" + upload.priority).attr("thisName");
+				var mui_bar_tab = document.getElementsByClassName("mui-bar-tab")[0];
+			    if (upload.totalSize > 0) {
+			        switch (upload.state) {
+			            case 2:// 已连接服务器
+			                break;
+			            case 3:// 已接收数据
+			                var count = parseInt((uploadSize / totalSize) * 100);
+							
+							//parseInt(3/2)
+			                // console.log(JSON.stringify(upload));
+							// console.log(count);
+							
+							//background: linear-gradient(to right, #bcbcff 98%,#bcbcff 0%,white 0%,white 100%);
+							
+							mui_bar_tab.style.background = "linear-gradient(to right, #bcbcff "+count+"%,#bcbcff 0%,white 0%,white 100%)"
+							
+							
+			                if (count == 100) {
+								console.log(count);
+			                    // $("#fileNum" + upload.priority).html("正在上传：" + count + "%");
+								mui_bar_tab.style.background = "none";
+			                }
+			                break;
+			            case 4:// 上传完成
+			                // $("#fileNum" + upload.priority).html(fileName);
+			                break;
+			        }
+			    }
+			}
+			
+			window.addEventListener('updatedynamic',function(Event){
+				console.log("接收到了");
+				console.log(JSON.stringify(Event.detail));
+				var data  = Event.detail;   //这是json 格式的传过来的值
+				
+				// var wt = plus.nativeUI.showWaiting();
+				
+				var task = plus.uploader.createUpload(servers+url_issue_dynamic, {
+						method: "POST"
+					},
+					function(t, status) { //上传成功服务器返回文件对象
+						if (status == 200) {
+							// mui.alert("上传成功！" + t.responseText);
+							var data = JSON.parse(t.responseText)
+							if(isnull(data)){
+								mui.toast(data.msg);
+							}else{
+								mui.toast('网络问题，上传失败');
+							}
+							
+						} else {
+							mui.toast('网络问题，上传失败');
+							mui.alert("上传失败：" + status);
+							// wt.close(); //关闭等待提示按钮
+							var mui_bar_tab = document.getElementsByClassName("mui-bar-tab")[0];
+							mui_bar_tab.style.background = "none";
+						}
+					}
+				);
+				
+				//添加监听器
+				task.addEventListener("statechanged", uploadChangeInfo, false);
+				if(data.placaid<0){
+					
+				}else{
+					//可以上传了
+					// mui.toast("正在发布");
+					
+					task.addData("token",token);
+					task.addData("placaid",data.placaid);
+					console.log("token:"+token);
+					console.log("placaid:"+data.placaid);
+					if(data.content!=undefined){
+						task.addData("content",data.content);
+						console.log("content:"+data.content);
+					}
+					
+					if(data.image != undefined){
+						for(var i=0;i<data.image.length;i++){
+							task.addFile(data.image[i], {
+								key: "image"+i
+							});
+							console.log("image:"+data.image[i]);
+						}
+					}else if(data.video!= undefined){
+						task.addFile(data.video, {
+							key: "video"
+						});
+						
+						console.log("video:"+data.video);
+					}
+					
+				}
+				task.start();
+			});
+
+			
 		</script>
 		
 		

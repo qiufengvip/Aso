@@ -93,30 +93,26 @@
 				userid = self.userid; //接收A页面传入的评论id参数值
 			
 			
-				httpPost(url_gethistory, {
-					'token': token,
-					'userid': userid
-				}, function(data) {
-					var code = data.code;
-					console.log(url_mepage);
-					console.log("--------------------------------------------------------------------");
-					console.log(JSON.stringify(data));
-					console.log("--------------------------------------------------------------------");
-					if (code == "200") {
-						
-						
 			
-						var dynamiclist = data.data;
-						for (var i = 0; i < dynamiclist.length; i++) {
-							mui('#mui-table-view-id')[0].appendChild(Parsepost(dynamiclist[i]));
+			// 	httpPost(url_gethistory, {
+			// 		'token': token,
+			// 		'userid': userid
+			// 	}, function(data) {
+			// 		var code = data.code;
+			// 		console.log(url_mepage);
+			// 		console.log("--------------------------------------------------------------------");
+			// 		console.log(JSON.stringify(data));
+			// 		console.log("--------------------------------------------------------------------");
+			// 		if (code == "200") {
+			// 			var dynamiclist = data.data;
+			// 			for (var i = 0; i < dynamiclist.length; i++) {
+			// 				mui('#mui-table-view-id')[0].appendChild(Parsepost(dynamiclist[i]));
+			// 			}
+			// 		} else {
+			// 			mui.toast(data.msg);
+			// 		}
 			
-						}
-						
-					} else {
-						mui.toast(data.msg);
-					}
-			
-				});
+			// 	});
 			
 			});
 			

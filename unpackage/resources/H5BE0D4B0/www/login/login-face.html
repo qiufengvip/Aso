@@ -79,9 +79,12 @@
 			var usermark = undefined;
 			var token = localStorage.getItem("token");
 
-			var isover = false;
+			var isover = false; //是否验证成功
+
+			var Thover = true; //验证是否完毕
+
 			function getface() {
-				if(isover){
+				if (isover) {
 					return;
 				}
 
@@ -92,72 +95,123 @@
 				var base64 = bdata.split(',')[1].trim(); //照片压缩成base位数据  作为一个参数
 				if (selfdata.type == 1) { //则是注册
 					// console.log(selfdata.token +"----------------------");
-					httpPost(url_user_sign_verify_face, {
-						"token": token,
-						"basedata": base64,
-					}, function(data) {
-						if (data.code == 200) {
-							console.log(JSON.stringify(data))
-							if (data.code) {
-								if (data.data.isover) {
-									isover=true;
-									mui.toast(data.msg);
-									//
-									// newWebview("selechool.html","selechool");
-
-									newWedViewData("selechool.html", "selechool", {
-										"index": plus.webview.currentWebview().id,
-									})
 
 
-									setTimeout(function(){
-										mui.currentWebview.AnimationTypeClose = "slide-out-top"; 
-										// mui.back();
-										plus.webview.currentWebview().close();
-									},500);
+					mui.ajax(servers + url_user_sign_verify_face, {
+						data: {
+							"token": token,
+							"basedata": base64,
+						},
+						headers: {
+							"content-type": "application/x-www-form-urlencoded;charset=UTF-8",
+							"Access-Control-Allow-Origin": "*",
+						},
+						type: 'post', //请求方式,一般情况get和post都可以
+						// async: true, //异步等于假
+						timeout: 10000, //10秒超时
+
+						dataType: "json", //本次跨域请求实现获取数据
+						// jsonp: "callback",   // 就是回调函数的名称 默认值为callback
+						//请求完毕
+						success: function(data) {
+							if (data.code == 200) {
+								console.log(JSON.stringify(data))
+								if (data.code) {
+									if (data.data.isover) {
+										isover = true;
+										mui.toast(data.msg);
+										//
+										// newWebview("selechool.html","selechool");
+
+										newWedViewData("selechool.html", "selechool", {
+											"index": plus.webview.currentWebview().id,
+										})
+										setTimeout(function() {
+											mui.currentWebview.AnimationTypeClose = "slide-out-top";
+											// mui.back();
+											plus.webview.currentWebview().close();
+										}, 500);
+
+									}
+								} else {
+									console.log(data.msg)
 								}
 							} else {
 								console.log(data.msg)
 							}
-						} else {
-							console.log(data.msg)
+						}, // 回调函数
+						//错误处理
+						error: function(xhr, type, errorThrown) {
+							// mui.toast("服务器内部错误!");
+							console.log("服务器内部错误!");
+							console.log('error:' + type);
+
 						}
 					})
 				} else if (selfdata.type == 2) {
-					
-					//登录
-					// console.log(selfdata.token +"----------------------");
-					httpPost(url_user_login_face, {
-						"type": 1,
-						"username": usermark,
-						"basedata": base64,
-					}, function(data) {
-						console.log(JSON.stringify(data))
-						if (data != undefined) {
-							if (data.code == 200) {
-								isover=true;
-								mui.toast(data.msg);
-								console.log(JSON.stringify(data))
-								mui.toast(data.msg);
-								// plus.webview.currentWebview().close();
-								localStorage.setItem("token", data.data.token) //：将token存储到本地
-								newWedViewData("../home/homeframe.html", "hot", {
-									"token": data.data.token,
-									"index":plus.webview.currentWebview()
-								})
-								setTimeout(function(){
-									mui.currentWebview.AnimationTypeClose = "slide-out-top"; 
-									// mui.back();
-									plus.webview.currentWebview().close();
-								},500);
-							} else {
-								console.log(data.msg)
-							}
-						} else {
-							console.log("--------------这是报错---------")
-						}
+					if (Thover) {
+						Thover = false;
+						//登录
+						// console.log(selfdata.token +"----------------------");
 
-					})
+						console.log(servers + url_user_login_face);
+						mui.ajax(servers + url_user_login_face, {
+							data: {
+								"type": 1,
+								"username": usermark,
+								"basedata": base64,
+							},
+							headers: {
+								"content-type": "application/x-www-form-urlencoded;charset=UTF-8",
+								"Access-Control-Allow-Origin": "*",
+							},
+							type: 'post', //请求方式,一般情况get和post都可以
+							timeout: 10000, //10秒超时
+							dataType: "json", //本次跨域请求实现获取数据
+							//请求完毕
+							success: function(data) {
+								console.log(JSON.stringify(data))
+								if (data != undefined) {
+									if (data.code == 200) {
+										mui.toast(data.msg);
+										console.log(JSON.stringify(data))
+										mui.toast(data.msg);
+										// plus.webview.currentWebview().close();
+
+										localStorage.setItem("token", data.data.token) //：将token存储到本地
+										newWedViewData("../home/homeframe.html", "hot", {
+											"token": data.data.token,
+											"index": plus.webview.currentWebview()
+										})
+										setTimeout(function() {
+											mui.currentWebview.AnimationTypeClose = "slide-out-top";
+											// mui.back();
+											plus.webview.currentWebview().close();
+										}, 500);
+										isover = true;
+									}else{
+										console.log(data.msg)
+										Thover = true;
+									}
+								} else {
+									console.log("--------------这是报错---------")
+									Thover = true;
+								}
+								
+								
+							}, // 回调函数
+							//错误处理
+							error: function(xhr, type, errorThrown) {
+								console.log("服务器内部错误!");
+								console.log('error:' + type);
+								Thover = true;
+							}
+						})
+
+
+
+
+					}
 				}
 			}
 
@@ -227,7 +281,7 @@
 
 
 
-			
+
 			(function(w) {
 				var destruction = {
 					/**
@@ -244,6 +298,8 @@
 							});
 						}
 					},
+
+
 					/**
 					 * 
 					 * @param {需要销毁的页面id}pagId
@@ -270,9 +326,6 @@
 				}
 				w.pagDestruction = destruction;
 			})(window)
-			
-			
-			
 		</script>
 
 	</body>

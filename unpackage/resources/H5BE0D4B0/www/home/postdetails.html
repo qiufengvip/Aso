@@ -1,26 +1,40 @@
 <!doctype html>
+<!-- 动态详情 -->
 <html>
-
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>动态详情</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!-- mui -->
 		<link href="../css/mui.css" rel="stylesheet" />
+		<!-- 帖子UI -->
 		<link rel="stylesheet" type="text/css" href="css/Topic.css" />
+		<!-- MUI -->
 		<script src="../js/mui.js"></script>
-		<link rel="stylesheet" type="text/css" href="" />
-
-
+		<!-- 字体 -->
+		<link rel="stylesheet" type="text/css" href="../css/whole.css"/>
+		<!-- jquery -->
+		<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 评论的scc -->
 		<link rel="stylesheet" type="text/css" href="css/comment.css" />
 		<!-- 字体 -->
 		<link rel="stylesheet" type="text/css" href="../html/css/whole.css" />
 		<!-- 底部弹窗 -->
 		<link rel="stylesheet" type="text/css" href="css/bottom-wind.css" />
+		<!-- 窗口切换器 -->
 		<script src="../login/js/windows.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 帖子渲染器 -->
 		<script src="../js/dynamiclist.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 页面主UI -->
 		<link rel="stylesheet" type="text/css" href="./css/postdetails.css" />
+		<!-- 评论渲染器 -->
 		<script src="../js/comment.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 网络请求处理器 -->
 		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 视频播放器 -->
+		<script src="../js/qsub_video.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 视频播放器UI -->
+		<link rel="stylesheet" type="text/css" href="../css/video.css"/>
 	</head>
 
 	<body>
@@ -103,7 +117,7 @@
 
 
 		<script type="text/javascript">
-			var token = localStorage.getItem("token");  //检索
+			var token = localStorage.getItem("token");  //检索token
 			var id;  //帖子的id
 			var page = 2;    //帖子的页数
 			var replyid=0  ; //回复的id

@@ -30,15 +30,24 @@ function meMsgAdd(handleimg,msg,msgimg){
 	
 	
 	
+	
 	if(isnull(msgimg)){
 		//图片
 		qsub_chat_msg.appendChild(qsub_chat_reply_img);
 		qsub_chat_reply_img.src = msgimg;
 	}else{
 		qsub_chat_msg.appendChild(qsub_chat_reply);
-		qsub_chat_reply.textContent = msg;
+		if(checkHtmlTag(msg)){
+			qsub_chat_reply.textContent = msg;
+		}else{
+			qsub_chat_reply.innerHTML = msg;
+		}
 	}
 	return qsub_chat_me;
+}
+function checkHtmlTag(htmlStr) {
+	var  reg = /<[^>]+>/g;
+	return reg.test(htmlStr);
 }
 
 function userMsgAdd(handleimg,msg,msgimg){
@@ -86,7 +95,7 @@ function MsgtoHTML(data){
 			//这里是文字
 			return userMsgAdd(
 				userimg,
-				data.data.data
+				entitiestoUtf16(data.data.data)
 			);
 		}else if(data.data.type == 2){
 			//图片
@@ -100,11 +109,13 @@ function MsgtoHTML(data){
 	var useravatar = localStorage.getItem("useravatar");
 	if(data.type == 0){
 		//自己的消息
+		console.log(data.data.data); 	
+		
 		if(data.data.type ==1){
 			//这里是文字
 			return meMsgAdd(
 				useravatar,
-				data.data.data
+				entitiestoUtf16(data.data.data)
 			);
 		}else if(data.data.type == 2){
 			//图片

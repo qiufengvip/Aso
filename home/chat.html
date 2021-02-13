@@ -1,7 +1,6 @@
 <!doctype html>
 <!-- 聊天页面 -->
 <html>
-
 	<head>
 		<meta charset="utf-8">
 		<title>聊天窗口</title>
@@ -13,22 +12,15 @@
 		<!-- jquery -->
 		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
 		<!-- 字体 -->
-		<link rel="stylesheet" type="text/css" href="../css/whole.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/whole.css" />
 		<!-- 聊天页面主样式 -->
 		<link rel="stylesheet" type="text/css" href="css/chat.css" />
-		<!-- goeasy聊天接收器 -->
-		<script type="text/javascript" src="http://cdn.goeasy.io/goeasy-1.0.17.js"></script>
+		<!-- emoji处理器 -->
+		<script src="../js/emoji.js" type="text/javascript" charset="utf-8"></script>
 		<!-- 网络请求处理器 -->
 		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
 		<!-- 聊天内容渲染器 -->
 		<script src="../js/char.js" type="text/javascript" charset="utf-8"></script>
-		<!-- 聊天接受初始化 -->
-		<script type="text/javascript">
-			var goEasy = new GoEasy({
-				host: "hangzhou.goeasy.io", //应用所在的区域地址: 【hangzhou.goeasy.io | singapore.goeasy.io】 
-				appkey: "BS-c5ad7650e6c84896840617daa524dc31"
-			});
-		</script>
 	</head>
 
 	<body>
@@ -65,7 +57,7 @@
 					container: '#pullrefresh',
 				}
 			});
-			
+
 
 
 
@@ -114,53 +106,96 @@
 						});
 					}
 				});
+			//刷新列表框
+			var old_back = mui.back;
+			mui.back = function() {
+				var preView = plus.webview.getWebviewById('xiaoxi.html');
+				console.log("没炸")
+				mui.fire(preView, 'loading', undefined);
+				old_back();
+
+			}
+
 			//收到消息处理
-			goEasy.subscribe({
-				channel: token, //你的收消息字段
-				onSuccess: function() {
-					console.log("订阅成功");
-				},
-				onFailed: function(error) {
-					console.log("订阅失败: " + error.content);
-				},
-				onMessage: function(message) {
-					//如果有的话就重新加载消息
-					var data = message.content;
+			window.addEventListener('getchat', function(Event) {
+				//如果有的话就重新加载消息
 
-					data = JSON.parse(data);
-					console.log(data);
-
-
-					console.log(data.data);
-					//当前聊天的人是否是 对方
-					console.log(data.data[0].uid);
-					if (data.data[0].uid == unread) {
-						if (isnull(data)) {
-							var char_json = {
-								"type": 1,
-								"data": data.data[0]
-							}
-							document.getElementById("pullrefresh").appendChild(MsgtoHTML(char_json));
-							//消息置为已读
-							httpPost(url_char_messageread, {
-								"token": token,
-								"targetid": unread,
-								"chatid": "all" //消息全部收到
-							}, function(data) {
-
-							});
-
-							$('body').animate({
-								scrollTop: $('.mui-bottom').offset().top
-							}, 800);
+				console.log(JSON.stringify(event.detail));
+				// data = JSON.parse(data);
+				data = event.detail;
+				// console.log(data.data);
+				//当前聊天的人是否是 对方
+				console.log(data.data[0].uid);
+				if (data.data[0].uid == unread) {
+					if (isnull(data)) {
+						var char_json = {
+							"type": 1,
+							"data": data.data[0]
 						}
-					}
+						document.getElementById("pullrefresh").appendChild(MsgtoHTML(char_json));
+						//消息置为已读
+						httpPost(url_char_messageread, {
+							"token": token,
+							"targetid": unread,
+							"chatid": "all" //消息全部收到
+						}, function(data) {});
 
+						$('body').animate({
+							scrollTop: $('.mui-bottom').offset().top
+						}, 800);
+					}
 				}
 			});
+
+
+
+
+
+
+
+			// goEasy.subscribe({
+			// 	channel: token, //你的收消息字段
+			// 	onSuccess: function() {
+			// 		console.log("订阅成功");
+			// 	},
+			// 	onFailed: function(error) {
+			// 		console.log("订阅失败: " + error.content);
+			// 	},
+			// 	onMessage: function(message) {
+			// 		//如果有的话就重新加载消息
+			// 		var data = message.content;
+
+			// 		data = JSON.parse(data);
+			// 		console.log(data);
+
+
+			// 		console.log(data.data);
+			// 		//当前聊天的人是否是 对方
+			// 		console.log(data.data[0].uid);
+			// 		if (data.data[0].uid == unread) {
+			// 			if (isnull(data)) {
+			// 				var char_json = {
+			// 					"type": 1,
+			// 					"data": data.data[0]
+			// 				}
+			// 				document.getElementById("pullrefresh").appendChild(MsgtoHTML(char_json));
+			// 				//消息置为已读
+			// 				httpPost(url_char_messageread, {
+			// 					"token": token,
+			// 					"targetid": unread,
+			// 					"chatid": "all" //消息全部收到
+			// 				}, function(data) {
+
+			// 				});
+
+			// 				$('body').animate({
+			// 					scrollTop: $('.mui-bottom').offset().top
+			// 				}, 800);
+			// 			}
+			// 		}
+			// 	}
+			// });
 			//发送消息
-
-
 
 			//发送图片被单击
 			mui("#qsub-comment-sub-img")[0].addEventListener('tap', function() {
@@ -291,64 +326,67 @@
 			}
 
 
-			mui.plusReady(function () {
-			    //发送按钮被单击
-			    document.getElementById("qsub-comment-sub-text").addEventListener('tap', function() {
-			    	
-			    		if (isnull(document.getElementById('input-comment').value)) {
-			    			var task = plus.uploader.createUpload(servers + url_char_send2usermsg, {
-			    					method: "POST"
-			    				},
-			    				function(t, status) { //上传成功服务器返回文件对象
-			    					if (status == 200) {
-			    						var data = JSON.parse(t.responseText)
-			    						console.log(JSON.stringify(data));
-			    						if (isnull(data)) {
-			    							if (data.code == 200) {
-			    								var char_json = {
-			    									"data": data.data[0],
-			    									"type": 0
-			    								}
-			    								// 消息框置为空
-			    								document.getElementById('input-comment').value = "";
-			    
-			    								//渲染
-			    								document.getElementById("pullrefresh").appendChild(MsgtoHTML(char_json));
-			    								//消息置为已读
-			    								httpPost(url_char_messageread, {
-			    									"token": token,
-			    									"targetid": unread,
-			    									"chatid": "all" //消息全部收到
-			    								}, function(data) {
-			    
-			    								});
-			    								$('body').animate({
-			    									scrollTop: $('.mui-bottom').offset().top
-			    								}, 800);
-			    
-			    							} else {
-			    								mui.toast(data.msg);
-			    							}
-			    						}
-			    						// wt.close(); //关闭等待提示按钮
-			    					} else {
-			    						mui.alert("上传失败：" + status);
-			    						// wt.close(); //关闭等待提示按钮
-			    					}
-			    				}
-			    			);
-			    			//设置参数
-							console.log("token:"+token);
-							console.log("targetid:"+unread);
-							console.log("contenttext:"+document.getElementById('input-comment').value);
-							
-			    			task.addData("token", token);
-			    			task.addData("targetid", unread+"");
-			    			task.addData("contenttext", document.getElementById('input-comment').value);
-			    			//go*-*
-			    			task.start();
-			    		}
-			    });
+
+
+
+			mui.plusReady(function() {
+				//发送按钮被单击
+				document.getElementById("qsub-comment-sub-text").addEventListener('tap', function() {
+
+					if (isnull(document.getElementById('input-comment').value)) {
+						var task = plus.uploader.createUpload(servers + url_char_send2usermsg, {
+								method: "POST"
+							},
+							function(t, status) { //上传成功服务器返回文件对象
+								if (status == 200) {
+									var data = JSON.parse(t.responseText)
+									console.log(JSON.stringify(data));
+									if (isnull(data)) {
+										if (data.code == 200) {
+											var char_json = {
+												"data": data.data[0],
+												"type": 0
+											}
+											// 消息框置为空
+											document.getElementById('input-comment').value = "";
+
+											//渲染
+											document.getElementById("pullrefresh").appendChild(MsgtoHTML(char_json));
+											//消息置为已读
+											httpPost(url_char_messageread, {
+												"token": token,
+												"targetid": unread,
+												"chatid": "all" //消息全部收到
+											}, function(data) {
+
+											});
+											$('body').animate({
+												scrollTop: $('.mui-bottom').offset().top
+											}, 800);
+
+										} else {
+											mui.toast(data.msg);
+										}
+									}
+									// wt.close(); //关闭等待提示按钮
+								} else {
+									mui.alert("上传失败：" + status);
+									// wt.close(); //关闭等待提示按钮
+								}
+							}
+						);
+						//设置参数
+						console.log("token:" + token);
+						console.log("targetid:" + unread);
+						console.log("contenttext:" + utf16toEntities(document.getElementById('input-comment').value));
+
+						task.addData("token", token);
+						task.addData("targetid", unread + "");
+						task.addData("contenttext", utf16toEntities(document.getElementById('input-comment').value));
+						//go*-*
+						task.start();
+					}
+				});
 			})
 		</script>
 	</body>

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<!-- 编辑个人资料 -->
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>编辑个人资料</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!-- mui -->
+		<link href="../css/mui.css" rel="stylesheet" />
+		<!-- mui -->
+		<script src="../js/mui.js"></script>
+		<!-- 页面主风格 -->
+		<link rel="stylesheet" type="text/css" href="./css/mod_info_style.css" />
+		<!-- 字体 -->
+		<link rel="stylesheet" type="text/css" href="../css/whole.css"/>
+		<!-- mui插件 -->
+		<link href="../css/mui.picker.css" rel="stylesheet" />
+		<!-- mui插件 -->
+		<link href="../css/mui.poppicker.css" rel="stylesheet" />
+		<!-- mui插件 -->
+		<link rel="stylesheet" type="text/css" href="../css/mui.dtpicker.css" />
+		<!-- mui插件 -->
+		<script src="../js/mui.picker.js" type="text/javascript" charset="utf-8"></script>
+		<!-- mui插件 -->
+		<script src="../js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>
+		<!-- mui插件 -->
+		<script src="../js/mui.dtpicker.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 网络请求处理器 -->
+		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+		<!-- jquery -->
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 渲染器 -->
+		<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+		<!-- mui初始化 -->
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back top-ico-return mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">编辑个人资料</h1>
+			<div class="top-menu-right-text mui-pull-right"  id="save">
+				<div id="">
+					保存
+				</div>
+				</div>
+		</header>
+		
+		
+		<!-- <div class="top-menu">
+			<div class="top-menu-body">
+				<div class="top-ico-return">
+					<svg t="1610420673547" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2895"
+					 width="32" height="30">
+						<path d="M916.3 466.3H218.1l288.4-288.4c17.8-17.8 17.8-46.9 0-64.7-17.8-17.8-46.9-17.8-64.7 0L75.3 479.7c-17.8 17.8-17.8 46.9 0 64.7l366.5 366.5c17.8 17.8 46.9 17.8 64.7 0 17.8-17.8 17.8-46.9 0-64.7L218.1 557.7h698.2c25.2 0 45.7-20.6 45.7-45.7 0-25.2-20.6-45.7-45.7-45.7z"
+						 fill="#6964ff" p-id="2896"></path>
+					</svg>
+				</div>
+				<div class="menu-content">编辑个人资料</div>
+			</div>
+			<!-- <div class="top-menu-right-text" id="save">
+				保存
+			</div> -->
+		</div> -->
+
+		<div class="body-tx-img">
+			<div id="modify_tx">
+				<div class="camera">
+					<svg t="1610423542439" class="icon" viewBox="0 0 1311 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4317"
+					 width="45" height="45">
+						<path d="M1107.5584 150.7328 996.1472 150.7328 956.416 55.296C956.416 55.296 934.7072 6.144 890.88 6.144L598.4256 6.144C557.056 6.144 538.2144 54.0672 538.2144 54.0672L498.0736 150.7328 370.688 150.7328 370.688 109.7728 240.4352 109.7728C129.024 109.7728 38.912 199.8848 38.912 310.8864L38.912 808.96C38.912 920.3712 129.024 1010.4832 240.4352 1010.4832L1107.5584 1010.4832C1218.56 1010.4832 1308.672 920.3712 1308.672 808.96L1308.672 351.8464C1308.672 240.8448 1218.56 150.7328 1107.5584 150.7328L1107.5584 150.7328ZM742.1952 902.3488C561.5616 902.3488 415.3344 756.1216 415.3344 575.488 415.3344 395.264 561.5616 248.6272 742.1952 248.6272 922.8288 248.6272 1069.056 395.264 1069.056 575.488 1069.056 756.1216 922.8288 902.3488 742.1952 902.3488L742.1952 902.3488Z"
+						 p-id="4318" fill="#ffffff"></path>
+						<path d="M954.7776 579.1744C954.7776 696.32 859.3408 791.7568 742.1952 791.7568 625.0496 791.7568 529.6128 696.32 529.6128 579.1744 529.6128 461.6192 625.0496 366.1824 742.1952 366.1824 859.3408 366.1824 954.7776 461.6192 954.7776 579.1744"
+						 p-id="4319" fill="#ffffff"></path>
+					</svg>
+				</div>
+				<img id="tx" src="http://file.qsub.cn/1672813b53be4b1fa8a2c9e69559df301608468083664.prifix">
+			</div>
+			<div style="margin-left: 20px;font-size: 25px;">基本信息</div>
+		</div>
+
+		<div class="body-items">
+
+			<ul class="ulul">
+				<li>
+					<div class="item-01">
+						<div class="contenttext">用户名</div>
+						<div>
+							<input style="
+								margin:0px; 
+								padding: 0px;
+								height: 35px;
+								margin-left: 10px;
+								border: none;
+								background: no-repeat;
+							"
+							 type="text" id="username" placeholder="昵称" value="" />
+						</div>
+					</div>
+				</li>
+
+				<li>
+					<div class="item-01">
+						<div class="contenttext" style="width: 100%;">介绍自己<br><input style="
+								margin:0px; 
+								padding: 0px;
+								height: 35px;
+								width: 100%;
+								border: none;
+								background: no-repeat;
+								color: black;
+								
+							"
+							 type="text" placeholder="快速让别人了解你" id="usersign" value="" /></div>
+						<!-- 						<div style="width: 0%;">
+
+						</div> -->
+					</div>
+				</li>
+				<li>
+					<div class="item-01">
+						<div class="contenttext" style="width: 15%">性别</div>
+						<div style="width: 90%">
+							<input style="
+								margin:0px; 
+								padding: 0px;
+								height: 35px;
+								margin-left: 20px;
+								border: none;
+								background: no-repeat;
+							"
+							 type="text" id="usersex" disabled="disabled" placeholder="保密" value="" />
+
+						</div>
+						<svg id="ssx" style="width: 10%;" t="1610428709380" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+						 p-id="5801" width="32" height="32">
+							<path d="M512.113587 960.438359c-6.737448 0-13.475919-2.572592-18.618033-7.723915-10.29139-10.293437-10.29139-26.974351 0-37.265742l263.312034-263.572978c10.286274-10.296507 26.950815-10.296507 37.237089 0 10.29139 10.293437 10.29139 26.974351 0 37.268812L530.73469 952.715467C525.589506 957.865767 518.851035 960.438359 512.113587 960.438359zM933.441495 538.725688 90.788749 538.725688c-14.543228 0-26.336832-11.806907-26.336832-26.358321 0-14.558577 11.793604-26.360368 26.336832-26.360368l779.073708 0L493.495554 109.287055c-10.29139-10.296507-10.29139-26.974351 0-37.270858 10.286274-10.296507 26.950815-10.296507 37.239136 0l421.324838 421.715741c7.53665 7.538697 9.798157 18.868743 5.706979 28.725228C953.705004 532.299325 944.085926 538.725688 933.441495 538.725688z"
+							 p-id="5802" fill="#949494"></path>
+						</svg>
+
+					</div>
+				</li>
+				<li>
+					<div class="item-01">
+						<div class="contenttext" style="width: 15%">生日</div>
+						<div style="width: 90%;height: 35px;">
+							<input style="
+								margin:0px; 
+								padding: 0px;
+								height: 35px;
+								margin-left: 20px;
+								border: none;
+								background: no-repeat;
+							"
+							 type="text" id="userbir" disabled="disabled" placeholder="请填写生日" value="" />
+
+						</div>
+						<svg id="shengri" style="width: 10%;" t="1610428709380" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+						 p-id="5801" width="32" height="32">
+							<path d="M512.113587 960.438359c-6.737448 0-13.475919-2.572592-18.618033-7.723915-10.29139-10.293437-10.29139-26.974351 0-37.265742l263.312034-263.572978c10.286274-10.296507 26.950815-10.296507 37.237089 0 10.29139 10.293437 10.29139 26.974351 0 37.268812L530.73469 952.715467C525.589506 957.865767 518.851035 960.438359 512.113587 960.438359zM933.441495 538.725688 90.788749 538.725688c-14.543228 0-26.336832-11.806907-26.336832-26.358321 0-14.558577 11.793604-26.360368 26.336832-26.360368l779.073708 0L493.495554 109.287055c-10.29139-10.296507-10.29139-26.974351 0-37.270858 10.286274-10.296507 26.950815-10.296507 37.239136 0l421.324838 421.715741c7.53665 7.538697 9.798157 18.868743 5.706979 28.725228C953.705004 532.299325 944.085926 538.725688 933.441495 538.725688z"
+							 p-id="5802" fill="#949494"></path>
+						</svg>
+
+					</div>
+				</li>
+				<li>
+					<div class="item-01">
+						<div class="contenttext" style="width: 20%">学校</div>
+						<div style="width: 90%">
+							<input style="
+								margin:0px; 
+								padding: 0px;
+								height: 35px;
+								margin-left: 20px;
+								border: none;
+								background: no-repeat;
+							"
+							 type="text" id="school" placeholder="学校" value="" disabled="disabled" />
+
+						</div>
+						<svg style="width: 10%;" t="1610428709380" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+						 p-id="5801" width="32" height="32">
+							<path d="M512.113587 960.438359c-6.737448 0-13.475919-2.572592-18.618033-7.723915-10.29139-10.293437-10.29139-26.974351 0-37.265742l263.312034-263.572978c10.286274-10.296507 26.950815-10.296507 37.237089 0 10.29139 10.293437 10.29139 26.974351 0 37.268812L530.73469 952.715467C525.589506 957.865767 518.851035 960.438359 512.113587 960.438359zM933.441495 538.725688 90.788749 538.725688c-14.543228 0-26.336832-11.806907-26.336832-26.358321 0-14.558577 11.793604-26.360368 26.336832-26.360368l779.073708 0L493.495554 109.287055c-10.29139-10.296507-10.29139-26.974351 0-37.270858 10.286274-10.296507 26.950815-10.296507 37.239136 0l421.324838 421.715741c7.53665 7.538697 9.798157 18.868743 5.706979 28.725228C953.705004 532.299325 944.085926 538.725688 933.441495 538.725688z"
+							 p-id="5802" fill="#949494"></path>
+						</svg>
+
+					</div>
+				</li>
+				<li>
+					<div class="item-01">
+						<div class="contenttext" style="width: 20%">专业</div>
+						<div style="width: 90%">
+							<input style="
+								margin:0px; 
+								padding: 0px;
+								height: 35px;
+								margin-left: 20px;
+								border: none;
+								background: no-repeat;
+							"
+							 type="text" id="zy" placeholder="所学专业" value="" />
+
+						</div>
+						<svg style="width: 10%;" t="1610428709380" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+						 p-id="5801" width="32" height="32">
+							<path d="M512.113587 960.438359c-6.737448 0-13.475919-2.572592-18.618033-7.723915-10.29139-10.293437-10.29139-26.974351 0-37.265742l263.312034-263.572978c10.286274-10.296507 26.950815-10.296507 37.237089 0 10.29139 10.293437 10.29139 26.974351 0 37.268812L530.73469 952.715467C525.589506 957.865767 518.851035 960.438359 512.113587 960.438359zM933.441495 538.725688 90.788749 538.725688c-14.543228 0-26.336832-11.806907-26.336832-26.358321 0-14.558577 11.793604-26.360368 26.336832-26.360368l779.073708 0L493.495554 109.287055c-10.29139-10.296507-10.29139-26.974351 0-37.270858 10.286274-10.296507 26.950815-10.296507 37.239136 0l421.324838 421.715741c7.53665 7.538697 9.798157 18.868743 5.706979 28.725228C953.705004 532.299325 944.085926 538.725688 933.441495 538.725688z"
+							 p-id="5802" fill="#949494"></path>
+						</svg>
+
+					</div>
+				</li>
+				<li>
+					<div class="item-01">
+						<div class="contenttext" style="width: 25%">是否在校</div>
+						<div style="width: 80%">
+							<input id="inschool" type="text" disabled="disabled" style="
+								
+								margin:0px; 
+								padding: 0px;
+								height: 35px;
+								margin-left: 20px;
+								border: none;
+								background: no-repeat;
+							" />
+
+						</div>
+						<svg id="isinschool" style="width: 13%;" t="1610428709380" class="icon" viewBox="0 0 1024 1024" version="1.1"
+						 xmlns="http://www.w3.org/2000/svg" p-id="5801" width="32" height="32">
+							<path d="M512.113587 960.438359c-6.737448 0-13.475919-2.572592-18.618033-7.723915-10.29139-10.293437-10.29139-26.974351 0-37.265742l263.312034-263.572978c10.286274-10.296507 26.950815-10.296507 37.237089 0 10.29139 10.293437 10.29139 26.974351 0 37.268812L530.73469 952.715467C525.589506 957.865767 518.851035 960.438359 512.113587 960.438359zM933.441495 538.725688 90.788749 538.725688c-14.543228 0-26.336832-11.806907-26.336832-26.358321 0-14.558577 11.793604-26.360368 26.336832-26.360368l779.073708 0L493.495554 109.287055c-10.29139-10.296507-10.29139-26.974351 0-37.270858 10.286274-10.296507 26.950815-10.296507 37.239136 0l421.324838 421.715741c7.53665 7.538697 9.798157 18.868743 5.706979 28.725228C953.705004 532.299325 944.085926 538.725688 933.441495 538.725688z"
+							 p-id="5802" fill="#949494"></path>
+						</svg>
+
+					</div>
+				</li>
+
+
+			</ul>
+		</div>
+
+
+		<script type="text/javascript">
+			var token = localStorage.getItem('token');
+			mui.plusReady(function() {
+				httpPost(url_get_me_info, {
+					'token': token
+				}, function(data) {
+					var code = data.code;
+					if (code == "200") {
+						var usersex = data.data.usersex;
+						var uschool = data.data.uschool;
+						var uesrsign = data.data.uesrsign;
+						var usermajor = data.data.usermajor;
+						var useravatar = data.data.useravatar;
+						var userbir = data.data.userbir;
+						var username = data.data.username;
+						var ugraduate = data.data.ugraduate;
+						setview(useravatar, username, uesrsign, usersex, userbir, usermajor, uschool, ugraduate);
+					} else {
+						mui.toast(data.msg);
+					}
+				});
+			});
+
+			document.getElementById('save').addEventListener("tap", function() {
+				var username = $('#username').val();
+				var usersign = $('#usersign').val();
+				var usersex = $('#usersex').val();
+				var userbir = $('#userbir').val();
+				var zy = $('#zy').val();
+				var inschool = $('#inschool').val();
+				var inscid = 0;
+				if (inschool == "在校生") {
+					inscid = 1;
+				} else {
+					inscid = 0;
+				}
+
+				httpPost(url_modify_info, {
+					'token': token,
+					'uname': username,
+					'usigntext': usersign,
+					'usex': usersex,
+					'umajor': zy,
+					'ubir': userbir,
+					'ugraduate': inscid,
+				}, function(data) {
+
+					mui.toast(data.msg);
+				});
+			});
+
+			function setview(tx, username, usersign, usersex, userbir, usermajor, school, ugraduate) {
+				$('#tx').attr('src', tx);
+				$('#username').attr('value', username);
+				$('#usersign').attr('value', usersign);
+				$('#usersex').attr('value', usersex);
+				$('#userbir').attr('value', userbir);
+				$('#zy').attr('value', usermajor);
+				$('#school').attr('value', school);
+				if (ugraduate == "1") {
+					$('#inschool').attr('value', "在校生");
+				} else {
+					$('#inschool').attr('value', "毕业生");
+				}
+
+			}
+			document.getElementById('shengri').addEventListener("tap", function() {
+				var dtPicker = new mui.DtPicker({
+					type: "date",
+					beginDate: new Date(1900, 01, 01), //设置开始日期 
+					endDate: new Date(2088, 01, 01), //设置结束日期 
+				});
+
+				dtPicker.show(function(selectItems) {
+					var year = selectItems.y.text;
+					var month = selectItems.m.text;
+					var day = selectItems.d.text;
+
+					$("#userbir").attr('value', year + "-" + month + "-" + day);
+				})
+
+			});
+		</script>
+
+		<script>
+			document.getElementById('ssx').addEventListener("tap", function() {
+				var userPicker = new mui.PopPicker();
+				userPicker.setData([{
+					value: 1,
+					text: '男'
+				}, {
+					value: 2,
+					text: '女'
+				}, {
+					value: 3,
+					text: '外星人'
+				}]);
+				userPicker.show(function(item) {
+					$("#usersex").attr('value', item[0].text);
+				});
+
+			});
+
+			document.getElementById('isinschool').addEventListener("tap", function() {
+				var userPicker = new mui.PopPicker();
+				userPicker.setData([{
+					value: 1,
+					text: '在校生'
+				}, {
+					value: 0,
+					text: '毕业生'
+				}]);
+				userPicker.show(function(item) {
+					var id = item[0].value;
+					if (id == "1") {
+						$("#inschool").attr('value', "在校生");
+					} else {
+						$("#inschool").attr('value', "毕业生");
+					}
+
+				});
+			});
+		</script>
+
+		<script type="text/javascript">
+			(function($) {
+				$.init();
+				$.plusReady(function() {
+					//初始化头像，和预览图
+					// setTimeout(function() {
+						//赋值一个默认的头像
+						
+						setTimeout(function() {
+							initImgPreview();
+						}, 200);
+					// }, 0);
+
+					//弹出菜单
+					document.getElementById('modify_tx').addEventListener("tap", function(e) {
+						
+						if (mui.os.plus) {
+							var a = [{
+								title: "拍照"
+							}, {
+								title: "从手机相册选择"
+							}];
+							plus.nativeUI.actionSheet({
+								title: "修改头像",
+								cancel: "取消",
+								buttons: a
+							}, function(b) {
+								switch (b.index) {
+									case 0:
+										break;
+									case 1:
+										getImage();
+										break;
+									case 2:
+										console.log("从手机");
+										galleryImg();
+										break;
+									default:
+										break
+								}
+							})
+						}
+
+					});
+				});
+
+				//拍照
+				function getImage() {
+					var c = plus.camera.getCamera();
+					c.captureImage(function(e) {
+						//存储到本地
+						plus.io.resolveLocalFileSystemURL(e, function(entry) {
+							cutImage(entry.toLocalURL()); //裁剪图片，传入绝对地址
+						}, function(e) {
+							console.log("读取拍照文件错误：" + e.message);
+						});
+					}, function(s) {
+						console.log("error" + s.text);
+					}, {
+						filename: "_doc/head.jpg"
+					})
+				}
+
+				//相册
+				function galleryImg() {
+					plus.gallery.pick(function(a) {
+						plus.io.resolveLocalFileSystemURL(a, function(entry) { //entry为图片原目录（相册）流
+							cutImage(entry.toLocalURL());
+						}, function(e) {
+							console.log("读取图片错误：" + e.message);
+						});
+					}, function(a) {}, {
+						filter: "image"
+					})
+				};
+
+
+				//预览图像
+
+
+				function initImgPreview() {
+					var imgs = document.querySelectorAll("img.mui-action-preview");
+					imgs = mui.slice.call(imgs);
+
+					if (imgs && imgs.length > 0) {
+						var slider = document.createElement("div");
+						slider.setAttribute("id", "__mui-imageview__");
+						slider.classList.add("mui-slider");
+						slider.classList.add("mui-fullscreen");
+						slider.style.display = "none";
+						slider.addEventListener("tap", function() {
+							slider.style.display = "none";
+						});
+						slider.addEventListener("touchmove", function(event) {
+							event.preventDefault();
+						})
+						var slider_group = document.createElement("div");
+						slider_group.setAttribute("id", "__mui-imageview__group");
+						slider_group.classList.add("mui-slider-group");
+						imgs.forEach(function(value, index, array) {
+							//给图片添加点击事件，触发预览显示；
+							value.addEventListener('tap', function() {
+								slider.style.display = "block";
+								_slider.refresh();
+								_slider.gotoItem(index, 0);
+							})
+							var item = document.createElement("div");
+							item.classList.add("mui-slider-item");
+							var a = document.createElement("a");
+							var img = document.createElement("img");
+							img.setAttribute("src", value.src);
+							a.appendChild(img)
+							item.appendChild(a);
+							slider_group.appendChild(item);
+						});
+						slider.appendChild(slider_group);
+						document.body.appendChild(slider);
+						var _slider = mui(slider).slider();
+					}
+				}
+
+				//裁剪图片
+				function cutImage(path) {
+					
+					$.openWindow({
+						url: 'cropper.html',
+						id: 'cropper',
+						extras: {
+							path: path,
+						},
+						show: {
+							aniShow: 'zoom-fade-in',
+							duration: 800
+						},
+						waiting: {
+							autoShow: true
+						}
+					});
+				}
+
+				//更新用户头像，主要是裁剪页面裁剪完后触发的
+				//添加updateHeadImg自定义事件监听
+				window.addEventListener('updateHeadImg', function(event) {
+					console.log("---------------------------------------------------------------");
+					//获得事件参数
+					var my_icon = event.detail.url;
+					upLoadFile(my_icon,token);
+					console.log(my_icon);
+					//根据id向服务器请求新闻详情
+					
+				});
+
+			})(mui);
+			
+			function upLoadFile(fileSrc, tokens) {
+				var wt = plus.nativeUI.showWaiting();
+				var task = plus.uploader.createUpload(servers + url_modify_tx, {
+						method: "POST"
+					},
+					function(t, status) { //上传成功服务器返回文件对象
+						if (status == 200) {
+							var data = JSON.parse(t.responseText)
+							console.log(JSON.stringify(data));
+							mui.toast(data.msg);
+							$('#tx').attr('src', fileSrc);
+							wt.close(); //关闭等待提示按钮
+						} else {
+							mui.alert("上传失败：" + status);
+							wt.close(); //关闭等待提示按钮
+						}
+					}
+				);
+				//设置参数
+				
+				task.addData("token", tokens);
+				task.addFile(fileSrc, {
+					key: "useravatar"
+				});
+				//go*-*
+				task.start();
+			}
+		</script>
+		
+
+	</body>
+</html>

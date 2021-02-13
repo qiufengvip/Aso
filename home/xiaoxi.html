@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- 消息界面 -->
+<!--主页 - 消息界面 -->
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -17,6 +17,8 @@
 		<script type="text/javascript" src="http://cdn.goeasy.io/goeasy-1.0.17.js"></script>
 		<!-- 消息列表渲染器 -->
 		<script src="../js/messagelist.js" type="text/javascript" charset="utf-8"></script>
+		<!-- emoji处理器 -->
+		<script src="../js/emoji.js" type="text/javascript" charset="utf-8"></script>
 		<!-- 网络请求控制器 -->
 		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
 		<!-- 消息接受器初始化 -->
@@ -58,6 +60,7 @@
 			mui.plusReady(function() {
 			    getmassage(token);
 			});
+			
 			//收到消息处理
 			goEasy.subscribe({
 				channel: token, //你的收消息字段
@@ -68,10 +71,27 @@
 					console.log("订阅失败: " + error.content);
 				},
 				onMessage: function(message) {
-					//如果有的话就重新加载消息
+					//聊天页面接受消息
+					var data = message.content;
+					console.log(data);
+					data = JSON.parse(data);
+					// console.log(JSON.stringify(data.data[0].uid));
+					// console.log(data.data);
+					var preView = plus.webview.getWebviewById('chat');
+					console.log("没炸")
+					mui.fire(preView, 'getchat', data);
+					// 如果有的话就重新加载消息
 					getmassage(token);
 				}
 			});
+			//外部调用刷新聊天列表
+			window.addEventListener('loading', function(Event) {
+				console.log("开始刷新数据")
+				getmassage(token);
+			})
+			
+			
+			
 
 
 
@@ -83,10 +103,17 @@
 					}, function(data) {
 						if (isnull(data)) {
 							if (data.code == 200) {
+								let Messagenumbers = 0;
 								mui("#pullrefresh")[0].innerHTML = "";
 								for (var i = 0; i <data.data.length;i++ ) {
 									mui("#pullrefresh")[0].appendChild(NewMessageDocToHTML(data.data[i]));
+									Messagenumbers += data.data[i].unread;
 								}
+								console.log("消息数量为：" + Messagenumbers);
+								//hot
+								var preView = plus.webview.getWebviewById('hot');
+								console.log("没炸")
+								mui.fire(preView, 'Messagenumbers', {'data':Messagenumbers});
 							} else {
 								mui.toast(data.msg);
 							}

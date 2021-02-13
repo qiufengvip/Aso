@@ -6,19 +6,39 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-
+		<!-- MUI -->
 		<link rel="stylesheet" href="../css/mui.css">
-		<!-- <link rel="stylesheet" type="text/css" href="./css/hot.css"/> -->
+		<!-- 字体风格 -->
+		<link rel="stylesheet" type="text/css" href="../css/whole.css"/>
+		<!-- 帖子渲染 -->
 		<script src="../js/dynamiclist.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 页面主ui -->
 		<link rel="stylesheet" type="text/css" href="./css/Topic.css" />
+		<!-- 页面UI -->
 		<link rel="stylesheet" type="text/css" href="css/xiaonei.css" />
-		<!-- <script src="../js/mui.js" type="text/javascript" charset="utf-8"></script> -->
+		<!-- jquery -->
 		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 窗口切换器 -->
 		<script src="../login/js/windows.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 发送帖子按钮控制器 -->
+		<script src="../js/pushpostbutton.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 发送帖子按钮风格 -->
+		<link rel="stylesheet" type="text/css" href="css/pushpost.css"/>
+		<!-- 视频播放器 -->
+		<script src="../js/qsub_video.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 视频播放器UI -->
+		<link rel="stylesheet" type="text/css" href="../css/video.css"/>
+		
+		
 		<style>
 			html,
 			body {
 				background-color: #efeff4;
+			}
+			.mui-content{
+				overflow: hidden;
+				position: relative;
+				height: 100vh;
 			}
 		
 			.mui-bar~.mui-content .mui-fullscreen {
@@ -213,6 +233,9 @@
 		<script src="js/mui.pullToRefresh.material.js"></script>
 		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
 		<script>
+			
+			
+			addpushbutton()
 			var platetype = {
 				1: "11", //招聘求职
 				2: "12", //校园动态
@@ -238,7 +261,7 @@
 
 			(function($) {
 				//阻尼系数
-				var deceleration = mui.os.ios ? 0.003 : 0.0009;
+				var deceleration = mui.os.ios ? 0.03 : 0.009;
 				$('.mui-scroll-wrapper').scroll({
 					bounce: true,
 					indicators: true, //是否显示滚动条
@@ -247,18 +270,33 @@
 
 				//选项卡切换面板监听器
 				document.getElementById('slider').addEventListener('slide', function(e) {
+					// console.log(e.detail.slideNumber);
+					// var ul = mui(".mui-table-view")[e.detail.slideNumber];
+					// // console.log(ul+"=ul");
+					// lilist = ul.getElementsByTagName('li').length;
+					// console.log(lilist);
+					// if (lilist <= 0) {
+					// 	if (e.detail.slideNumber === 0) {
+					// 		console.log("-------------");
+
+					// 		// alert(lis.length); //显示li元素的个数
+					// 	} else {
+					// 		//
+					// 	}
+					// }
+					
 					console.log(e.detail.slideNumber);
+					let index = e.detail.slideNumber;
 					var ul = mui(".mui-table-view")[e.detail.slideNumber];
 					// console.log(ul+"=ul");
-					lilist = ul.getElementsByTagName('li').length;
+					lilist = ul.getElementsByTagName('div').length;
 					console.log(lilist);
 					if (lilist <= 0) {
 						if (e.detail.slideNumber === 0) {
 							console.log("-------------");
-
 							// alert(lis.length); //显示li元素的个数
 						} else {
-							//
+							getplatelist(platetype[index], ul, true);
 						}
 					}
 				});
@@ -319,6 +357,45 @@
 			//     x[i].appendChild(createFragment01(x[i], i,100));
 			// }
 
+			// //加载普通数据
+			// /**
+			//  * @param {type} plateid   圈子的id是谁
+			//  * @param {Object} hotul   ul的doc对象
+			//  * @param {Object} isappend   是否不是上滑刷新 
+			//  */
+			// function getplatelist(plateid, hotul, isappend) {
+			// 	if (placapages[plateid]==undefined){
+			// 		placapages[plateid] = 1;
+			// 	}
+			// 	httpPost(url_circle_plate, {
+			// 		"placaid": plateid, //
+			// 		"token": token,
+			// 		"size": "20",
+			// 		"page": placapages[plateid]
+			// 	}, function(data) {
+			// 		console.log("请求完毕");
+			// 		if (data != undefined & data != null & data != "") {
+			// 			if (data.code == 200) {
+			// 				console.log("请求成功")
+			// 				placapages[plateid]+=1;  //下一页了该着
+			// 				for (var i = 0; i < data.data.length; i++) {
+			// 					var posthtml = Parsepost(data.data[i]);
+			// 					console.log(posthtml);
+			// 					if (posthtml != null & posthtml != undefined & posthtml != "") {
+			// 						if (isappend) {
+			// 							hotul.appendChild(posthtml);
+			// 						} else {
+			// 							hotul.insertBefore(posthtml, hotul.firstChild);
+			// 						}
+			// 					}
+			// 				}
+			// 			} else {
+			// 				mui.toast(data.msg);
+			// 			}
+			// 		}
+			// 	})
+			// }
+			
 			//加载普通数据
 			/**
 			 * @param {type} plateid   圈子的id是谁
@@ -329,8 +406,12 @@
 				if (placapages[plateid]==undefined){
 					placapages[plateid] = 1;
 				}
+				//上拉刷新了
+				if (!isappend) {
+					placapages[plateid] = 1;
+				}
 				httpPost(url_circle_plate, {
-					"placaid": plateid, //
+					"placaid": plateid, //校内
 					"token": token,
 					"size": "20",
 					"page": placapages[plateid]
@@ -340,15 +421,21 @@
 						if (data.code == 200) {
 							console.log("请求成功")
 							placapages[plateid]+=1;  //下一页了该着
+							if (!isappend) {
+								
+								hotul.innerHTML = "";
+							}
 							for (var i = 0; i < data.data.length; i++) {
 								var posthtml = Parsepost(data.data[i]);
 								console.log(posthtml);
 								if (posthtml != null & posthtml != undefined & posthtml != "") {
-									if (isappend) {
-										hotul.appendChild(posthtml);
-									} else {
-										hotul.insertBefore(posthtml, hotul.firstChild);
-									}
+									hotul.appendChild(posthtml);
+									// if (isappend) {
+									// 	hotul.appendChild(posthtml);
+									// } else {
+									// 	hotul.appendChild(posthtml);
+									// 	// hotul.insertBefore(posthtml, hotul.firstChild);
+									// }
 								}
 							}
 						} else {
@@ -464,6 +551,7 @@
 
 
 			document.getElementById('qsub-top-ss').addEventListener('tap', function() { /*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+				$('video').trigger('pause');
 				newWebview("../search/search-home.html", "search-home");
 			});
 		</script>

@@ -83,6 +83,7 @@
 							"userpwd":password
 						},
 						function (data){
+							console.log(JSON.stringify(data))
 							if(data.code==200){
 								mui.toast("验证码已发送！");
 								// newWedViewData("ver-code.html","ver-code",{})

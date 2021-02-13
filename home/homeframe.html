@@ -16,7 +16,6 @@
 		<link rel="stylesheet" type="text/css" href="../css/whole.css"/>
 	</head>
 
-	
 	<body class="mui-inner-wrap">
 		<nav class="mui-bar mui-bar-tab">
 			<a class="mui-tab-item" href="xiaowai.html">
@@ -29,10 +28,24 @@
 				<img id="qsub-hot-click" style="display: inline;" class="mui-icon qsub-click" src="img/xiaonei-click.png" >
 				<span class="mui-tab-label">校内</span>
 			</a>
-			<a class="mui-tab-item" href="xiaoxi.html">
+			<a class="mui-tab-item" style="position: relative;" href="xiaoxi.html">
 				<img style="display: inline;"  class="mui-icon qsub-unclick" src="img/liaotian-unclick.png" >
 				<img style="display: none;" class="mui-icon qsub-click"  src="img/liaotian-click.png" >
 				<span class="mui-tab-label">消息</span>
+				<div id="xiaoxishu" style="
+				    position: absolute;
+				    z-index: 1000;
+				    top: 0;
+				    left: 55px;
+				    background: #ff0000;
+				    color: #ffffff;
+				    border-radius: 20px;
+				    font-size: 9px;
+				    font-weight: bold;
+				    padding: 5px;
+				    line-height: 1;
+					display: none;
+				">0</div>
 			</a>
 			<a class="mui-tab-item" href="wode.html">
 				<img style="display: inline;"  class="mui-icon qsub-unclick" src="img/wode-unclick.png" >
@@ -56,8 +69,21 @@
 			var token = localStorage.getItem("token");
 			
 			var aniShow = {};
-			
+			var backButtonPress = 0;
 			mui.back = function() {
+				
+				backButtonPress++;
+				if(backButtonPress > 1) {
+					plus.runtime.quit();
+				} else {
+					plus.nativeUI.toast('再按一次退出应用');
+				}
+				setTimeout(function() {
+					backButtonPress = 0;
+				}, 1000);
+				return false;
+				
+				
 				// old_back();  
 				// var currentView = plus.webview.currentWebview();   //获取本窗口
 				//currentView.close();  
@@ -65,8 +91,13 @@
 				// var wvall = plus.webview.all();  
 				// for(var i=0;i<wvall.length;i++  ){    
 				// console.log('返回', 'webView', i, ':::::', wvall[i].id);  
-				console.log("退出个几把");
+				// console.log("退出个几把");
+				
 				// }
+				
+				
+				
+				
 			};
 			
 			 //创建子页面，首个选项卡页面显示，其它均隐藏；
@@ -202,6 +233,18 @@
 			        }
 			    }
 			}
+			window.addEventListener("Messagenumbers",function(Event){
+				
+				var data  = JSON.stringify(Event.detail.data) ;
+				console.log(data)
+				document.getElementById('xiaoxishu').style.display = 'none'
+				if(data>0){
+					document.getElementById('xiaoxishu').textContent = data;
+					document.getElementById('xiaoxishu').style.display = 'block';
+				}
+			})
+			
+			
 			
 			window.addEventListener('updatedynamic',function(Event){
 				console.log("接收到了");

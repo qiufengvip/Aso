@@ -1,19 +1,481 @@
 <!doctype html>
+<!-- 我的页面 -->
 <html>
 
 	<head>
 		<meta charset="utf-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!-- mui -->
 		<link href="../css/mui.css" rel="stylesheet" />
+		<!-- 我的页面UI -->
+		<link rel="stylesheet" type="text/css" href="./css/wodestyle.css" />
+		<!-- 字体 -->
+		<link rel="stylesheet" type="text/css" href="../html/css/whole.css" />
+		<!-- mui -->
 		<script src="../js/mui.js"></script>
+		<!-- 网络请求处理器 -->
+		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+		<!-- jquery -->
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 聊天接受消息器 -->
+		<script src="js/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+		<!-- mui初始化 -->
 		<script type="text/javascript">
 			mui.init()
 		</script>
 	</head>
 
 	<body>
-		
-	</body>
 
+		<div class="top-jb-div">
+
+		</div>
+
+		<div class="top-jb-div-white">
+			<div class="box1">
+				<div class="top-white-top">
+					<div>
+						<img id="yonghutouxiang" class="top-white-top-img" src="" alt="">
+					</div>
+					<div class="tx-left">
+						<div class="nicheng" id="yonghuming">NULL</div>
+						<div class="geqian" id="yonghuqianming">null</div>
+					</div>
+				</div>
+
+				<div class="mememe">
+					<div style="font-size: 15px;" id="meinfo">
+						个人资料
+						<svg t="1610377007583" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1872"
+						 width="20" height="10">
+							<path d="M512.113587 960.438359c-6.737448 0-13.475919-2.572592-18.618033-7.723915-10.29139-10.293437-10.29139-26.974351 0-37.265742l263.312034-263.572978c10.286274-10.296507 26.950815-10.296507 37.237089 0 10.29139 10.293437 10.29139 26.974351 0 37.268812L530.73469 952.715467C525.589506 957.865767 518.851035 960.438359 512.113587 960.438359zM933.441495 538.725688 90.788749 538.725688c-14.543228 0-26.336832-11.806907-26.336832-26.358321 0-14.558577 11.793604-26.360368 26.336832-26.360368l779.073708 0L493.495554 109.287055c-10.29139-10.296507-10.29139-26.974351 0-37.270858 10.286274-10.296507 26.950815-10.296507 37.239136 0l421.324838 421.715741c7.53665 7.538697 9.798157 18.868743 5.706979 28.725228C953.705004 532.299325 944.085926 538.725688 933.441495 538.725688z"
+							 p-id="1873" fill="#bebebe"></path>
+						</svg>
+					</div>
+				</div>
+			</div>
+
+			<div class="box2">
+
+				<div class="xx1" id="dongtaide">
+					<div class="numb">
+						<div style="display: inline;margin-top: 5px;" id="dongtai">5</div>
+					</div>
+					<div class="numb">
+						<div style="display: inline;">动态</div>
+					</div>
+
+				</div>
+
+
+
+				<div class="xx1" id="guanzhude">
+					<div class="numb">
+						<div style="display: inline;margin-top: 5px;" id="guanzhu">5</div>
+					</div>
+					<div class="numb">
+						<div style="display: inline;">关注</div>
+					</div>
+				</div>
+
+				<div class="xx1" id="fenside">
+					<div class="numb">
+						<div style="display: inline;margin-top: 5px;" id="fensi">0</div>
+					</div>
+					<div class="numb">
+						<div style="display: inline;">粉丝</div>
+					</div>
+				</div>
+
+				<div class="xx1" id="zuijinliulande">
+					<div class="numb">
+						<div style="display: inline;margin-top: 5px;" id="zuijinliulan">5</div>
+					</div>
+					<div class="numb">
+						<div style="display: inline;">最近浏览</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="top-jb-div-02">
+
+		</div>
+		<div class="centerbox">
+			<div class="centerbox-title" id="">
+				食堂实时温湿度
+			</div>
+			<div class="visual">
+				<!-- 温度 -->
+				<div class="visual_data" id="tempture">
+
+				</div>
+				<!-- 湿度 -->
+				<div class="visual_data" id="humidity">
+
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+			var token = localStorage.getItem('token');
+			var userid = null;
+			mui.plusReady(function() {
+				httpPost(url_get_me_info, {
+					'token': token
+				}, function(data) {
+					console.log(JSON.stringify(data))
+					var code = data.code;
+					if (code == "200") {
+
+						var uesrsign = data.data.uesrsign;
+						var useravatar = data.data.useravatar;
+						var username = data.data.username;
+						var dynamic = data.data.dynamic; //发布动态
+						var concern = data.data.concern; //关注
+						var history = data.data.history; //历史记录
+						var fans = data.data.fans; //粉丝
+						userid = data.data.userid;
+						setview(username, uesrsign, dynamic, concern, history, useravatar, fans);
+					} else {
+						mui.toast(data.msg);
+					}
+				});
+			});
+
+			function setview(username, usersign, dynamic, concern, history, useravatar, fans) {
+				$('#yonghuming').text(username);
+				$('#yonghuqianming').text(usersign);
+				$('#dongtai').text(dynamic);
+				$('#guanzhu').text(concern);
+				$('#zuijinliulan').text(history);
+				$('#yonghutouxiang').attr('src', useravatar);
+				$('#fensi').text(fans);
+			}
+			document.getElementById('meinfo').addEventListener("tap", function() {
+
+				mui.openWindow({
+					url: './modify_self_info.html',
+					id: 'modify_self_info'
+				});
+			});
+
+			document.getElementById('guanzhude').addEventListener("tap", function() {
+				mui.openWindow({
+					url: '../user/guanzhu.html',
+					id: 'guanzhu'
+				});
+			});
+
+			document.getElementById('fenside').addEventListener("tap", function() {
+				mui.openWindow({
+					url: '../user/fans.html',
+					id: 'fans'
+				});
+			});
+
+			document.getElementById('dongtaide').addEventListener("tap", function() {
+				mui.openWindow({
+					url: '../user/mepage.html',
+					id: 'mepage',
+					extras: {
+						"userid": userid
+					}
+				});
+			});
+			document.getElementById('zuijinliulande').addEventListener("tap", function() {
+				mui.openWindow({
+					url: '../user/recviewed.html',
+					id: 'recviewed',
+					extras: {
+						"userid": userid
+					}
+				});
+			});
+		</script>
+
+		<script type="text/javascript">
+			function getwenshidu() {
+				httpPost(url_monitor_getdata, {}, function(data) {
+					if (!isnull(data)) {
+						mui.toast("网络异常")
+						return;
+					} else {
+
+						if (data.code == 200) {
+							option = {
+								series: [{
+									type: 'gauge',
+									center: ["50%", "60%"],
+									startAngle: 200,
+									endAngle: -20,
+									min: 0,
+									max: 40,
+									splitNumber: 10,    //计算数字刻度
+									itemStyle: {
+										color: '#6968FF'
+									},
+									progress: {
+										show: true,
+										width: 0
+									},
+
+									pointer: {
+										show: false,
+									},
+									axisLine: {
+										lineStyle: {
+											width: 2
+										}
+									},
+									axisTick: {    //表的小刻度
+										distance: -12,
+										splitNumber: 5,
+										lineStyle: {
+											width: 1,
+											color: '#999'
+										}
+									},
+									splitLine: {
+										distance: -12,  // 表盘大刻度偏移度数
+										length: 7,
+										lineStyle: {
+											width: 2,
+											color: '#999'
+										}
+									},
+									axisLabel: {  //表盘数字
+										distance: -15,
+										color: '#999',
+										fontSize: 10
+									},
+									anchor: {
+										show: false
+									},
+									title: {
+										show: false
+									},
+									detail: {
+										valueAnimation: true,
+										width: '60%',
+										lineHeight: 20,
+										height: '15%',
+										borderRadius: 8,
+										offsetCenter: [0, '-15%'],
+										fontSize: 13,
+										fontWeight: 'bolder',
+										formatter: '{value} °C',
+										color: 'auto'
+									},
+									data: [{
+										value: 21
+									}]
+								}, {
+									type: 'gauge',
+									center: ["50%", "60%"],
+									startAngle: 200,
+									endAngle: -20,
+									min: 0,
+									max: 40,
+									itemStyle: {
+										color: '#FD7347',
+									},
+									progress: {
+										show: true,
+										width: 8
+									},
+									title: {
+										fontSize: 12
+									},
+									pointer: {
+										show: false
+									},
+									axisLine: {
+										show: false
+									},
+									axisTick: {
+										show: false
+									},
+									splitLine: {
+										show: false
+									},
+									axisLabel: {
+										show: false
+									},
+									detail: {
+										show: false
+									},
+									data: [{
+										value: 28,
+										name: '温度'
+									}]
+								}],
+							};
+							//温度数据读取
+							var myChartwendu = echarts.init(document.getElementById('tempture'));
+							let random = data.data.tempture;
+							if (random < 15) {
+								option.series[1].itemStyle.color = "#666666" //0-15
+								option.series[0].itemStyle.color = "#666666" //0-15
+							} else if (random < 30) {
+								option.series[1].itemStyle.color = "#93db70" //15-30
+								option.series[0].itemStyle.color = "#93db70" //0-15
+							} else {
+								option.series[1].itemStyle.color = "#FF0000" //30-40
+								option.series[0].itemStyle.color = "#FF0000" //0-15
+							}
+							//这是温度颜色值
+							option.series[0].data[0].value = random;
+							option.series[1].data[0].value = random;
+							//渲染数据
+							myChartwendu.setOption(option, true);
+							
+							
+							
+							
+							option = {
+								series: [{
+									type: 'gauge',
+									center: ["50%", "60%"],
+									startAngle: 200,
+									endAngle: -20,
+									min: 20,
+									max: 100,
+									splitNumber: 8,    //计算数字刻度
+									itemStyle: {
+										color: '#6968FF'
+									},
+									progress: {
+										show: true,
+										width: 0
+									},
+							
+									pointer: {
+										show: false,
+									},
+									axisLine: {
+										lineStyle: {
+											width: 2
+										}
+									},
+									axisTick: {    //表的小刻度
+										distance: -12,
+										splitNumber: 5,
+										lineStyle: {
+											width: 1,
+											color: '#999'
+										}
+									},
+									splitLine: {
+										distance: -12,  // 表盘大刻度偏移度数
+										length: 7,
+										lineStyle: {
+											width: 2,
+											color: '#999'
+										}
+									},
+									axisLabel: {  //表盘数字
+										distance: -15,
+										color: '#999',
+										fontSize: 10
+									},
+									anchor: {
+										show: false
+									},
+									title: {
+										show: false
+									},
+									detail: {
+										valueAnimation: true,
+										width: '60%',
+										lineHeight: 20,
+										height: '15%',
+										borderRadius: 8,
+										offsetCenter: [0, '-15%'],
+										fontSize: 13,
+										fontWeight: 'bolder',
+										formatter: '{value} %',
+										color: 'auto'
+									},
+									data: [{
+										value: 21
+									}]
+								}, {
+									type: 'gauge',
+									center: ["50%", "60%"],
+									startAngle: 200,
+									endAngle: -20,
+									min: 20,
+									max: 100,
+									itemStyle: {
+										color: '#2626fd',
+									},
+									progress: {
+										show: true,
+										width: 8
+									},
+									title: {
+										fontSize: 12
+									},
+									pointer: {
+										show: false,
+
+									},
+									axisLine: {
+										show: false
+									},
+									axisTick: {
+										show: false
+									},
+									splitLine: {
+										show: false
+									},
+									axisLabel: {
+										show: false
+									},
+									detail: {
+										show: false
+									},
+									data: [{
+										value: 28,
+										name: '湿度'
+									}]
+								}],
+							};
+							
+							
+
+							//湿度数据读取
+							var myChartshidu = echarts.init(document.getElementById('humidity'));
+							// let random = 25;
+							var shidu = data.data.humidity;
+							if (shidu < 40) {
+								option.series[1].itemStyle.color = "#296FC5"
+								option.series[0].itemStyle.color = "#296FC5"
+							} else if (shidu < 70) {
+								option.series[1].itemStyle.color = "#93db70"
+								option.series[0].itemStyle.color = "#93db70"
+							} else {
+								option.series[1].itemStyle.color = "#FF0000"
+								option.series[0].itemStyle.color = "#FF0000"
+							}
+							//这是湿度颜色值
+							// option.series[0].itemStyle.color = "#296FC5" //20-40
+							// option.series[0].itemStyle.color = "#93db70" //40-70
+							// option.series[0].itemStyle.color = "#FF0000" //80-100
+							option.series[0].data[0].value = shidu;
+							option.series[1].data[0].value = shidu;
+							myChartshidu.setOption(option, true);
+						} else {
+							mui.toast(data.msg)
+						}
+					}
+				});
+			}
+
+			getwenshidu();
+			setInterval(getwenshidu, 60000);
+		</script>
+	</body>
 </html>
