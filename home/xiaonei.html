@@ -29,8 +29,8 @@
 		<script src="../js/qsub_video.js" type="text/javascript" charset="utf-8"></script>
 		<!-- 视频播放器UI -->
 		<link rel="stylesheet" type="text/css" href="../css/video.css"/>
-		
-		
+		<!-- 图片预览器 -->
+		<link rel="stylesheet" type="text/css" href="../css/ImagePreview.css"/>
 		<style>
 			html,
 			body {
@@ -124,7 +124,6 @@
 				background-color: #efeff4;
 			}
 		</style>
-
 	</head>
 
 	<body>
@@ -132,6 +131,10 @@
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 			<h1 class="mui-title">选项卡切换+下拉刷新（div模式）</h1>
 		</header> -->
+		
+		
+		
+		
 		<div class="mui-content">
 			<div id="slider" class="mui-slider mui-fullscreen">
 				<div class="qsub-top" id="">
@@ -172,7 +175,7 @@
 						<div id="scroll1" class="mui-scroll-wrapper">
 							<div class="mui-scroll">
 								<ul class="mui-table-view" id="list-view">
-
+									
 								</ul>
 							</div>
 						</div>
@@ -226,12 +229,19 @@
 			</div>
 			<!-- 发布新消息按钮 -->
 		</div>
-
+		
 		<script src="../js/mui.min.js"></script>
 		<script src="js/mui.pullToRefresh.js"></script>
 		<script src="js/mui.pullToRefresh.material.js"></script>
+		 
 		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 图片预览 -->
+		<script src="../js/mui.zoom.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 图片预览器 -->
+		<script src="../js/mui.previewimage.js" type="text/javascript" charset="utf-8"></script>
 		<script>
+			//启用图片预览
+			// mui.previewImage();
 			addpushbutton()
 			var platetype = {
 				1: "25", //表白墙
@@ -255,6 +265,7 @@
 					top: 0, //内容页面顶部位置,需根据实际页面布局计算，若使用标准mui导航，顶部默认为48px；
 				}
 			});
+			
 
 			(function($) {
 				//阻尼系数
@@ -504,6 +515,8 @@
 				$('video').trigger('pause');
 				newWebview("../search/search-home.html", "search-home");
 			});
+			//开启图片预览功能
+			mui.previewImage();
 		</script>
 	</body>
 

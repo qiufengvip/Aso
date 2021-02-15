@@ -35,6 +35,12 @@
 		<script src="../js/qsub_video.js" type="text/javascript" charset="utf-8"></script>
 		<!-- 视频播放器UI -->
 		<link rel="stylesheet" type="text/css" href="../css/video.css"/>
+		<!-- 图片预览器 -->
+		<link rel="stylesheet" type="text/css" href="../css/ImagePreview.css"/>
+		<!-- 图片预览 -->
+		<script src="../js/mui.zoom.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 图片预览器 -->
+		<script src="../js/mui.previewimage.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 
 	<body>
@@ -132,6 +138,8 @@
 					}
 				}
 			});
+			//开启图片预览功能
+			mui.previewImage();
 			var count = 0;
 			/**
 			 * 上拉加载具体业务实现

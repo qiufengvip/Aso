@@ -61,12 +61,21 @@ function dynamiclist(headimg, username, contents, Circlename, imgurl, id, postza
 
 
 
-
+		//获取时间戳
+		var timestamp=new Date().getTime();
+		//图片分组标记
+		var preview_group = timestamp+"-"+id+"-"+"qsub"
+		
+		
+		//一张图片
 		if (imgurl.length == 1) {
 			var topic_test_content_img = document.createElement('img');
 			topic_test_content_img.className = "topic-test-content-img-1";
 			console.log(imgurl);
 			topic_test_content_img.src = imgurl[0];
+			//设置图片预览的组
+			topic_test_content_img.setAttribute('data-preview-group', preview_group);
+			topic_test_content_img.setAttribute('data-preview-src', "");
 			topic_test_content.appendChild(topic_test_content_img);
 		} else {
 			console.log("多张图开始工作" + imgurl);
@@ -74,6 +83,8 @@ function dynamiclist(headimg, username, contents, Circlename, imgurl, id, postza
 				var topic_test_content_img = document.createElement('img');
 				topic_test_content_img.className = "topic-test-content-img-2";
 				topic_test_content_img.src = imgurl[i];
+				topic_test_content_img.setAttribute('data-preview-group', preview_group);
+				topic_test_content_img.setAttribute('data-preview-src', "");
 				topic_test_content.appendChild(topic_test_content_img);
 			}
 		}

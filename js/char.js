@@ -1,4 +1,5 @@
 /**
+ * 我方士兵发来贺电
  * handleimg 头像图片
  * msg 文本消息
  * msgimg 发送的图片
@@ -50,6 +51,13 @@ function checkHtmlTag(htmlStr) {
 	return reg.test(htmlStr);
 }
 
+
+/**
+ * @desc 敌方士兵发来消息
+ * @param {Object} handleimg
+ * @param {Object} msg
+ * @param {Object} msgimg
+ */
 function userMsgAdd(handleimg,msg,msgimg){
 	var qsub_chat_user = document.createElement('div');
 	qsub_chat_user.className = "qsub-chat-user";
@@ -79,10 +87,16 @@ function userMsgAdd(handleimg,msg,msgimg){
 		qsub_chat_reply_img.src = msgimg;
 	}else{
 		qsub_chat_msg.appendChild(qsub_chat_user_reply);
-		qsub_chat_user_reply.textContent = msg;
+		// qsub_chat_user_reply.textContent = msg;
+		if(checkHtmlTag(msg)){
+			qsub_chat_user_reply.textContent = msg;
+		}else{
+			qsub_chat_user_reply.innerHTML = msg;
+		}
 	}
 	return qsub_chat_user;
 }
+
 
 
 
