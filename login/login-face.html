@@ -114,6 +114,7 @@
 						// jsonp: "callback",   // 就是回调函数的名称 默认值为callback
 						//请求完毕
 						success: function(data) {
+							console.log(data)
 							if (data.code == 200) {
 								console.log(JSON.stringify(data))
 								if (data.code) {

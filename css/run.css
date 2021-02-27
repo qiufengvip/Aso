@@ -1,6 +1,90 @@
-.qusb-run-content{
-	position:fixed;
-	    width:100%;
-	    height:100%;
-		object-fit: cover;
+.qusb-run-content {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+
+
+.update {
+	position: absolute;
+	width: 80%;
+	height: 70%;
+	/* min-height: 50%; */
+	/* border: #000000 1px solid; */
+	top: 50%;
+	left: 50%;
+	z-index: 5000;
+	transform: translate(-50%, -50%);
+	border-radius: 10px;
+	background: #FFFFFF;
+}
+
+.update-title{
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, 100%);
+	font-size: 20px;
+	color: #FFFFFF;
+}
+
+.update-top {
+	background: linear-gradient(-45deg, #6968FF 33.33%,
+
+		#6968FF 33.33%, #6968FF 66.66%,
+
+		transparent 66.66%),
+		linear-gradient(45deg, transparent 33.33%,
+
+		#6968FF 33.33%, #6968FF 66.66%,
+
+		transparent 66.66%);
+	background-size: 30px 200px;
+	transform: rotateX(180deg);
+	border-radius:10px;
+	
+	width: 100%;
+	height: 120px;
+}
+
+.update-middle{
+	width: 100%;
+	height: 65%;
+	padding: 10px;
+}
+.update-middle-text{
+	
+	color: #acacac;
+	font-size: 12px;
+	line-height: 150%;
+	display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 15; overflow: hidden;
+}
+
+.bottom{
+	width:100%;
+	
+	display: flex;
+	align-items:center;
+	flex-direction:column ;
+}
+
+.loading{
+	width: 90%;
+	height: 5px;
+	border: #6968ff solid 0.0625rem;
+	border-radius: 2px;
+	margin: 5px;
+}
+
+.plan{
+	background: #6968ff;
+	width: 1%;
+	height: 100%;
+}
+
+.mui-btn{
+	width: 90%;
+	margin: 5px;
 }

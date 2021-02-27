@@ -1,5 +1,8 @@
 var servers = "http://aso.qsub.cn";
 // var servers = "http://xiaoyouhui.cn1.utools.club/FriendAssociation";
+var officialwebsite = "http://www.qiufengvip.top";  //官网
+
+
 
 var url_user_loginverify = "/api/user/loginverify";  //账号验证 获取头像
 var url_user_login_face = "/api/user/login"; //登录-密码登录-人脸登录
@@ -52,6 +55,11 @@ var url_gethistory = "/api/info/history";//获取历史记录
 var url_monitor_getdata   =  "/api/monitor/getdata";   // 获取实时温湿度
 
 
+
+//---------------------版本控制器------------------------------//
+var url_appinfo_getversion   = "/api/controller/version/getinfo";   //获取APP版本
+var url_appinfo_getupdateurl = "/api/controller/update/getinfo";    //获取更新地址
+var url_feedback  = "/api/appinfo/feedback";   // 意见反馈  参数:question 内容 必填  contact 联系方式 选填 
 
 
 function httpPost(urls,data,returnfun){

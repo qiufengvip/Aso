@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>问题反馈</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<!-- 界面UI -->
+		<link rel="stylesheet" type="text/css" href="css/feedback-page.css"/>
+		<!-- 网络请求 -->
+		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+		
+		
+	</head>
+
+	<body>
+		
+		
+		
+		<header class="mui-bar mui-bar-nav">
+			<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav" ></span>设置
+			</button>
+			<h1 class="mui-center mui-title">问题反馈</h1>
+		</header>
+			
+		
+		<div class="mui-content">
+			<div class="mui-page-content">
+				<p>问题和意见</p>
+				<div class="row mui-input-row">
+					<textarea id='question' rows="10"  class="mui-input-clear question" placeholder="请详细描述你的问题和意见..."></textarea>
+				</div>
+				<p>QQ/邮箱</p>
+				<div class="mui-input-row">
+					<input id='contact' type="text" class="mui-input-clear  contact" placeholder="(选填,方便我们联系你 )" />
+				</div>
+				
+				<button id='submit' type="button" class="mui-btn mui-btn-royal mui-btn-block">提交</button>
+			</div>
+		</div>
+		
+		<script src="../js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			
+			//反馈按钮被单击
+			document.getElementById('submit').addEventListener("tap", function() {
+				var question = document.getElementById("question").value;
+				var contact = document.getElementById("contact").value;
+				if(isnull(question)){
+					httpPost(
+						url_feedback,
+						{
+							"token":localStorage.getItem("token"),
+							"question":question,
+							"contact":contact,
+						},
+						function(data){
+							mui.toast("谢谢您的支持，我们会更加努力！");
+						}
+					);
+					
+					
+					
+				}else{
+					mui.toast("宝贝，请填写反馈意见哦");
+				}
+			});
+			
+			
+			
+			
+			
+			
+			
+		</script>
+		
+		
+		
+		
+		
+		
+	</body>
+
+</html>

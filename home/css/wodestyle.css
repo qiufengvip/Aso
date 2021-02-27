@@ -7,7 +7,22 @@
 	height: 250px;
 	background: linear-gradient(#6968FF, #98defd);
 	border-radius: 0 0 30px 30px;
+	padding: 20px;
+	position: relative;
+	/* display: flex; */
+	/* flex-direction:row-reverse; */
 }
+
+.top-jb-div-sz{
+	float: right;
+}
+/* .top-jb-div-ju{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 80%;
+	transform: translate(-20%, -20%);
+} */
 .top-jb-div-white{
 	position: absolute;
 	top: 100px;

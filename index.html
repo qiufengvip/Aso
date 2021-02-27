@@ -7,10 +7,18 @@
 		<script src="js/mui.min.js"></script>
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="./css/run.css" />
+
 		<script type="text/javascript" charset="utf-8">
 			mui.init();
 		</script>
+		<!-- 窗口切换 -->
 		<script src="login/js/windows.js" type="text/javascript" charset="utf-8"></script>
+		<!-- api文件 -->
+		<script src="js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 更新器 -->
+		<script src="js/update.js" type="text/javascript" charset="utf-8"></script>
+		<!-- jquery -->
+		<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
 
 	</head>
 	<body>
@@ -18,79 +26,128 @@
 		
 	</div> -->
 		<img class="qusb-run-content" src="./img/run.png">
+
+
+		<div class="update" style="display: none;" id="jindutiao">
+			<div class="update-top" id="">
+
+
+			</div>
+			<div class="update-title" id="">
+				版本更新啦
+			</div>
+			<div class="update-middle" id="">
+				更新内容：
+				<div class="update-middle-text" id="text">
+
+				</div>
+			</div>
+			<div class="bottom" id="">
+				<div id="jindutiaoneirong">
+					正在下载新版本....(1%)
+				</div>
+				<div class="loading" id="">
+					<div class="plan" id="plan">
+
+					</div>
+
+				</div>
+
+
+				<button id="gwbutton" type="button" class="mui-btn mui-btn-blue">下载有问题？进入官网下载</button>
+
+			</div>
+
+
+		</div>
+
+
+
 	</body>
 	<script type="text/javascript">
 		
-		
-		
-		
-		
-		
+
+
 		//去登录
 		function goLogin() {
 			//关闭页面
 			console.log("开始执行")
-			
-			// // var old_back = mui.back;  
-			// if(localStorage.getItem("token")!=undefined){
-			// 	newWedViewData("home/homeframe.html","hot",{
-			// 		"index":plus.webview.currentWebview()
-			// 	})
-			// 	return;
-			// }
 
-			mui.openWindow({
-				url: "./login/login.html",
-				id: 1,
-				styles: {
-					top: 0,
-					bottom: 0
-				},
-				extras: {
-					"index":plus.webview.currentWebview()
-				},
-				createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
-				show: {
-					autoShow: true,
-					aniShow: "slide-in-right",
-					duration: 100
-				},
-				waiting: {
-					autoShow: true,
-					title: '正在加载...',
-					options: {
-
+			if (getupdate()) {
+				
+				httpPost(url_get_me_info,
+					{
+						"token" : localStorage.getItem("token")
+					},
+					function(data){
+						
+						if(isnull(data)){
+							if(data.code ==200){
+								newWedViewData("/home/homeframe.html", "hot", {
+									"token": data.data.token,
+									"index": plus.webview.currentWebview()
+								})
+							}else{
+								mui.openWindow({
+									url: "./login/login.html",
+									id: 1,
+									styles: {
+										top: 0,
+										bottom: 0
+									},
+									extras: {
+										"index": plus.webview.currentWebview()
+									},
+									createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+									show: {
+										autoShow: true,
+										aniShow: "slide-in-right",
+										duration: 100
+									},
+									waiting: {
+										autoShow: true,
+										title: '正在加载...',
+										options: {
+								
+										}
+									},
+								});
+							}
+						}
 					}
-				},
-			});
-			
-			
-			// mui.back();
-			
-			// var currentView = plus.webview.currentWebview();
-			// currentView.close();  
-			// plus.webview.close(currentView.id)
+				);
+			}
 		}
+		//进入官网
+		document.getElementById('gwbutton').addEventListener('tap', function() { /*tap表示单击屏幕，此处可换双击，滑动等等事件*/
+			plus.runtime.openURL(officialwebsite, function() {
+				mui.alert('请手动打开网址:www.qsub.cn', '打开网址失败', function() {
+		
+				});
+			});
+		});
 
 
-		if(window.plus){
-		    // 在这里调用5+ API  
+		if (window.plus) {
+			// 在这里调用5+ API  
+			
+			
 			var PermisList = ["android.permission.CAMERA"];
 			plus.android.requestPermissions(PermisList,
 				function(resultObj) {
-					if(resultObj.granted.length == PermisList.length){
+					if (resultObj.granted.length == PermisList.length) {
 						// goLogin(); //去登录-------------------------------------------》
 						// newWebview("./home/homeframe.html","homeframe");
-						setTimeout("goLogin()","3000");
-					}else{
+						setTimeout("goLogin()", "3000");
+					} else {
 						var btnArray = ['取消', '确定'];
 						mui.confirm('请同意软件申请的必要权限', '校友会', btnArray, function(e) {
-							if (e.index == 1) {  //确定
+							if (e.index == 1) { //确定
 								// GetPermissions();
 								//重新启动
-								
+
 								plus.runtime.restart();
-							} else {  //取消
+							} else { //取消
 								plus.runtime.quit();
 							}
 						})
@@ -111,47 +168,47 @@
 				function(error) {
 					console.log('申请权限错误：' + error.code + " = " + error.message);
 				});
-		}else{// 兼容老版本的plusready事件  
-		    document.addEventListener('plusready',function(){
+		} else { // 兼容老版本的plusready事件  
+			document.addEventListener('plusready', function() {
 				var PermisList = ["android.permission.CAMERA"];
 				plus.android.requestPermissions(PermisList,
 					function(resultObj) {
-						if(resultObj.granted.length == PermisList.length){
+						if (resultObj.granted.length == PermisList.length) {
 							// localStorage.setItem("token","mengban")//：将token存储到本地
 							// goLogin(); //去登录   //去登录-------------------------------------------》
-							setTimeout("goLogin()","3000");
-							
-						//测试专用
-						// localStorage.setItem("token","mengban")//：将token存储到本地
-						
-						
-						// mui.openWindow({
-						// 	url: "home/postdetails.html",
-						// 	id: "postdetailss",
-						// 	extras: {
-						// 		"postid":"1"
-						// 	},
-						// 	createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
-						// 	show: {
-						// 		autoShow: true,
-						// 		aniShow: "slide-in-right",
-						// 		duration: 100
-						// 	},
-						// });
-						
-						// newWebview("./home/postdetails.html","postdetails");  //去帖子详情
-						// newWebview("./home/uploadpost.html","uploadpost");
-						// newWebview("./home/wode.html","wode");  //去 搜索
-						
-						}else{
+							setTimeout("goLogin()", "3000");
+
+							//测试专用
+							// localStorage.setItem("token","mengban")//：将token存储到本地
+
+
+							// mui.openWindow({
+							// 	url: "home/postdetails.html",
+							// 	id: "postdetailss",
+							// 	extras: {
+							// 		"postid":"1"
+							// 	},
+							// 	createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+							// 	show: {
+							// 		autoShow: true,
+							// 		aniShow: "slide-in-right",
+							// 		duration: 100
+							// 	},
+							// });
+
+							// newWebview("./home/postdetails.html","postdetails");  //去帖子详情
+							// newWebview("./home/uploadpost.html","uploadpost");
+							// newWebview("./home/wode.html","wode");  //去 搜索
+
+						} else {
 							var btnArray = ['取消', '确定'];
 							mui.confirm('请同意软件申请的必要权限', '校友会', btnArray, function(e) {
-								if (e.index == 1) {  //确定
+								if (e.index == 1) { //确定
 									// this.Object() 
-									
+
 									//重新启动
 									plus.runtime.restart();
-								} else {  //取消
+								} else { //取消
 									plus.runtime.quit();
 								}
 							})
@@ -172,20 +229,21 @@
 					function(error) {
 						console.log('申请权限错误：' + error.code + " = " + error.message);
 					});
-			},false);  
-		} 
+			}, false);
+		}
+		
 
-		
-		
-		
-		
-		 
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
+
+
+
 		// setTimeout("goLogin()", "1000"); //2000毫秒后执行test()函数，只执行一次。
 	</script>
 </html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>关于页面</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		<!-- UI -->
+		<link rel="stylesheet" type="text/css" href="css/about.css"/>
+		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+
+	<body>
+		
+		<header class="mui-bar mui-bar-nav">
+			<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
+				<span class="mui-icon mui-icon-left-nav"></span>
+			</button>
+		</header>
+		
+		
+		<div class="mui-content">
+			<div class="top">
+				<div class="ico">
+					<img src="./image/ico.png" >
+				</div>
+				<div class="title" id="">
+					校友会
+				</div>
+				<div class="versions" id="">
+					当前版本:1.2
+				</div>
+			</div>
+			
+			
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" id="web" >访问官网</li>
+				<li class="mui-table-view-cell" id="contactus" >联系我们</li>
+			</ul>
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<div class="juz" id="">
+				就
+			</div>
+			<div class="juz" id="">
+				算
+			</div>
+			<div class="juz" id="">
+				终
+			</div>
+			<div class="juz" id="">
+				有
+			</div>
+			<div class="juz" id="">
+				一
+			</div>
+			<div class="juz" id="">
+				散
+			</div>
+			<div class="juz" id="">
+				也
+			</div>
+			<div class="juz" id="">
+				别
+			</div>
+			<div class="juz" id="">
+				辜
+			</div>
+			<div class="juz" id="">
+				负
+			</div>
+			<div class="juz" id="">
+				相
+			</div>
+			<div class="juz" id="">
+				遇
+			</div>
+			
+			
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<br><br><br><br><br><br><br><br><br>
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<div id="">
+				这里,有我们的青春！
+			</div>
+			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<div class="dibu" id="">
+				Be Born In 2021.
+			</div>
+			<br>
+			
+			
+		
+		</div>
+		
+		
+		
+		<script src="../js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			//联系我们
+			document.getElementById("contactus").addEventListener("tap",function(){
+				//e-mail
+				mui.alert("E-MAIL：qiufengvip.top@qq.com", '欢迎给我们发送邮件', function() {
+				});
+			});
+			//官方网站
+			document.getElementById("web").addEventListener("tap",function(){
+				//e-mail
+				plus.runtime.openURL(officialwebsite, function() {
+					mui.alert('请手动打开网址:'+officialwebsite, '打开网址失败', function() {
+						
+					});
+				});
+			});
+			
+			
+			
+			
+			
+		</script>
+	</body>
+
+</html>
