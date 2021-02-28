@@ -54,11 +54,13 @@
 						url_feedback,
 						{
 							"token":localStorage.getItem("token"),
-							"question":question,
+							"message":question,
 							"contact":contact,
 						},
 						function(data){
-							mui.toast("谢谢您的支持，我们会更加努力！");
+							if(isnull(data)){
+								mui.toast(data.msg);
+							}
 						}
 					);
 					

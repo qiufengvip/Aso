@@ -246,11 +246,12 @@ function new_qsub_video(maindoc, videourl) {
 		var vesselTop = maindoc.getBoundingClientRect().top; //距离顶部边距
 		var vesselleft = maindoc.getBoundingClientRect().left; //距离左边边距
 		console.log(vesselleft);
-		if (vesselleft<0 || vesselleft>winWidth-20) {
+		console.log(vesselTop);
+		if (vesselleft<2 || vesselleft>winWidth-20) {
 			return;
 			
 		}
-		if (vesselTop < -10 || vesselTop > winHeight - 10) {
+		if ((parseInt(vesselTop) < -10) || (parseInt(vesselTop) > parseInt(winHeight - 10))) {
 			usersuspend = false;
 			//停止播放
 			v.video.pause();
@@ -258,6 +259,10 @@ function new_qsub_video(maindoc, videourl) {
 			v.play.style.display = "inline-block";
 			isstop = false;
 		}
+		
+		console.log("过审的");
+		console.log("left"+vesselleft);
+		console.log("Top"+vesselTop);
 		
 		// console.log(vesselTop);
 		if (vesselTop < 0) {

@@ -59,7 +59,13 @@ var url_monitor_getdata   =  "/api/monitor/getdata";   // 获取实时温湿度
 //---------------------版本控制器------------------------------//
 var url_appinfo_getversion   = "/api/controller/version/getinfo";   //获取APP版本
 var url_appinfo_getupdateurl = "/api/controller/update/getinfo";    //获取更新地址
-var url_feedback  = "/api/appinfo/feedback";   // 意见反馈  参数:question 内容 必填  contact 联系方式 选填 
+var url_feedback  = "/api/user/feedback";   // 意见反馈  参数:question 内容 必填  contact 联系方式 选填 
+
+
+//-------------------------修改密码--------------------------------//
+var url_user_changepwdcode = "/api/user/changepwdcode";  //修改密码前的验证码
+var url_user_changepwd ="/api/user/changepwd";  //修改密码
+
 
 
 function httpPost(urls,data,returnfun){

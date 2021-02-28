@@ -1,23 +1,126 @@
 <!doctype html>
 <html>
-
+<!-- 找回密码页面 -->
 	<head>
 		<meta charset="utf-8">
 		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.css" rel="stylesheet" />
-		<script src="../js/mui.js"></script>
-		<script type="text/javascript">
-			mui.init()
-		</script>
+		<link rel="stylesheet" type="text/css" href="./css/finduser.css" />
 	</head>
 
 	<body>
 		
-		<div id="">
-			in
+		<div class="qsub-body">
+			<div class="qsub-div-top" id="">
+				<!-- <span class="tishishutu">注册</span> -->
+				<div id="qsub-input-from">
+					<input type="text" id="phone" placeholder="手机号码" class="phone"> 
+					<div class="yzm">
+						<input type="text" id="code" placeholder="验证码" class="code">
+						<input type="submit" id="code-submit" value="发送验证码" class="code-submit">
+					</div>
+					<input type="password" id="password" placeholder="密码">
+					<input type="password" id="confirm-password" placeholder="确认密码">
+					<input type="submit" id="submit" value="修改密码" class="div-ly-box-botton">
+				</div>
+			</div>
+		
+			<div class="qsub-div-bopttom" id="">
+				<div class="qsub-div-bopttom-01" id="">
+					<div id="">
+						已创建账号？
+					</div>
+					<a>
+						<div id="qsub-div-bopttom-login">
+							登录
+						</div>
+					</a>
+				</div>
+			</div>
 		</div>
 		
+		<script src="../js/mui.js"></script>
+		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init()
+			//发送验证码
+			document.getElementById("code-submit").addEventListener("tap",function(){
+				var phone = document.getElementById("phone").value;
+				if(phone == ""){
+					mui.toast("请填写手机号")
+					return;
+				}
+				httpPost(url_user_changepwdcode,
+					{
+						"phone":phone
+					},
+					function(data){
+						if(isnull(data)){
+							mui.toast(data.msg);
+						}
+					}
+				);
+			});
+			
+			//修改密码
+			document.getElementById("submit").addEventListener("tap",function(){
+				var phone = document.getElementById("phone").value;  //手机
+				var code = document.getElementById("code").value;  //验证码
+				var password = document.getElementById("password").value;  //手机
+				var confirm_password = document.getElementById("confirm-password").value;  //手机
+				if(phone == ""  ){
+					mui.toast("请填写手机号");
+					return;
+				}
+				if(code == ""  ){
+					mui.toast("请填写验证码");
+					return;
+				}
+				if(password == ""  ){
+					mui.toast("请填写密码");
+					return;
+				}
+				if(confirm_password == ""  ){
+					mui.toast("请填写确认密码字段");
+					return;
+				}
+				
+				
+				
+				
+				if(password ==confirm_password){
+					
+				}else{
+					mui.toast("两次密码不一致");
+					return;
+				}
+				
+				httpPost(url_user_changepwd,
+					{
+						"phone":phone,
+						"code":code,
+						"pwd":password
+					},
+					function(data){
+						if(isnull(data)){
+							mui.toast(data.msg);
+							if(data.code ==200){
+								mui.back();
+							}
+						}else{
+							mui.toast("网络连接失败");
+						}
+					}
+				);
+				
+				
+				
+			})
+			
+			
+			
+		</script>
 		
 	</body>
 

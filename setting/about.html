@@ -7,78 +7,63 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<link href="../css/mui.css" rel="stylesheet" />
 		<!-- UI -->
-		<link rel="stylesheet" type="text/css" href="css/about.css"/>
+		<link rel="stylesheet" type="text/css" href="css/about.css" />
 		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 
 	<body>
-		
+
 		<header class="mui-bar mui-bar-nav">
 			<button type="button" class="mui-left mui-action-back mui-btn  mui-btn-link mui-btn-nav mui-pull-left">
 				<span class="mui-icon mui-icon-left-nav"></span>
 			</button>
 		</header>
-		
-		
+
+
 		<div class="mui-content">
 			<div class="top">
 				<div class="ico">
-					<img src="./image/ico.png" >
+					<img src="./image/ico.png">
 				</div>
 				<div class="title" id="">
 					校友会
 				</div>
-				<div class="versions" id="">
-					当前版本:1.2
+				<div class="versions" id="versions">
+
 				</div>
 			</div>
-			
-			
+
+
 			<ul class="mui-table-view">
-				<li class="mui-table-view-cell" id="web" >访问官网</li>
-				<li class="mui-table-view-cell" id="contactus" >联系我们</li>
+				<li class="mui-table-view-cell" id="web">访问官网</li>
+				<li class="mui-table-view-cell" id="contactus">联系我们</li>
 			</ul>
 			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 			<div class="juz" id="">
-				就
+				平安
 			</div>
 			<div class="juz" id="">
-				算
+				喜樂
 			</div>
 			<div class="juz" id="">
-				终
+				萬事
 			</div>
 			<div class="juz" id="">
-				有
+				如意
 			</div>
 			<div class="juz" id="">
-				一
+				祝妳
 			</div>
 			<div class="juz" id="">
-				散
+				祝我
 			</div>
 			<div class="juz" id="">
-				也
+				祝我們
 			</div>
-			<div class="juz" id="">
-				别
-			</div>
-			<div class="juz" id="">
-				辜
-			</div>
-			<div class="juz" id="">
-				负
-			</div>
-			<div class="juz" id="">
-				相
-			</div>
-			<div class="juz" id="">
-				遇
-			</div>
-			
-			
+
+
 			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 			<br><br><br><br><br><br><br><br><br>
 			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
@@ -90,36 +75,37 @@
 				Be Born In 2021.
 			</div>
 			<br>
-			
-			
-		
+
+
+
 		</div>
-		
-		
-		
+
+
+
 		<script src="../js/mui.js"></script>
 		<script type="text/javascript">
 			mui.init()
+
+			document.addEventListener('plusready', function() {
+				//加载版本
+				document.getElementById("versions").innerText = "当前版本：" + plus.runtime.version;
+			}, false);
+
+
 			//联系我们
-			document.getElementById("contactus").addEventListener("tap",function(){
+			document.getElementById("contactus").addEventListener("tap", function() {
 				//e-mail
-				mui.alert("E-MAIL：qiufengvip.top@qq.com", '欢迎给我们发送邮件', function() {
-				});
+				mui.alert("E-MAIL：qiufengvip.top@qq.com", '欢迎给我们发送邮件', function() {});
 			});
 			//官方网站
-			document.getElementById("web").addEventListener("tap",function(){
+			document.getElementById("web").addEventListener("tap", function() {
 				//e-mail
 				plus.runtime.openURL(officialwebsite, function() {
-					mui.alert('请手动打开网址:'+officialwebsite, '打开网址失败', function() {
-						
+					mui.alert('请手动打开网址:' + officialwebsite, '打开网址失败', function() {
+
 					});
 				});
 			});
-			
-			
-			
-			
-			
 		</script>
 	</body>
 

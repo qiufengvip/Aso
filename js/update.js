@@ -60,7 +60,8 @@ function getupdate() {
 						//该更新了
 						retu = false;
 						console.log("可更新");
-						mui.confirm("发现新版本：" + newversion + "\n" + appupdate, 'Hello MUI', ["快速更新", "手动更新"],
+						conffinfo = appupdate.replace(/<br>/g, '\n'),
+						mui.confirm("发现新版本：" + newversion + "\n" + conffinfo,  '校友会', ["快速更新", "手动更新"],
 							function(e) {
 								if (e.index == 1) {
 									console.log("手动更新");
@@ -73,7 +74,7 @@ function getupdate() {
 									
 								} else {
 									console.log("自动");
-									document.getElementById("text").innerHTML = appupdate.replace("\n", '<br>');
+									document.getElementById("text").innerHTML = appupdate;
 									var dtask = plus.downloader.createDownload(
 										appurl, {},
 										function(d, status) {
@@ -99,7 +100,7 @@ function getupdate() {
 										var baifenbiw = (Math.round(daxiaoa * 100) / 100) * 100
 										var baifenbi = (Math.round(daxiaoa * 100) / 100) * 100 + "%"
 										
-										if(isNaN(baifenbi)){
+										if(!isNaN(baifenbi)){
 											baifenbi = "0%"
 										}
 										console.log(baifenbi);
@@ -107,7 +108,7 @@ function getupdate() {
 										// 	progress: baifenbiw
 										// }).show();
 
-										$("#plan").css("width", baifenbiw);
+										$("#plan").css("width", baifenbiw+"%");
 										$("#jindutiaoneirong").text("正在下载新版本....(" + baifenbi + ")");
 									}, 1000); //1000为1秒钟
 								}

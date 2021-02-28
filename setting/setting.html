@@ -106,31 +106,8 @@
 				function(e) {
 					if (e.index != 1) {
 						localStorage.setItem("token", "");
-						mui.openWindow({
-							url: "../login/login.html",
-							id: 1,
-							styles: {
-								top: 0,
-								bottom: 0
-							},
-							extras: {
-								"index": plus.webview.currentWebview()
-							},
-							createNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
-							show: {
-								autoShow: true,
-								aniShow: "slide-in-right",
-								duration: 100
-							},
-							waiting: {
-								autoShow: true,
-								title: '正在加载...',
-								options: {
-						
-								}
-							},
-						});
-						
+						//重启软件
+						plus.runtime.restart();
 					}
 				});
 			

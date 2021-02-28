@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.css" rel="stylesheet" />
+		
+		<!-- 窗口切换 -->
+		<script src="../login/js/windows.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.qusb-run-content {
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				/* object-fit: cover; */
+			}
+		</style>
+	</head>
+
+	<body>
+		<img class="qusb-run-content" id="to" src="img/greenhand.jpg">
+		
+		
+		
+		
+		
+		
+		<script src="../js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.back = function() {
+				newWedViewData("homeframe.html", "hot", {
+					"index": plus.webview.currentWebview(),
+				})
+			};
+			document.getElementById("to").addEventListener("tap",function(){
+				newWedViewData("homeframe.html", "hot", {
+					"index": plus.webview.currentWebview(),
+				});
+				
+			});
+			
+			
+			
+			
+		</script>
+	</body>
+
+</html>

@@ -48,7 +48,7 @@
 					</a>
 
 					<a>
-						<div id="">
+						<div id="qsub-wjmm">
 							忘记密码
 						</div>
 					</a>
@@ -90,6 +90,11 @@
 			newWebview("./login.html","login");
 		});
 		
+		//忘记密码
+		document.getElementById("qsub-wjmm").addEventListener("tap",function(){
+			newWebview("./finduser.html","finduser");
+		});
+		
 		
 		
 		mui("#qsub-submit")[0].addEventListener('tap',function(){/*tap表示单击屏幕，此处可换双击，滑动等等事件*/
@@ -122,8 +127,8 @@
 							// newWedViewData("ver-code.html","ver-code",{})
 							
 							newWedViewData("ver-code.html","ver-code",{
-								"type": 1,  //一为注册
-								"phone": usercode  //手机号
+								"type": 1,  	//一为注册
+								"phone": uesr   //手机号
 							});
 							
 						}else if(data.data.state == 7){   //未选择学校
