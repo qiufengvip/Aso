@@ -1,4 +1,4 @@
-var servers = "http://aso.qsub.cn";
+var servers = "http://aso.qiufengvip.top";
 // var servers = "http://xiaoyouhui.cn1.utools.club/FriendAssociation";
 var officialwebsite = "http://www.qiufengvip.top";  //官网
 
