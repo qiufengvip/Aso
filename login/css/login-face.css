@@ -8,6 +8,12 @@
 }
 
 
+.qsub-tishi{
+	font-size: 25px;
+	font-weight: bold;
+	color: #6968FF;	
+}
+
 .qsub-div-top {
 	padding-top: 3.125rem;
 	display: flex;

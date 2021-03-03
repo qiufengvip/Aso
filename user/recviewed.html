@@ -76,6 +76,7 @@
 					if (codes == '200') {
 						var dataall = data.data;
 						for (var i = 0; i < dataall.length; i++) {
+							console.log(dataall[i]);
 							mui('#mui-table-view-id')[0].appendChild(Parsepost(dataall[i]));
 			
 						}

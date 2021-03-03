@@ -11,7 +11,7 @@
 			mui.init();
 		</script>
 		<link rel="stylesheet" type="text/css" href="./css/login-face.css" />
-		<link rel="stylesheet" type="text/css" href="./css/whole.css" />
+		<link rel="stylesheet" type="text/css" href="../css/whole.css" />
 
 		<script src="js/windows.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/HttpRequest.js" type="text/javascript" charset="utf-8"></script>
@@ -20,7 +20,7 @@
 	<body>
 		<div class="qsub-body">
 			<div class="qsub-div-top" id="">
-				<!-- <span class="tishishutu">登录</span> -->
+				<span class="qsub-tishi" id="tishi">请稍等</span>
 				<div class="div-top-face" id="">
 					<!-- 画板 -->
 					<video id="video" style="position: absolute; display: none;" width="1000px" height="1000px" style=""></video>
@@ -82,6 +82,9 @@
 			var isover = false; //是否验证成功
 
 			var Thover = true; //验证是否完毕
+			
+			//人脸识别次数用来语音播报
+			var number = 0;
 
 			function getface() {
 				if (isover) {
@@ -93,10 +96,10 @@
 				//把canvas图像转为img图片
 				var bdata = canvas.toDataURL("image/jpeg", 1);
 				var base64 = bdata.split(',')[1].trim(); //照片压缩成base位数据  作为一个参数
-				if (selfdata.type == 1) { //则是注册
+				if (selfdata.type == 1) { 
+					//================则是注册===========
 					// console.log(selfdata.token +"----------------------");
-
-
+					
 					mui.ajax(servers + url_user_sign_verify_face, {
 						data: {
 							"token": token,
@@ -115,38 +118,55 @@
 						//请求完毕
 						success: function(data) {
 							console.log(data)
-							if (data.code == 200) {
-								console.log(JSON.stringify(data))
-								if (data.code) {
-									if (data.data.isover) {
-										isover = true;
-										mui.toast(data.msg);
-										//
-										// newWebview("selechool.html","selechool");
-
-										newWedViewData("selechool.html", "selechool", {
-											"index": plus.webview.currentWebview().id,
-										})
-										setTimeout(function() {
-											mui.currentWebview.AnimationTypeClose = "slide-out-top";
-											// mui.back();
-											plus.webview.currentWebview().close();
-										}, 500);
-
+							if(isnull(data)){
+								document.getElementById("tishi").textContent = data.msg;
+								if (data.code == 200) {
+									console.log(JSON.stringify(data))
+									if(number>2){
+										plus.audio.createPlayer("../mp3/caiji.mp3").play()
+										number=0
+									}else{
+										number++
+									}
+									if (data.code) {
+										if (data.data.isover) {
+											isover = true;
+											mui.toast(data.msg);
+											//
+											// newWebview("selechool.html","selechool");
+								
+											newWedViewData("selechool.html", "selechool", {
+												"index": plus.webview.currentWebview().id,
+											})
+											setTimeout(function() {
+												mui.currentWebview.AnimationTypeClose = "slide-out-top";
+												// mui.back();
+												plus.webview.currentWebview().close();
+											}, 500);
+										}
+									} else {
+										console.log(data.msg)
 									}
 								} else {
+									if(number>2){
+										plus.audio.createPlayer("../mp3/null.mp3").play()
+										number=0
+									}else{
+										number++
+									}
 									console.log(data.msg)
 								}
-							} else {
-								console.log(data.msg)
+							}else{
+								document.getElementById("tishi").textContent = "服务器暂不可用";
 							}
+							
 						}, // 回调函数
 						//错误处理
 						error: function(xhr, type, errorThrown) {
 							// mui.toast("服务器内部错误!");
 							console.log("服务器内部错误!");
 							console.log('error:' + type);
-
+							document.getElementById("tishi").textContent = "网络开小差了";
 						}
 					})
 				} else if (selfdata.type == 2) {
@@ -171,11 +191,25 @@
 							dataType: "json", //本次跨域请求实现获取数据
 							//请求完毕
 							success: function(data) {
-								console.log(JSON.stringify(data))
-								if (data != undefined) {
+								
+								
+								if (isnull(data)) {
+									console.log(JSON.stringify(data))
+									if(data.code == -5){
+										document.getElementById("tishi").textContent = "未检测到人脸";
+									}else{
+										document.getElementById("tishi").textContent = data.msg;
+									}
+									
 									if (data.code == 200) {
 										mui.toast(data.msg);
 										console.log(JSON.stringify(data))
+										if(number>2){
+											plus.audio.createPlayer("../mp3/shibie.mp3").play()
+											number=0
+										}else{
+											number++
+										}
 										mui.toast(data.msg);
 										// plus.webview.currentWebview().close();
 
@@ -191,21 +225,31 @@
 										}, 500);
 										isover = true;
 									}else{
+										
 										console.log(data.msg)
+										if(data.code == -5){
+											if(number>2){
+												plus.audio.createPlayer("../mp3/null.mp3").play()
+												number=0
+											}else{
+												number++
+											}
+										}
+										
 										Thover = true;
 									}
 								} else {
+									document.getElementById("tishi").textContent = "服务暂不可用";
 									console.log("--------------这是报错---------")
 									Thover = true;
 								}
-								
-								
 							}, // 回调函数
 							//错误处理
 							error: function(xhr, type, errorThrown) {
 								console.log("服务器内部错误!");
 								console.log('error:' + type);
 								Thover = true;
+								document.getElementById("tishi").textContent = "网络开小差了";
 							}
 						})
 
