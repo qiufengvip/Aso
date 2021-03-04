@@ -271,9 +271,9 @@
 				var inschool = $('#inschool').val();
 				var inscid = 0;
 				if (inschool == "在校生") {
-					inscid = 1;
-				} else {
 					inscid = 0;
+				} else {
+					inscid = 1;
 				}
 
 				httpPost(url_modify_info, {
@@ -307,7 +307,7 @@
 				$('#userbir').attr('value', userbir);
 				$('#zy').attr('value', usermajor);
 				$('#school').attr('value', school);
-				if (ugraduate == "1") {
+				if (ugraduate == "0") {
 					$('#inschool').attr('value', "在校生");
 				} else {
 					$('#inschool').attr('value', "毕业生");
